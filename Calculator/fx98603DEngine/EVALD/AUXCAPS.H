@@ -1,0 +1,1 @@
+#define AUXCONSTS#define AUXFUNCS#include <float.h>

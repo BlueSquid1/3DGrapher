@@ -1,0 +1,12 @@
+//------------------------------------------------------------------
+// Addin-Application header control file, created with the CASIO SDK
+//------------------------------------------------------------------
+[OUTPUT]     : "3DGRAPH.G1A"
+[BINDATA]    : "FXADDINror.bin"
+[DISPNAME]   : "3DGraph"
+[APPNAME]    : "@3DGRAPH"
+[VERSION]    : "01.00.0000"
+[APL_ICON]   : "MainIcon.bmp"
+[MODULE_NUM] : 0
+[MOD1_TITLE] : "3DGraph"
+[MOD1_ICON]  : "eActivityIcon.bmp"

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EVALD.c" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Evaluate.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Function.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GameStatus.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Main.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\mString.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Object.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Point.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Renderer.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Triangle.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Vector.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\View.cpp" />
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCAPS.H" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCONST.H" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXFUNCS.H" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EVALD.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Evaluate.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Function.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GameStatus.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Grapher.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Matrix.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Mesh.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\mString.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Object.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Point.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\PROTOSD.H" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Renderer.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Triangle.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Vector.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\View.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E18C91CE-BA07-4DC4-84DD-FC6C7742C513}</ProjectGuid>
+    <RootNamespace>SDL3DEngine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\SDL2-2.0.3\include;C:\rapidjson-master\include\rapidjson;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\SDL2-2.0.3\include;C:\rapidjson-master\include\rapidjson;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
