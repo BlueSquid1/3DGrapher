@@ -17,13 +17,13 @@ void Menu::PrintTitle()
 
 void Menu::PrintFunctions()
 {	
-	for(int i = 1; i <= 6; i++)
+	for(int i = 0; i < 6; i++)
 	{
 		unsigned char ID[4];
-		sprintf((char *)ID, "Z%i:",i);
+		sprintf((char *)ID, "Z%i:",(i + 1));
 		if(i == this->funcSelector)
 		{
-			gRenderer.DrawBox(0,i * 8, 127, i * 8 + 8, 0);
+			gRenderer.DrawBox(0,(i + 1) * 8, 127, (i+ 1) * 8 + 8, 0);
 		}
 		gRenderer.PrintTextXY(0,i * 8, ID, i == this->funcSelector);
 	}
