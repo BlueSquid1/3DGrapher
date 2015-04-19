@@ -3,24 +3,13 @@
 #include "Vector.h"
 #include "Evaluate.h"
 
-Function::Function(const int& x, const int& y)
+Function::Function()
 {
 	this->Xgrid = 0;
 	this->Ygrid = 0;
 	
-	this->SetGridRes(x, y);
 	this->drawable = false;
 	//"equation" string takes care of itself
-}
-
-Function::Function(int x,int y)
-{
-	this->Xgrid = 0;
-	this->Ygrid = 0;
-	
-	this->SetGridRes(x, y);
-	this->drawable = false;
-	//"equation" takes care of itself
 }
 
 bool Function::SetGridRes(int x, int y)
@@ -50,7 +39,6 @@ bool Function::SetEquation(unsigned char * text)
 		mString::ErrorPrint("can't assign the input function to a string");
 		return false;
 	}
-	this->drawable = true;
 	return true;
 }
 
@@ -235,4 +223,15 @@ int Function::GetGrid(const int& x, const int& y)
 Mesh& Function::GetObject()
 {
 	return object;
+}
+
+void Function::SetDrawable(bool state)
+{
+	this->drawable = state;
+}
+
+
+bool Function::IsDrawable()
+{
+	return this->drawable;
 }

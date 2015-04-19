@@ -7,15 +7,18 @@
 enum StateType
 {
 	mainMenu,
-	grapher
+	grapher,
+	editText
 };
 
 class GameStatus
 {
 protected:
-	StateType state;
 	Renderer gRenderer;
 public:
+	StateType state;
+	StateType nextState;
+
 	//constructor
 	GameStatus(const int& width = 128, const int& height = 64, StateType mState = mainMenu);
 	virtual bool Input() = 0;

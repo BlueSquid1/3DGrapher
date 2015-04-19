@@ -131,7 +131,6 @@ float Matrix::Determ(float ** a, const int& n)
 			delete[] temp[i];
 		}
 		delete[] temp;
-
 		return det;
 	}
 }

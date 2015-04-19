@@ -31,36 +31,49 @@ extern "C"
 //****************************************************************************
 extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
 {
-	GameStatus* state;
+	bool quit = false;
+	StateType nextState = mainMenu;
 	
-	/*
-	Grapher Engine3D(128,64);
-	Vector min(-3,-3,-3);
-	Vector max(3, 3, 3);
-	unsigned char equationS[] = "X^2-Y^2";
-	Engine3D.LoadEquation(equationS, min, max, 10, 10);
-	state = &Engine3D;
-	*/
-	
-	Menu menu(128,64);
-	
-	state = &menu;
-	
-	
-	bool mContinue = true;
-	while (mContinue == true)
+	//loops though game states
+	while(!quit)
 	{
+		GameStatus* state;
 		
+		//load all the current states
+		Menu menu(128, 64);
+		Grapher Engine3D(128, 64);
 		
-		mContinue = state->Input();
+		if(nextState == mainMenu)
+		{
+			state = &menu;
+		}
+		else if (nextState == grapher)
+		{
+			Vector min(-3,-3,-3);
+			Vector max(3, 3, 3);
+			unsigned char equationS[] = "X^2-Y^2";
+			int yRes = 10;
+			int xRes = 10;
+			Engine3D.LoadEquation(equationS, min, max, yRes, xRes);
+			state = &Engine3D;
+		}
+		else
+		{
+			
+		}
+		
+		//repeats game state
+		bool mContinue = true;
+		while (mContinue == true)
+		{
+			mContinue = state->Input();
 
-		state->Proccess();
+			state->Proccess();
 
-		state->Display();
+			state->Display();
+		}
+		
 	}
-	
-	delete state;
-
     return 1;
 }
 

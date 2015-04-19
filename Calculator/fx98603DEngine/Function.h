@@ -18,9 +18,8 @@ class Function
 
 public:
 	//constructors
-	Function(const int& x = 6, const int& y = 6);
+	Function();
 	//x and y change the resolution of the grid
-	Function(int x, int y);
 	
 	bool SetGridRes(int x, int y);
 	
@@ -31,6 +30,11 @@ public:
 	int GetGrid(const int& x, const int& y);
 
 	Mesh& GetObject();
+
+	void SetDrawable(bool state);
+	
+	bool IsDrawable();
+	
 };
 
 #endif

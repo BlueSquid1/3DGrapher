@@ -119,6 +119,14 @@ void mString::ErrorPrint(const char * errorMessage)
 
 bool mString::SetText(unsigned char * inputText)
 {
+	//clear previous text
+	if(text != NULL)
+	{
+		delete[] this->text;
+		text = NULL;
+	}
+	pos = 0;
+	
 	//plus one for \0
 	int mLen = this->Lenof(inputText);
 	if(!this->ForceLength(mLen + 1))
@@ -173,7 +181,7 @@ bool mString::Append(char letter)
 		pos++;
 		return true;
 	}
-	mString::ErrorPrint("ran out of space");
+	mString::ErrorPrint("exceed length of string. check pos");
 	return false;
 }
 

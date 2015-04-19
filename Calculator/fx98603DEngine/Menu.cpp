@@ -17,22 +17,52 @@ void Menu::PrintTitle()
 
 void Menu::PrintFunctions()
 {	
+	func[2].GetEquation().SetText("X+Y");
+	func[2].SetDrawable(true);
+	
 	for(int i = 0; i < 6; i++)
 	{
-		unsigned char ID[4];
-		sprintf((char *)ID, "Z%i:",(i + 1));
-		if(i == this->funcSelector)
+		//First draw a black box where the selector is
+		if (i == this->funcSelector)
 		{
 			gRenderer.DrawBox(0,(i + 1) * 8, 127, (i+ 1) * 8 + 8, 0);
 		}
-		gRenderer.PrintTextXY(0,i * 8, ID, i == this->funcSelector);
+		
+		unsigned char ID[5];
+		sprintf((char *)ID, "Z%i",(i + 1));
+		
+		if(func[i].GetEquation().GetLen() == 0)
+		{
+			ID[2] = ':';
+			ID[3] = 0;
+		}
+		else
+		{
+			if(func[i].IsDrawable() == true)
+			{
+				ID[2] = 0xE5;
+				ID[3] = 0xB8; //multi-byte charactor negative "="
+				ID[4] = 0;
+			}
+			else
+			{
+				ID[2] = '=';
+				ID[3] = 0;
+			}
+		}
+		
+		gRenderer.PrintTextXY(0,(i + 1) * 8, ID, i == this->funcSelector);
+		
+		//Print function equation
+		
+		gRenderer.PrintTextXY(18,(i + 1) * 8, func[i].GetEquation().GetText(), i == this->funcSelector);
 	}
 }
 
 
 Menu::Menu(const int& width, const int& height) : GameStatus(width, height, mainMenu)
 {
-	funcSelector = 1;
+	funcSelector = 0;
 }
 
 bool Menu::Input()
@@ -49,7 +79,6 @@ bool Menu::Input()
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
-				
 				break;
 
 			case SDLK_LEFT:
@@ -93,7 +122,8 @@ GetKey(&key);
 	switch (key)
 	{
 	case KEY_CTRL_RIGHT:
-		
+		this->nextState = editText;
+		return false;
 		break;
 	case KEY_CTRL_LEFT:
 		
@@ -133,14 +163,15 @@ GetKey(&key);
 bool Menu::Proccess()
 {
 	//check to see if the function curser isn't invalid
-	if(funcSelector <= 0)
+	if(funcSelector < 0)
 	{
-		funcSelector = 1;
+		funcSelector = 0;
 	}
-	else if (funcSelector > 6)
+	else if (funcSelector > 5)
 	{
-		funcSelector = 6;
+		funcSelector = 5;
 	}
+	
 	return true;
 }
 
@@ -153,7 +184,15 @@ void Menu::Display()
 	gRenderer.UpdateScreen();
 }
 
+mString Menu::CurrentString()
+{
+	return func[funcSelector].GetEquation();
+}
 
+int Menu::GetYPos()
+{
+	return (funcSelector + 1) * 8;
+}
 
 Menu::~Menu()
 {
