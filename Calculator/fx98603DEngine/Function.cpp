@@ -8,7 +8,7 @@ Function::Function()
 	this->Xgrid = 0;
 	this->Ygrid = 0;
 	
-	this->drawable = false;
+	this->SetDrawable(false);
 	//"equation" string takes care of itself
 }
 
@@ -52,7 +52,7 @@ bool Function::UpdateGrid(Vector min, Vector max)
 	//first check if the equation has been entered
 	if (!drawable)
 	{
-		mString::ErrorPrint("Haven't entered an equation yet");
+		mString::ErrorPrint("Equation isn't drawable, therefore can't update function grid");
 		return false;
 	}
 	
@@ -227,7 +227,23 @@ Mesh& Function::GetObject()
 
 void Function::SetDrawable(bool state)
 {
-	this->drawable = state;
+	
+	if(state == true)
+	{
+		//can on draw a function if there is an equation to draw
+		if(equation.GetLen() != 0)
+		{
+			this->drawable = true;
+		}
+		else
+		{
+			this->drawable = false;
+		}
+	}
+	else
+	{
+		this->drawable = false;
+	}
 }
 
 
