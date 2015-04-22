@@ -23,7 +23,7 @@ class Grapher : public GameStatus
 {
 	View cam;
 
-	Function func;
+	Function* func;
 
 #if _MSC_VER == 1800
 	SDL_Event e;
@@ -34,7 +34,9 @@ public:
 	//constructor
 	Grapher(const int& width = 128, const int& height = 64);
 
-	bool LoadEquation(unsigned char* eq, const Vector& min, const Vector& max, const int& yres, const int& xres);
+	//bool LoadEquation(unsigned char* eq, const Vector& min, const Vector& max, const int& yres, const int& xres);
+	
+	bool LoadFunction(Function* equation);
 
 	//returns false if the user wants to quit the program
 	//otherwise returns true

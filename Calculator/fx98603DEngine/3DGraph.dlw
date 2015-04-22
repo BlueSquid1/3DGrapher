@@ -9,12 +9,12 @@ Height=2565
 Width=7380
 State=0
 Flags=00000020
-Setting=16:1:Menu.cpp
+Setting=109:1:Mesh.cpp
 OptionA=0
 
 [_2]
 Type=1
-Order=3
+Order=4
 Top=15
 Left=7800
 Height=4740
@@ -81,7 +81,7 @@ OptionA=0
 
 [_8]
 Type=17
-Order=5
+Order=3
 Top=15
 Left=0
 Height=11115
@@ -93,8 +93,8 @@ OptionA=0
 [_9]
 Type=15
 Order=2
-Top=4965
-Left=945
+Top=4905
+Left=1110
 Height=6375
 Width=9075
 State=0
@@ -103,7 +103,7 @@ OptionA=0
 
 [_32]
 Type=16
-Order=4
+Order=5
 Top=0
 Left=2205
 Height=7125

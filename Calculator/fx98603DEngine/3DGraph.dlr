@@ -49,6 +49,7 @@ Flags=00001012
 File=C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\Main.cpp
 Line=39
 Flags=00001012
+Sublevel=1
 
 [Breakpoint]
 File=C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\Main.cpp
@@ -64,5 +65,11 @@ Sublevel=1
 [Breakpoint]
 File=C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\Main.cpp
 Line=46
+Flags=00001012
+Sublevel=2
+
+[Breakpoint]
+File=C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\Main.cpp
+Line=39
 Flags=00001012
 Sublevel=2

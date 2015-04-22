@@ -25,11 +25,19 @@ Grapher::Grapher(const int& width, const int& height) : GameStatus(width, height
 {
 }
 
+/*
 bool Grapher::LoadEquation(unsigned char* eq, const Vector& min, const Vector& max, const int& xRes, const int& yRes)
 {
 	func.SetEquation(eq);
 	func.SetGridRes(xRes, yRes);
 	func.UpdateGrid(min, max);
+	return true;
+}
+*/
+
+bool Grapher::LoadFunction(Function* equation)
+{
+	this->func = equation;
 	return true;
 }
 
@@ -141,9 +149,9 @@ GetKey(&key);
 
 bool Grapher::Proccess()
 {
-	for (int i = 0; i < func.GetObject().GetPixelstCount(); i++)
+	for (int i = 0; i < func->GetObject().GetPixelstCount(); i++)
 	{
-		func.GetObject().GetPixel(i) = cam.Project3Dto2D(func.GetObject().GetVertex(i), gRenderer.SCREEN_WIDTH, gRenderer.SCREEN_HEIGHT);
+		func->GetObject().GetPixel(i) = cam.Project3Dto2D(func->GetObject().GetVertex(i), gRenderer.SCREEN_WIDTH, gRenderer.SCREEN_HEIGHT);
 	}
 	return true;
 }
@@ -155,7 +163,7 @@ void Grapher::Display()
 	gRenderer.SetColour(0x00, 0x00, 0x00, 0xFF);
 #endif
 	
-	Mesh& mObject = func.GetObject();
+	Mesh& mObject = func->GetObject();
 	
 	for (int index = 0; index < mObject.GetFaceCount(); index++)
 	{

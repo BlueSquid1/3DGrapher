@@ -40,8 +40,11 @@ mString::mString(unsigned char * mText)
 
 mString::~mString()
 {
-	delete[] this->text;
-	text = NULL;
+	if(this->text != NULL)
+	{
+		delete[] this->text;
+		text = NULL;
+	}
 }
 
 void mString::NextLinePos(unsigned char length, unsigned char &start, unsigned char &end)
@@ -173,6 +176,21 @@ bool mString::ForceLength(int mLength)
 	return true;
 }
 
+void mString::operator=(const mString& strA)
+{
+	pos = 0;
+	int size = strA.GetLen();
+	unsigned char* inputS = strA.GetText();
+	
+	this->ForceLength(size + 1);
+	
+	for(int i = 0; i < size; i++)
+	{
+		this->Append(inputS[i]);
+	}
+	this->Append('\0');
+}
+
 bool mString::Append(char letter)
 {	
 	if(pos < len)
@@ -185,12 +203,12 @@ bool mString::Append(char letter)
 	return false;
 }
 
-unsigned char * mString::GetText()
+unsigned char * mString::GetText() const
 {
 	return text;
 }
 
-int mString::GetLen()
+int mString::GetLen() const
 {
 	return len;
 }

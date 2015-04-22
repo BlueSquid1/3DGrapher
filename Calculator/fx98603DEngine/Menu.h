@@ -22,8 +22,10 @@ public:
 	bool Proccess();
 	void Display();
 	
-	mString CurrentString();
+	mString& CurrentString();
 	int GetYPos();
+	
+	bool SetCurrentFunction(mString text);
 	~Menu();
 
 };

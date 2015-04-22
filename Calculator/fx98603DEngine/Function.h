@@ -17,6 +17,7 @@ class Function
 	Mesh object;
 
 public:
+	
 	//constructors
 	Function();
 	//x and y change the resolution of the grid

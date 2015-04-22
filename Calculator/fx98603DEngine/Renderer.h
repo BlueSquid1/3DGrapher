@@ -9,6 +9,7 @@
 #endif
 
 #include "Mesh.h"
+#include "Point.h"
 
 class Renderer
 {
@@ -40,6 +41,9 @@ public:
 	void DrawBox(const int& x1, const int& y1, const int& x2, const int& y2, bool inverted) const;
 	
 	void ClearScreen() const;
+	
+	//overload method ClearScreen()
+	void ClearScreen(Point topLeft, Point botRight) const;
 	
 	void UpdateScreen() const;
 

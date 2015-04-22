@@ -33,9 +33,6 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

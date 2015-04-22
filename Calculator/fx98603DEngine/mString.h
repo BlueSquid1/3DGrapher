@@ -26,9 +26,12 @@ public:
 	
 	bool SetText(unsigned char * inputText);
 	bool ForceLength(int mLength);
-	int GetLen();
+	
+	void operator=(const mString& strA);
+	
 	bool Append(char letter);
-	unsigned char * GetText();
+	unsigned char * GetText() const;
+	int GetLen() const;
 };
 
 #endif

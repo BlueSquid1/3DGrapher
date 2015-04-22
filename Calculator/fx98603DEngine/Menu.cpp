@@ -184,15 +184,23 @@ void Menu::Display()
 	gRenderer.UpdateScreen();
 }
 
-mString Menu::CurrentString()
+mString& Menu::CurrentString()
 {
 	return func[funcSelector].GetEquation();
 }
 
 int Menu::GetYPos()
 {
-	return (funcSelector + 1) * 8;
+	return (this->funcSelector + 1) * 8;
 }
+
+bool Menu::SetCurrentFunction(mString text)
+{
+	func[funcSelector].GetEquation() = text;
+	//func[funcSelector].SetEquation();
+	return true;
+}
+
 
 Menu::~Menu()
 {

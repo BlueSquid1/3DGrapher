@@ -15,6 +15,8 @@ extern "C"
 
 #include "Grapher.h"
 #include "Menu.h"
+#include "EditTextState.h"
+#include "point.h"
 
 
 //****************************************************************************
@@ -33,46 +35,69 @@ extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
 {
 	bool quit = false;
 	StateType nextState = mainMenu;
+	StateType currentState = mainMenu;
+	
+	//load all the current states
+	GameStatus* state;
+	
+	Menu menu(128, 64);
+	Grapher Engine3D(128, 64);
+	EditTextState EditText(128, 64);
 	
 	//loops though game states
 	while(!quit)
 	{
-		GameStatus* state;
-		
-		//load all the current states
-		Menu menu(128, 64);
-		Grapher Engine3D(128, 64);
-		
-		if(nextState == mainMenu)
+		if(currentState == mainMenu && nextState == mainMenu)
 		{
+			//first time setup
 			state = &menu;
 		}
 		else if (nextState == grapher)
 		{
-			Vector min(-3,-3,-3);
-			Vector max(3, 3, 3);
-			unsigned char equationS[] = "X^2-Y^2";
-			int yRes = 10;
-			int xRes = 10;
-			Engine3D.LoadEquation(equationS, min, max, yRes, xRes);
 			state = &Engine3D;
 		}
-		else
+		else if (currentState == mainMenu && nextState == editText)
 		{
+			//mString equation = menu.CurrentString();			//BUG ON THIS LINE OF CODE!!!!!!!!!!!!!
+			int posY = menu.GetYPos();
 			
+			Point TR;
+			
+			TR.x = 0;
+			TR.y = posY;
+			
+			
+			Point BL;
+			
+			BL.x = 127;
+			BL.y = posY + 7;
+			
+			
+			EditText.LoadTextAndPos(TR, BL);
+			state = &EditText;
+		}
+		else if (currentState == editText && nextState == mainMenu)
+		{
+			//mString updatedText = EditText.GetText();
+			
+			//menu.SetCurrentFunction(updatedText);
+			
+			state = &menu;
 		}
 		
 		//repeats game state
 		bool mContinue = true;
 		while (mContinue == true)
 		{
+			state->Proccess();
+			state->Display();
 			mContinue = state->Input();
 
-			state->Proccess();
 
-			state->Display();
 		}
 		
+		nextState = state->nextState;
+		currentState = state->state;
 	}
     return 1;
 }

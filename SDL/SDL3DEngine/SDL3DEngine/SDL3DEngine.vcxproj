@@ -16,7 +16,6 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Function.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GameStatus.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Main.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\mString.cpp" />
