@@ -1,7 +1,4 @@
 #include "Function.h"
-#include "mString.h"
-#include "Vector.h"
-#include "Evaluate.h"
 
 Function::Function()
 {
@@ -36,29 +33,29 @@ bool Function::SetEquation(unsigned char * text)
 {
 	if(!equation.SetText(text))
 	{
-		mString::ErrorPrint("can't assign the input function to a string");
+		uString::ErrorPrint((unsigned char *)"can't assign the input function to a string");
 		return false;
 	}
 	return true;
 }
 
-mString& Function::GetEquation()
+uString& Function::GetEquation()
 {
-	return equation;
+	return this->equation;
 }
 #include <iostream>
-bool Function::UpdateGrid(Vector min, Vector max)
+bool Function::UpdateGrid(Vector& min, Vector& max)
 {
 	//first check if the equation has been entered
 	if (!drawable)
 	{
-		mString::ErrorPrint("Equation isn't drawable, therefore can't update function grid");
+		uString::ErrorPrint((unsigned char *)"Equation isn't drawable, therefore can't update function grid");
 		return false;
 	}
 	
 	if(Xgrid <= 1 || Ygrid <= 1)
 	{
-		mString::ErrorPrint("Invalid grid resolution. Maybe it hasn't been set");
+		uString::ErrorPrint((unsigned char *)"Invalid grid resolution. Maybe it hasn't been set");
 		return false;
 	}
 	
@@ -76,39 +73,38 @@ bool Function::UpdateGrid(Vector min, Vector max)
 		float Yvalue = min(0);
 		for (int y = 0; y < Ygrid; y++)
 		{
-			float result = Evaluate::Eval(this->GetEquation().GetText(), Xvalue, Yvalue);
-			
+			float result = Evaluate::Eval((unsigned char *)this->GetEquation().GetText(), Xvalue, Yvalue);
 			/*
 			if(eCode != E_OK)
 			{
 				switch (eCode)
 				{
 				case E_SYNTAX:
-					mString::ErrorPrint("Syntax Error");
+					uString::ErrorPrint("Syntax Error");
 					break;
 				case E_UNBALAN:
-					mString::ErrorPrint("Unbalanced parenthesis");
+					uString::ErrorPrint("Unbalanced parenthesis");
 					break;
 				case E_DIVZERO:
-					mString::ErrorPrint("Attempted division by zero");
+					uString::ErrorPrint("Attempted division by zero");
 					break;
 				case E_UNKNOWN:
-					mString::ErrorPrint("Reference to unknown variable");
+					uString::ErrorPrint("Reference to unknown variable");
 					break;
 				case E_MAXVARS:
-					mString::ErrorPrint("Maximum variables exceeded");
+					uString::ErrorPrint("Maximum variables exceeded");
 					break;
 				case E_BADFUNC:
-					mString::ErrorPrint("Unrecognised function");
+					uString::ErrorPrint("Unrecognised function");
 					break;
 				case E_NUMARGS:
-					mString::ErrorPrint("Wrong number of arguments to function");
+					uString::ErrorPrint("Wrong number of arguments to function");
 					break;
 				case E_NOARG:
-					mString::ErrorPrint("Missing an argument to a function");
+					uString::ErrorPrint("Missing an argument to a function");
 					break;
 				case E_EMPTY:
-					mString::ErrorPrint("Empty expression");
+					uString::ErrorPrint("Empty expression");
 					break;
 				}
 				return false;
@@ -127,7 +123,7 @@ bool Function::UpdateGrid(Vector min, Vector max)
 			
 			if(Yvalue > (max(0) + Ystep) + 0.5) //+0.5 because floats round
 			{
-				mString::ErrorPrint("x variable exceeding Xmax");
+				uString::ErrorPrint((unsigned char *)"x variable exceeding Xmax");
 				return false;
 			}
 			
@@ -135,7 +131,7 @@ bool Function::UpdateGrid(Vector min, Vector max)
 			
 			if(counter > 72000)
 			{
-				mString::ErrorPrint("looping too many times");
+				uString::ErrorPrint((unsigned char *)"looping too many times");
 				return false;
 			}
 			
@@ -157,7 +153,6 @@ bool Function::UpdateGrid(Vector min, Vector max)
 		
 		if(Xvalue > (max(1) + Xstep) + 0.5) //+0.5 because floats round
 		{
-			mString::ErrorPrint("y variable exceeding the Ymax");
 			return false;
 		}
 	}
@@ -208,11 +203,11 @@ int Function::GetGrid(const int& x, const int& y)
 	//do some checks first
 	if (x < 0 || x >= Xgrid)
 	{
-		mString::ErrorPrint("Trying to acess a grid location outofboundies on the x axis");
+		uString::ErrorPrint((unsigned char *)"Trying to acess a grid location outofboundies on the x axis");
 	}
 	else if (y < 0 || y >= Ygrid)
 	{
-		mString::ErrorPrint("Trying to acess a grid location outofboundies on the y axis");
+		uString::ErrorPrint((unsigned char *)"Trying to acess a grid location outofboundies on the y axis");
 	}
 
 	return x * Ygrid + y;

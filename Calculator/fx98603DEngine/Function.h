@@ -1,14 +1,15 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
-#include "mString.h"
+#include "uString.h"
 #include "Vector.h"
 #include "Mesh.h"
+#include "Evaluate.h"
 
 class Function
 {
 	//doesn't include "z="
-	mString equation;
+	uString equation;
 	bool drawable;
 	
 	int Xgrid;
@@ -25,9 +26,9 @@ public:
 	bool SetGridRes(int x, int y);
 	
 	bool SetEquation(unsigned char * text);
-	mString& GetEquation();
+	uString& GetEquation();
 	
-	bool UpdateGrid(Vector min, Vector max);
+	bool UpdateGrid(Vector& min, Vector& max);
 	int GetGrid(const int& x, const int& y);
 
 	Mesh& GetObject();

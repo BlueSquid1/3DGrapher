@@ -1,11 +1,5 @@
 #include "Menu.h"
 
-extern "C"
-{
-	#include <fxlib.h>
-	#include <stdio.h>
-}
-
 void Menu::PrintTitle()
 {
 	unsigned char title[] = "Graph Func   :";
@@ -17,9 +11,6 @@ void Menu::PrintTitle()
 
 void Menu::PrintFunctions()
 {	
-	func[2].GetEquation().SetText("X+Y");
-	func[2].SetDrawable(true);
-	
 	for(int i = 0; i < 6; i++)
 	{
 		//First draw a black box where the selector is
@@ -184,9 +175,9 @@ void Menu::Display()
 	gRenderer.UpdateScreen();
 }
 
-mString& Menu::CurrentString()
+uString& Menu::CurrentString()
 {
-	return func[funcSelector].GetEquation();
+	return this->func[funcSelector].GetEquation();
 }
 
 int Menu::GetYPos()
@@ -194,10 +185,9 @@ int Menu::GetYPos()
 	return (this->funcSelector + 1) * 8;
 }
 
-bool Menu::SetCurrentFunction(mString text)
+bool Menu::SetCurrentFunction(const uString& text)
 {
 	func[funcSelector].GetEquation() = text;
-	//func[funcSelector].SetEquation();
 	return true;
 }
 

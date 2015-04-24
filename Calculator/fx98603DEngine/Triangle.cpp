@@ -1,5 +1,4 @@
 #include "Triangle.h"
-#include "Renderer.h"
 
 int Triangle::Interpolate(const int& y, const float& slope, const Point& point)
 {
@@ -34,7 +33,9 @@ void Triangle::DrawEdges(const Renderer& gRenderer, bool P1toP2, bool P2toP3, bo
 		gRenderer.DrawLine(P3.x, P3.y, P1.x, P1.y);
 	}
 }
-#include <iostream>
+
+
+
 void Triangle::DrawSurface(const Renderer& gRenderer)
 {
 	//first sort triangles by y value
@@ -83,7 +84,6 @@ void Triangle::DrawSurface(const Renderer& gRenderer)
 	{
 		horizontalSX = true;
 	}
-
 	/*
 	int y1 = (*Points)[0].y - 1;
 	int x1 = (*Points)[0].x;

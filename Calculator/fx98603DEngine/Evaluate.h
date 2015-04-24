@@ -7,14 +7,19 @@
 	#include <iostream>
 #endif
 
+extern "C"
+{
+	#include <stdio.h>
+}
+
 #include "EVALD.h"
-#include "mString.h"
+#include "uString.h"
 
 class Evaluate
 {
 public:
 	static float Eval(unsigned char * equation, const float& x, const float& y);
-	static float Eval(mString equation, const float& x, const float& y);
+	static float Eval(uString equation, const float& x, const float& y);
 };
 
 #endif

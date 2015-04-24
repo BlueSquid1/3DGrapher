@@ -1,10 +1,5 @@
 #include "Evaluate.h"
 
-extern "C"
-{
-	#include <stdio.h>
-}
-
 float Evaluate::Eval(unsigned char * equation, const float& x, const float& y)
 {
 	unsigned char s[400];
@@ -19,7 +14,7 @@ float Evaluate::Eval(unsigned char * equation, const float& x, const float& y)
 }
 
 
-float Evaluate::Eval(mString equation, const float& x, const float& y)
+float Evaluate::Eval(uString equation, const float& x, const float& y)
 {
-	return Evaluate::Eval(equation.GetText(), x, y);
+	return Evaluate::Eval((unsigned char *)equation.GetText(), x, y);
 }

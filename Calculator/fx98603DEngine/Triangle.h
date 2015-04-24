@@ -4,7 +4,6 @@
 #include "Point.h"
 #include "Renderer.h"
 
-
 class Triangle
 {
 	Point P1;

@@ -1,10 +1,5 @@
 #include "Object.h"
 
-#include <math.h>
-#include "Matrix.h"
-
-#define PI 3.14159265
-
 Object::Object() : TransMat(4,4), InverseMat(4,4)
 {
 	//set transMat to the identity matrix

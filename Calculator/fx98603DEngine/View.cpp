@@ -1,7 +1,5 @@
 #include "View.h"
 
-#include "Vector.h"
-#include "Matrix.h"
 
 View::View() : Object(), OrthMat(4, 4, 0), rotHist()
 {

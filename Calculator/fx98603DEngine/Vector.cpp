@@ -1,7 +1,5 @@
 #include "Vector.h"
 
-#include "mString.h"
-
 //override the other constructor to force the matrix to be 4 by 1
 Vector::Vector() : Matrix(4,1,0)
 {

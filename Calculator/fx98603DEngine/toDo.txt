@@ -1,0 +1,6 @@
+- insert checks into view.cpp for ViewBoundaries()
+
+- instead of storing vertexes in mesh.h should instead store triangles
+
+
+-phase out mString and replace with uString

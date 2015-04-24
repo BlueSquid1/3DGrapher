@@ -6,6 +6,14 @@
 	VS12 - 2013 community version = 1800
 */
 
+#include "View.h"
+#include "Function.h"
+#include "gameStatus.h"
+#include "Vector.h"
+#include "Point.h"
+#include "Triangle.h"
+#include "Mesh.h"
+
 
 #if _MSC_VER == 1800
 	#include <iostream>
@@ -15,9 +23,13 @@
 	#include <sstream>
 #endif
 
-#include "View.h"
-#include "Function.h"
-#include "gameStatus.h"
+#if _MSC_VER == 1200
+extern "C"
+{
+	#include <fxlib.h>
+	#include <math.h>
+}
+#endif
 
 class Grapher : public GameStatus
 {

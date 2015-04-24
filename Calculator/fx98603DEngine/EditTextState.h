@@ -2,12 +2,18 @@
 #define EDITTEXTSTATE_H
 
 #include "GameStatus.h"
-#include "mString.h"
+#include "uString.h"
 #include "Point.h"
+
+extern "C"
+{
+	#include <fxlib.h>
+	#include <stdio.h>
+}
 
 class EditTextState : public GameStatus
 {
-	//mString text;
+	uString text;
 	
 	Point topLeft;
 	Point botRight;
@@ -16,17 +22,17 @@ public:
 	//constructor
 	EditTextState(const int& width, const int& height);
 	
-	//bool LoadText(mString& input);
+	bool LoadText(uString& input);
 	
 	bool LoadPosition(Point& TR, Point& BL);
 	
-	bool LoadTextAndPos(Point& TR, Point& BL);
+	bool LoadTextAndPos(uString& inputText, Point& TR, Point& BL);
 	
 	bool Input();
 	bool Proccess();
 	void Display();
 	
-	//mString GetText();
+	uString& GetText();
 };
 
 #endif

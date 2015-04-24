@@ -1,39 +1,9 @@
 #include "Grapher.h"
 
-#include "Vector.h"
-#include "Point.h"
-#include "Triangle.h"
-#include "Mesh.h"
-
-
-#if _MSC_VER == 1800
-	#include <SDL.h>
-	#include <fstream>
-	#include <sstream>
-	#include <iostream>
-#endif
-
-#if _MSC_VER == 1200
-extern "C"
-{
-	#include <fxlib.h>
-	#include <math.h>
-}
-#endif
 
 Grapher::Grapher(const int& width, const int& height) : GameStatus(width, height, grapher)
 {
 }
-
-/*
-bool Grapher::LoadEquation(unsigned char* eq, const Vector& min, const Vector& max, const int& xRes, const int& yRes)
-{
-	func.SetEquation(eq);
-	func.SetGridRes(xRes, yRes);
-	func.UpdateGrid(min, max);
-	return true;
-}
-*/
 
 bool Grapher::LoadFunction(Function* equation)
 {
@@ -149,10 +119,12 @@ GetKey(&key);
 
 bool Grapher::Proccess()
 {
+	
 	for (int i = 0; i < func->GetObject().GetPixelstCount(); i++)
 	{
 		func->GetObject().GetPixel(i) = cam.Project3Dto2D(func->GetObject().GetVertex(i), gRenderer.SCREEN_WIDTH, gRenderer.SCREEN_HEIGHT);
 	}
+	
 	return true;
 }
 

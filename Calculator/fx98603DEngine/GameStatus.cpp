@@ -1,7 +1,5 @@
 #include "GameStatus.h"
 
-#include <iostream>
-
 GameStatus::GameStatus(const int& width, const int& height, StateType mState) : gRenderer(width, height)
 {
 	this-> state = mState;

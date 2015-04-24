@@ -1,7 +1,5 @@
 #include "Point.h"
 
-#include "Vector.h"
-
 Point::Point()
 {
 

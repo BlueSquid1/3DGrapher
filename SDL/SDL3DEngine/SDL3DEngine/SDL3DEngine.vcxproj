@@ -18,11 +18,11 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\mString.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Object.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Point.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Renderer.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Triangle.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\uString.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Vector.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\View.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -38,12 +38,12 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Grapher.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Matrix.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Mesh.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\mString.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Object.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Point.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\PROTOSD.H" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Renderer.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Triangle.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\uString.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Vector.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\View.h" />
   </ItemGroup>

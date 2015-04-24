@@ -1,25 +1,21 @@
 #include "EditTextState.h"
 
-extern "C"
-{
-	#include <fxlib.h>
-	#include <stdio.h>
-}
-
 EditTextState::EditTextState(const int& width, const int& height) : GameStatus(width, height, editText)
 {
 }
 
 
-/*
-bool EditTextState::LoadText(mString& input)
+bool EditTextState::LoadText(uString& input)
 {
-	
+	//delete the previous string
+	if(this->text.GetLen() != 0)
+	{
+		this->text.Clear();
+	}
 	this->text = input;
 	
 	return true;
 }
-*/
 	
 bool EditTextState::LoadPosition(Point& TR, Point& BL)
 {
@@ -31,9 +27,9 @@ bool EditTextState::LoadPosition(Point& TR, Point& BL)
 	return true;
 }
 	
-bool EditTextState::LoadTextAndPos(Point& TR, Point& BL)
+bool EditTextState::LoadTextAndPos(uString& inputText, Point& TR, Point& BL)
 {
-	//this->LoadText(input);
+	this->LoadText(inputText);
 	this->LoadPosition(TR, BL);
 	return true;
 }
@@ -122,6 +118,7 @@ GetKey(&key);
 
 bool EditTextState::Proccess()
 {
+	
 	return true;
 }
 
@@ -129,15 +126,14 @@ void EditTextState::Display()
 {	
 	gRenderer.ClearScreen(topLeft, botRight);
 	
-	//gRenderer.PrintTextXY(18,topLeft.y, text.GetText(), 0);
+	gRenderer.PrintTextXY(18,topLeft.y, text.GetText(), 0);
 	
 	gRenderer.UpdateScreen();
 }
 
 
-/*
-mString EditTextState::GetText()
+
+uString& EditTextState::GetText()
 {
 	return text;
 }
-*/

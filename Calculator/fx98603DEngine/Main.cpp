@@ -18,7 +18,6 @@ extern "C"
 #include "EditTextState.h"
 #include "point.h"
 
-
 //****************************************************************************
 //  AddIn_main (Sample program main function)
 //
@@ -32,16 +31,20 @@ extern "C"
 //
 //****************************************************************************
 extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
-{
+{	
 	bool quit = false;
-	StateType nextState = mainMenu;
+	StateType nextState = grapher;
 	StateType currentState = mainMenu;
 	
 	//load all the current states
 	GameStatus* state;
 	
 	Menu menu(128, 64);
+	menu.func[0].SetEquation("X+Y\0");
+	
 	Grapher Engine3D(128, 64);
+	Function eq;
+	
 	EditTextState EditText(128, 64);
 	
 	//loops though game states
@@ -54,16 +57,35 @@ extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
 		}
 		else if (nextState == grapher)
 		{
+			
+			unsigned char equationS[] = "X^2-Y^2";
+
+			eq.SetEquation(equationS);
+
+			eq.SetDrawable(true);
+
+			eq.SetGridRes(10, 10);
+
+			Vector min(-3,-3,-3);
+			Vector max(3, 3, 3);
+
+			eq.UpdateGrid(min, max);
+
+			Engine3D.LoadFunction(&eq);
+			
+			
 			state = &Engine3D;
 		}
 		else if (currentState == mainMenu && nextState == editText)
-		{
-			//mString equation = menu.CurrentString();			//BUG ON THIS LINE OF CODE!!!!!!!!!!!!!
+		{	
+			uString equation;
+			equation.SetText(menu.CurrentString());
+			
 			int posY = menu.GetYPos();
 			
 			Point TR;
 			
-			TR.x = 0;
+			TR.x = 18;
 			TR.y = posY;
 			
 			
@@ -73,14 +95,14 @@ extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
 			BL.y = posY + 7;
 			
 			
-			EditText.LoadTextAndPos(TR, BL);
+			EditText.LoadTextAndPos(equation, TR, BL);
 			state = &EditText;
 		}
 		else if (currentState == editText && nextState == mainMenu)
 		{
-			//mString updatedText = EditText.GetText();
+			//updatedText = EditText.GetText();
 			
-			//menu.SetCurrentFunction(updatedText);
+			menu.SetCurrentFunction(EditText.GetText());
 			
 			state = &menu;
 		}

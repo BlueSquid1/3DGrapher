@@ -2,7 +2,7 @@
 #define GAMESTATUS_H
 
 #include "Renderer.h"
-
+#include <iostream>
 
 enum StateType
 {

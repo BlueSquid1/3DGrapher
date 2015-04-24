@@ -39,9 +39,6 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\mString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,6 +55,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\View.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\uString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +92,6 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Mesh.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\mString.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Object.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -114,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\View.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\uString.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

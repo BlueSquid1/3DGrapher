@@ -1,24 +1,5 @@
 #include "Renderer.h"
 
-#include "Triangle.h"
-
-#if _MSC_VER == 1200
-extern "C"
-{
-	#include <fxlib.h>
-}
-#endif
-
-#if _MSC_VER == 1800
-	#include <SDL.h>
-#endif
-
-#ifndef NULL
-	#define NULL 0
-#endif
-
-#include "Mesh.h"
-
 
 Renderer::Renderer(const int& width, const int& height)
 	:SCREEN_WIDTH(width), SCREEN_HEIGHT(height)
@@ -53,14 +34,14 @@ void Renderer::DrawLine(const int& x1, const int& y1, const int& x2, const int& 
 }
 
 
-void Renderer::PrintTextMini(const int& x, const int& y, unsigned char* s, const int& drawType) const
+void Renderer::PrintTextMini(const int& x, const int& y, const unsigned char* s, const int& drawType) const
 {
 #if _MSC_VER == 1200
 	PrintMini(x,y,s,drawType);
 #endif
 }
 
-void Renderer::PrintTextXY(const int& x, const int& y, unsigned char* s, const int& drawType) const
+void Renderer::PrintTextXY(const int& x, const int& y, const unsigned char* s, const int& drawType) const
 {
 #if _MSC_VER == 1200
 	PrintXY(x,y,s,drawType);

@@ -3,6 +3,7 @@
 
 #include "Object.h"
 #include "Vector.h"
+#include "Matrix.h"
 
 class View : public Object
 {

@@ -3,7 +3,21 @@
 
 #ifndef NULL
    #define NULL 0
-#endif //NULL
+#endif
+
+extern "C"
+{
+	#include <stdio.h>
+	#include <string.h>
+	#include <stdlib.h> // abs()
+	#include <math.h> // pow()
+}
+
+#if _MSC_VER == 1800
+	#include <iostream>
+#endif
+
+#include "uString.h" //error prints
 
 class Matrix
 {

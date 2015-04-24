@@ -9,7 +9,7 @@ int main(int argc, char* args[])
 	
 	Function eq;
 
-	unsigned char equationS[] = "Sin(X)-Y^2";
+	unsigned char equationS[] = "X^2-Y^2";
 
 	eq.SetEquation(equationS);
 
@@ -23,7 +23,6 @@ int main(int argc, char* args[])
 	eq.UpdateGrid(min, max);
 
 	Engine3D.LoadFunction(&eq);
-
 	
 	bool mContinue = true;
 	while (mContinue != NULL)

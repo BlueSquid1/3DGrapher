@@ -1,9 +1,14 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-
+extern "C"
+{
+	#include <math.h>
+}
 
 #include "Matrix.h"
+
+#define PI 3.14159265
 
 class Object
 {

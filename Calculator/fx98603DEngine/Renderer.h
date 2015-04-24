@@ -1,11 +1,20 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef RENDERER_H
+#define RENDERER_H
 
-
+#ifndef NULL
+	#define NULL 0
+#endif
 
 
 #if _MSC_VER == 1800
 	#include <SDL.h>
+#endif
+
+#if _MSC_VER == 1200
+extern "C"
+{
+	#include <fxlib.h>
+}
 #endif
 
 #include "Mesh.h"
@@ -34,9 +43,9 @@ public:
 
 	void DrawLine(const int& x1, const int& y1, const int& x2, const int& y2) const;
 	
-	void PrintTextMini(const int& x, const int& y, unsigned char* s, const int& drawType) const;
+	void PrintTextMini(const int& x, const int& y, const unsigned char* s, const int& drawType) const;
 	
-	void PrintTextXY(const int& x, const int& y, unsigned char* s, const int& drawType) const;
+	void PrintTextXY(const int& x, const int& y, const unsigned char* s, const int& drawType) const;
 	
 	void DrawBox(const int& x1, const int& y1, const int& x2, const int& y2, bool inverted) const;
 	
