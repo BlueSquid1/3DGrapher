@@ -29,13 +29,9 @@ bool Function::SetGridRes(int x, int y)
 	return true;
 }
 
-bool Function::SetEquation(unsigned char * text)
+bool Function::SetEquation(uString& text)
 {
-	if(!equation.SetText(text))
-	{
-		uString::ErrorPrint((unsigned char *)"can't assign the input function to a string");
-		return false;
-	}
+	equation = text;
 	return true;
 }
 
@@ -49,13 +45,13 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 	//first check if the equation has been entered
 	if (!drawable)
 	{
-		uString::ErrorPrint((unsigned char *)"Equation isn't drawable, therefore can't update function grid");
+		uString::ErrorPrint("Equation isn't drawable, therefore can't update function grid");
 		return false;
 	}
 	
 	if(Xgrid <= 1 || Ygrid <= 1)
 	{
-		uString::ErrorPrint((unsigned char *)"Invalid grid resolution. Maybe it hasn't been set");
+		uString::ErrorPrint("Invalid grid resolution. Maybe it hasn't been set");
 		return false;
 	}
 	
@@ -73,7 +69,7 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 		float Yvalue = min(0);
 		for (int y = 0; y < Ygrid; y++)
 		{
-			float result = Evaluate::Eval((unsigned char *)this->GetEquation().GetText(), Xvalue, Yvalue);
+			float result = Evaluate::Eval(this->GetEquation(), Xvalue, Yvalue);
 			/*
 			if(eCode != E_OK)
 			{
@@ -123,7 +119,7 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 			
 			if(Yvalue > (max(0) + Ystep) + 0.5) //+0.5 because floats round
 			{
-				uString::ErrorPrint((unsigned char *)"x variable exceeding Xmax");
+				uString::ErrorPrint("x variable exceeding Xmax");
 				return false;
 			}
 			
@@ -131,7 +127,7 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 			
 			if(counter > 72000)
 			{
-				uString::ErrorPrint((unsigned char *)"looping too many times");
+				uString::ErrorPrint("looping too many times");
 				return false;
 			}
 			
@@ -203,11 +199,11 @@ int Function::GetGrid(const int& x, const int& y)
 	//do some checks first
 	if (x < 0 || x >= Xgrid)
 	{
-		uString::ErrorPrint((unsigned char *)"Trying to acess a grid location outofboundies on the x axis");
+		uString::ErrorPrint("Trying to acess a grid location outofboundies on the x axis");
 	}
 	else if (y < 0 || y >= Ygrid)
 	{
-		uString::ErrorPrint((unsigned char *)"Trying to acess a grid location outofboundies on the y axis");
+		uString::ErrorPrint("Trying to acess a grid location outofboundies on the y axis");
 	}
 
 	return x * Ygrid + y;

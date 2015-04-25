@@ -2,14 +2,28 @@
 
 #include "..\..\..\Calculator\fx98603DEngine\Function.h"
 
+#include "..\..\..\Calculator\fx98603DEngine\Renderer.h"
+
+#include "..\..\..\Calculator\fx98603DEngine\Menu.h"
+
+#include <iostream>
+
 int main(int argc, char* args[])
 {
 	//change resolution here
-	Grapher Engine3D(800,600);
-	
+	Renderer gRenderer(800,600);
+
+	GameStatus * CurrentState;
+
+	Grapher Engine3D(&gRenderer);
+	Menu MainMenu(&gRenderer);
+
+	CurrentState = &MainMenu;
+
+	/*
 	Function eq;
 
-	unsigned char equationS[] = "X^2-Y^2";
+	uString equationS = "X^2-Y^2";
 
 	eq.SetEquation(equationS);
 
@@ -23,16 +37,16 @@ int main(int argc, char* args[])
 	eq.UpdateGrid(min, max);
 
 	Engine3D.LoadFunction(&eq);
-	
+	*/
+
 	bool mContinue = true;
 	while (mContinue != NULL)
 	{
-		mContinue = Engine3D.Input();
+		mContinue = CurrentState->Input();
 
-		Engine3D.Proccess();
+		CurrentState->Proccess();
 
-		Engine3D.Display();
+		CurrentState->Display();
 	}
-	
 	return 0;
 }

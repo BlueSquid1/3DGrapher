@@ -7,7 +7,9 @@
 
 extern "C"
 {
+#if _MSC_VER == 1200
 	#include <fxlib.h>
+#endif
 	#include <stdio.h>
 }
 
@@ -23,7 +25,7 @@ class Menu : public GameStatus
 public:
 	Function func[6];
 	//constructor
-	Menu(const int& width, const int& height);
+	Menu(Renderer* origRenderer);
 	bool Input();
 	bool Proccess();
 	void Display();

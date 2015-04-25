@@ -14,13 +14,14 @@ enum StateType
 class GameStatus
 {
 protected:
-	Renderer gRenderer;
+	Renderer* gRenderer;
+
 public:
 	StateType state;
 	StateType nextState;
 
 	//constructor
-	GameStatus(const int& width = 128, const int& height = 64, StateType mState = mainMenu);
+	GameStatus(Renderer* origRenderer, StateType mState = mainMenu);
 	virtual bool Input() = 0;
 	virtual bool Proccess() = 0;
 	virtual void Display() = 0;

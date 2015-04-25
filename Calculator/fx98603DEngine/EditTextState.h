@@ -20,7 +20,7 @@ class EditTextState : public GameStatus
 public:
 
 	//constructor
-	EditTextState(const int& width, const int& height);
+	EditTextState(Renderer* gRenderer);
 	
 	bool LoadText(uString& input);
 	

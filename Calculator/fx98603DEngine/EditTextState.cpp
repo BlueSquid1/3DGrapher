@@ -1,6 +1,6 @@
 #include "EditTextState.h"
 
-EditTextState::EditTextState(const int& width, const int& height) : GameStatus(width, height, editText)
+EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, editText)
 {
 }
 
@@ -10,7 +10,7 @@ bool EditTextState::LoadText(uString& input)
 	//delete the previous string
 	if(this->text.GetLen() != 0)
 	{
-		this->text.Clear();
+		this->text = "";
 	}
 	this->text = input;
 	
@@ -124,11 +124,11 @@ bool EditTextState::Proccess()
 
 void EditTextState::Display()
 {	
-	gRenderer.ClearScreen(topLeft, botRight);
+	gRenderer->ClearScreen(topLeft, botRight);
 	
-	gRenderer.PrintTextXY(18,topLeft.y, text.GetText(), 0);
+	//gRenderer.PrintTextXY(18,topLeft.y, text.GetText(), 0);
 	
-	gRenderer.UpdateScreen();
+	gRenderer->UpdateScreen();
 }
 
 

@@ -5,9 +5,7 @@ float& Matrix::val(const int& y, const int& x)
 	//check boundaries
 	if(y >= this->r || y < 0 || x >= this->c || x < 0)
 	{
-		unsigned char s[100] = "point outside the matrix";
-		//sprintf((char *) s, "(%d,%d) is outside the matrix %d by %d",y,x,this->r, this->c);
-		uString::ErrorPrint(s);
+		uString::ErrorPrint("point outside the matrix");
 		return this->m[0][0];
 	}
 	return this->m[y][x];
@@ -18,9 +16,7 @@ float Matrix::valC(const int& y, const int& x) const
 	//check boundaries
 	if(y >= this->r || y < 0 || x >= this->c || x < 0)
 	{
-		unsigned char s[100] = "point outside the matrix";
-		//sprintf((char *) s, "(%d,%d) is outside the matrix %d by %d",y,x,this->r, this->c);
-		uString::ErrorPrint(s);
+		uString::ErrorPrint("point outside the matrix");
 		return this->m[0][0];
 	}
 	return this->m[y][x];
@@ -42,7 +38,7 @@ bool Matrix::SetSpace(const int& mRows, const int& mCols)
 {
 	if(mRows <= 0 || mCols <= 0)
 	{
-		uString::ErrorPrint((unsigned char *)"Dimensions are less than 1 for a matrix");
+		uString::ErrorPrint("Dimensions are less than 1 for a matrix");
 		return false;
 	}
 	this->r = mRows;
@@ -58,7 +54,7 @@ bool Matrix::SetSpace(const int& mRows, const int& mCols)
 		//check to see if the memory is available
 		if(!m[y])
 		{
-			uString::ErrorPrint((unsigned char *)"Ran out of space");
+			uString::ErrorPrint("Ran out of space");
 			return false;
 		}
 	}
@@ -125,15 +121,13 @@ Matrix Matrix::GenSubMatrix(const int& ay, const int& ax) const
 	//check boundaries
 	if(ay >= this->r || ay < 0 || ax >= this->c || ax < 0)
 	{
-		unsigned char s[100] = "point outside the matrix";
-		//sprintf((char *) s, "(%d,%d) is outside the matrix %d by %d",ay,ax,this->r, this->c);
-		uString::ErrorPrint(s);
+		uString::ErrorPrint("point outside the matrix");
 		return this->m[0][0];
 	}
 	
 	if(this->r <= 1 || this->c <= 1)
 	{
-		uString::ErrorPrint((unsigned char *)"Matrix must be larger than 1 to generate the submatrix");
+		uString::ErrorPrint("Matrix must be larger than 1 to generate the submatrix");
 		return *this;
 	}
 	
@@ -167,7 +161,7 @@ Matrix Matrix::GenSubMatrix(const int& ay, const int& ax) const
 	//because K passes an extra "k++" it might be equal to subR. That is fine.
 	if(k > subR || l >= subC)
 	{
-		uString::ErrorPrint((unsigned char *)"Failed to generate a submatrix");
+		uString::ErrorPrint("Failed to generate a submatrix");
 		return *this;
 	}
 	return temp;
@@ -234,7 +228,7 @@ Matrix::Matrix (const Matrix& matA)
 		
 		if(!m[y])
 		{
-			uString::ErrorPrint((unsigned char *)"Ran out of space");
+			uString::ErrorPrint("Ran out of space");
 			return;
 		}
 	}
@@ -253,7 +247,7 @@ void Matrix::operator=(const Matrix& matA)
 {
 	if (matA.r != this->r || matA.c != this->c)
 	{
-		uString::ErrorPrint((unsigned char *)"can't to assignment. matrices different dimensions");
+		uString::ErrorPrint("can't to assignment. matrices different dimensions");
 		return;
 	}
 	
@@ -279,7 +273,7 @@ Matrix Matrix::operator+(const Matrix& matA) const
 	//check the rows and columns
 	if(this->r != matA.r || this->c != matA.c)
 	{
-		uString::ErrorPrint((unsigned char *)"can't add matrices due to different dimensions");
+		uString::ErrorPrint("can't add matrices due to different dimensions");
 		return *this;
 	}
 	
@@ -300,7 +294,7 @@ Matrix Matrix::operator-(const Matrix& matA) const
 	//check the rows and columns
 	if(this->r != matA.r || this->c != matA.c)
 	{
-		uString::ErrorPrint((unsigned char *)"can add matrices due to different dimensions");
+		uString::ErrorPrint("can add matrices due to different dimensions");
 		return *this;
 	}
 	
@@ -329,7 +323,7 @@ Matrix Matrix::operator*(const Matrix& matA) const
 	//check the dimensions first
 	if (this->c != matA.r)
 	{
-		uString::ErrorPrint((unsigned char *)"dimensions are wrong");
+		uString::ErrorPrint("dimensions are wrong");
 		return *this;
 	}
 
@@ -387,7 +381,7 @@ Matrix Matrix::operator^(const int& valA) const
 	//check if square matrix
 	if(this->c != this->r)
 	{
-		uString::ErrorPrint((unsigned char *)"Not a square matrix. can't use powers");
+		uString::ErrorPrint("Not a square matrix. can't use powers");
 		return *this;
 	}
 	
@@ -436,7 +430,7 @@ float Matrix::Det() const
 	//first test if the matrix is square
 	if(this->r != this->c)
 	{
-		uString::ErrorPrint((unsigned char *)"Matrix is not square.");
+		uString::ErrorPrint("Matrix is not square.");
 		return 0.0;
 	}
 
@@ -449,7 +443,7 @@ Matrix Matrix::Adj() const
 	//check if matrix is square
 	if(this->r != this->c)
 	{
-		uString::ErrorPrint((unsigned char *)"Matrix is not square.");
+		uString::ErrorPrint("Matrix is not square.");
 		return *this;
 	}
 	
@@ -489,7 +483,7 @@ Matrix Matrix::Inverse()
 
 	if(det == 0.0)
 	{
-		uString::ErrorPrint((unsigned char *)"Det is 0. can't find inverse matrix");
+		uString::ErrorPrint("Det is 0. can't find inverse matrix");
 		return *this;
 	}
 	

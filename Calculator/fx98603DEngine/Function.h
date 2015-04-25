@@ -25,7 +25,7 @@ public:
 	
 	bool SetGridRes(int x, int y);
 	
-	bool SetEquation(unsigned char * text);
+	bool SetEquation(uString& text);
 	uString& GetEquation();
 	
 	bool UpdateGrid(Vector& min, Vector& max);

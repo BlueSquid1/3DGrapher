@@ -2,11 +2,11 @@
 
 void Menu::PrintTitle()
 {
-	unsigned char title[] = "Graph Func   :";
-	gRenderer.PrintTextXY(0,0, title,0);
+	uString title = "Graph Func   :";
+	gRenderer->PrintTextXY(0,0, title,0);
 	
-	unsigned char rangeVar[] = "Z=";
-	gRenderer.PrintTextXY(85,0, rangeVar,0);
+	uString rangeVar = "Z=";
+	gRenderer->PrintTextXY(85,0, rangeVar,0);
 }
 
 void Menu::PrintFunctions()
@@ -16,16 +16,18 @@ void Menu::PrintFunctions()
 		//First draw a black box where the selector is
 		if (i == this->funcSelector)
 		{
-			gRenderer.DrawBox(0,(i + 1) * 8, 127, (i+ 1) * 8 + 8, 0);
+			gRenderer->DrawBox(0,(i + 1) * 8, 127, (i+ 1) * 8 + 8, 0);
 		}
 		
-		unsigned char ID[5];
-		sprintf((char *)ID, "Z%i",(i + 1));
+		uString ID;
+		ID.ForceLength(5);
+
+		sprintf((char *)ID.GetText(), "Z%i",(i + 1));
 		
 		if(func[i].GetEquation().GetLen() == 0)
 		{
 			ID[2] = ':';
-			ID[3] = 0;
+			ID[3] = ' ';
 		}
 		else
 		{
@@ -33,25 +35,23 @@ void Menu::PrintFunctions()
 			{
 				ID[2] = 0xE5;
 				ID[3] = 0xB8; //multi-byte charactor negative "="
-				ID[4] = 0;
 			}
 			else
 			{
 				ID[2] = '=';
-				ID[3] = 0;
+				ID[3] = ' ';
 			}
 		}
 		
-		gRenderer.PrintTextXY(0,(i + 1) * 8, ID, i == this->funcSelector);
+		gRenderer->PrintTextXY(0,(i + 1) * 8, ID, i == this->funcSelector);
 		
 		//Print function equation
-		
-		gRenderer.PrintTextXY(18,(i + 1) * 8, func[i].GetEquation().GetText(), i == this->funcSelector);
+		gRenderer->PrintTextXY(18,(i + 1) * 8, func[i].GetEquation(), i == this->funcSelector);
 	}
 }
 
 
-Menu::Menu(const int& width, const int& height) : GameStatus(width, height, mainMenu)
+Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, mainMenu)
 {
 	funcSelector = 0;
 }
@@ -59,15 +59,15 @@ Menu::Menu(const int& width, const int& height) : GameStatus(width, height, main
 bool Menu::Input()
 {
 #if _MSC_VER == 1800
-	while (SDL_PollEvent(&e) != 0)
+	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
-		if (e.type == SDL_QUIT)
+		if (gRenderer->e.type == SDL_QUIT)
 		{
 			return false;
 		}
-		else if (e.type == SDL_KEYDOWN)
+		else if (gRenderer->e.type == SDL_KEYDOWN)
 		{
-			switch (e.key.keysym.sym)
+			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
 				break;
@@ -169,10 +169,10 @@ bool Menu::Proccess()
 
 void Menu::Display()
 {
-	gRenderer.ClearScreen();
+	gRenderer->ClearScreen();
 	this->PrintTitle();
 	this->PrintFunctions();
-	gRenderer.UpdateScreen();
+	gRenderer->UpdateScreen();
 }
 
 uString& Menu::CurrentString()

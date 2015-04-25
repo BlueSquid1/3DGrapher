@@ -26,7 +26,7 @@
 #endif
 
 #if _MSC_VER == 1200
-void uString::ErrorPrint(const unsigned char * errorMessage)
+void uString::ErrorPrint(const char * errorMessage)
 {
 	//draw error Message box
 	PopUpWin(5);
@@ -76,14 +76,14 @@ void uString::ErrorPrint(const unsigned char * errorMessage)
 #endif
 
 #if _MSC_VER == 1800
-void uString::ErrorPrint(const unsigned char * errorMessage)
+void uString::ErrorPrint(const char * errorMessage)
 {
 	std::cerr << errorMessage << "\n";
 }
 #endif
 
 
-int uString::Lenof(const unsigned char* s)
+int uString::Lenof(const char* s)
 {
 	int len = 0;
 	while(s[len] != '\0')
@@ -99,18 +99,34 @@ uString::uString()
 	this->length = 0;
 	this->capacity = 0;
 	text = NULL;
+
+	this->SetText("");
 }
 
-uString::uString(const unsigned char * s)
+uString::uString(const char * s, int roughSize)
 {
 	this->length = 0;
 	this->capacity = 0;
 	text = NULL;
 	
-	this->SetText(s);
+	this->SetText(s, roughSize);
 }
 
-bool uString::SetText(const unsigned char * inputText)
+uString::uString(const uString& str)
+{
+	this->length = 0;
+	this->capacity = 0;
+	text = NULL;
+
+	this->operator=(str);
+
+	if (!text)
+	{
+		this->SetText("");
+	}
+}
+
+bool uString::SetText(const char * inputText, int roughSize)
 {
 	//first clear the array
 	if(text != NULL)
@@ -120,13 +136,26 @@ bool uString::SetText(const unsigned char * inputText)
 	int sizeTemp = uString::Lenof(inputText);
 	int capTemp = sizeTemp + 1; //add one for the '\0'
 	
+	if (roughSize != 0)
+	{
+		if (capTemp > roughSize + 10)
+		{
+			uString::ErrorPrint("Looping too many times\n");
+		}
+	}
 	this->text = new unsigned char[capTemp];
 	if(!this->text)
 	{
-		uString::ErrorPrint((unsigned char *)"Ran out of space to create a string");
+		uString::ErrorPrint("Ran out of space to create a string");
 		return false;
 	}
-	memcpy(this->text, inputText,sizeTemp);
+
+	for (int i = 0; i < sizeTemp; i++)
+	{
+		this->text[i] = (unsigned char) inputText[i];
+	}
+
+	//memcpy(this->text, inputText,sizeTemp);
 	
 	this->text[sizeTemp] = '\0';
 	
@@ -135,28 +164,35 @@ bool uString::SetText(const unsigned char * inputText)
 	return true;
 }
 
-bool uString::SetText(const uString& str)
-{
-	this->operator=(str);
-	return true;
-}
 
-
-void uString::operator=(const uString& str)
+void uString::operator=(const uString& str) //---
 {
-	if (str.GetLen() > 0)
+	if (str.GetLen() >= 0)
 	{
-		const unsigned char * s = str.GetText();
-		this->SetText(s);
+		int lengthTemp = str.GetLen();
+		int capTemp = lengthTemp + 1;
+
+		ForceLength(capTemp);
+
+		this->length = lengthTemp;
+		this->capacity = capTemp;
+
+		memcpy(this->text, str.GetText(), capacity);
+		this->text[length] = '\0';
 	}
 }
-void uString::operator=(const unsigned char* s)
+void uString::operator=(const char* s)
 {
 	this->SetText(s);
 }
 
-unsigned char& uString::operator[](int& index)
+unsigned char& uString::operator[](const int& index)
 {
+	if (index < 0 || index >= capacity)
+	{
+		uString::ErrorPrint("element not in string boundaries");
+		return text[0];
+	}
 	return this->text[index];
 }
 
@@ -174,6 +210,36 @@ void uString::Clear()
 const unsigned char* uString::GetText() const
 {
 	return text;
+}
+
+
+bool uString::ForceLength(const int& size)
+{
+	if (size <= 0)
+	{
+		return false;
+	}
+	if (this->text != NULL)
+	{
+		this->Clear();
+	}
+
+	text = new unsigned char[size];
+
+	if (!text)
+	{
+		uString::ErrorPrint("Can't change size of string");
+		return false;
+	}
+
+	length = size - 1;
+	capacity = size;
+
+	memset(text, ' ', length);
+
+	text[length] = '\0';
+
+	return true;
 }
 
 int uString::GetLen() const

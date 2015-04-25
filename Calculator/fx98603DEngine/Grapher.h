@@ -44,7 +44,7 @@ class Grapher : public GameStatus
 public:
 
 	//constructor
-	Grapher(const int& width = 128, const int& height = 64);
+	Grapher(Renderer* origRenderer);
 
 	//bool LoadEquation(unsigned char* eq, const Vector& min, const Vector& max, const int& yres, const int& xres);
 	

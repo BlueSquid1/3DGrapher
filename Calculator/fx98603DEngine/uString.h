@@ -9,26 +9,28 @@ class uString
 	int length; //number of characters in use (not including '\0')
 	int capacity; //total number of characters the string can hold (including '\0')
 	
+	void Clear();
 public:
-	static void ErrorPrint(const unsigned char * errorMessage);
-	static int Lenof(const unsigned char * s);
+	static void ErrorPrint(const char * errorMessage);
+	static int Lenof(const char * s);
 	
 	//constructors
 	uString();
-	uString(const unsigned char * s);
+	uString(const char * s, int roughSize = 0);
+	uString(const uString& str);
 	
 	void operator=(const uString& str);
-	void operator=(const unsigned char* s);
-	unsigned char& operator[](int& index);
-	void Clear();
+	void operator=(const char* s);
+	unsigned char& operator[](const int& index);
 	
 	const unsigned char* GetText() const;
 	
-	bool SetText(const unsigned char * inputText);
-	bool SetText(const uString& str);
+	bool SetText(const char * inputText, int roughSize = 0);
+
+	bool ForceLength(const int& size);
 	int GetLen() const;
 	int GetCapacity() const;
-	
+
 	//deconstructor
 	~uString();
 };
