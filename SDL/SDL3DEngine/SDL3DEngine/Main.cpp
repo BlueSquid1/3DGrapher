@@ -6,19 +6,20 @@
 
 #include "..\..\..\Calculator\fx98603DEngine\Menu.h"
 
+#include "..\..\..\Calculator\fx98603DEngine\EditTextState.h"
+
 #include <iostream>
+
 
 int main(int argc, char* args[])
 {
 	//change resolution here
 	Renderer gRenderer(800,600);
 
-	GameStatus * CurrentState;
-
+	//load gameStates
 	Grapher Engine3D(&gRenderer);
 	Menu MainMenu(&gRenderer);
-
-	CurrentState = &MainMenu;
+	EditTextState EditText(&gRenderer);
 
 	/*
 	Function eq;
@@ -39,14 +40,29 @@ int main(int argc, char* args[])
 	Engine3D.LoadFunction(&eq);
 	*/
 
-	bool mContinue = true;
-	while (mContinue != NULL)
+	GameStatus * CurrentState = &MainMenu;
+
+	bool quit = false;
+	while (!quit)
 	{
-		mContinue = CurrentState->Input();
 
-		CurrentState->Proccess();
+		EditTextState::UpdateState(CurrentState);
 
-		CurrentState->Display();
+		bool mContinue = true;
+		while (mContinue == true)
+		{
+			mContinue = CurrentState->Input();
+
+			CurrentState->Proccess();
+
+			CurrentState->Display();
+		}
+
+		if (CurrentState->nextState == QUIT)
+		{
+			quit = true;
+		}
+
 	}
 	return 0;
 }

@@ -1,7 +1,7 @@
 #include "Grapher.h"
 
 
-Grapher::Grapher(Renderer* origRenderer) : GameStatus(origRenderer, grapher)
+Grapher::Grapher(Renderer* origRenderer) : GameStatus(origRenderer, GRAPHER)
 {
 }
 

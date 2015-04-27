@@ -6,9 +6,10 @@
 
 enum StateType
 {
-	mainMenu,
-	grapher,
-	editText
+	MAINMENU,
+	GRAPHER,
+	EDITTEXT,
+	QUIT
 };
 
 class GameStatus
@@ -20,8 +21,10 @@ public:
 	StateType state;
 	StateType nextState;
 
+	static bool UpdateState(GameStatus * currentState);
+
 	//constructor
-	GameStatus(Renderer* origRenderer, StateType mState = mainMenu);
+	GameStatus(Renderer* origRenderer, StateType mState = MAINMENU);
 	virtual bool Input() = 0;
 	virtual bool Proccess() = 0;
 	virtual void Display() = 0;

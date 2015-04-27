@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EditTextState.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EVALD.c" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Evaluate.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Function.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCAPS.H" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCONST.H" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXFUNCS.H" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EditTextState.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EVALD.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Evaluate.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Function.h" />

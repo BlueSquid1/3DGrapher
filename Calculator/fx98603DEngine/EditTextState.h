@@ -7,7 +7,6 @@
 
 extern "C"
 {
-	#include <fxlib.h>
 	#include <stdio.h>
 }
 

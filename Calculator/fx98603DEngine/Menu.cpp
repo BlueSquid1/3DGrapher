@@ -51,7 +51,7 @@ void Menu::PrintFunctions()
 }
 
 
-Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, mainMenu)
+Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 {
 	funcSelector = 0;
 }
@@ -63,6 +63,7 @@ bool Menu::Input()
 	{
 		if (gRenderer->e.type == SDL_QUIT)
 		{
+			this->nextState = QUIT;
 			return false;
 		}
 		else if (gRenderer->e.type == SDL_KEYDOWN)
@@ -70,6 +71,8 @@ bool Menu::Input()
 			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
+				this->nextState = EDITTEXT;
+				return false;
 				break;
 
 			case SDLK_LEFT:

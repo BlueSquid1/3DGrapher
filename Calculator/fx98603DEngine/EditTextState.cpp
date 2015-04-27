@@ -1,6 +1,6 @@
 #include "EditTextState.h"
 
-EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, editText)
+EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, EDITTEXT)
 {
 }
 
@@ -37,15 +37,15 @@ bool EditTextState::LoadTextAndPos(uString& inputText, Point& TR, Point& BL)
 bool EditTextState::Input()
 {
 #if _MSC_VER == 1800
-	while (SDL_PollEvent(&e) != 0)
+	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
-		if (e.type == SDL_QUIT)
+		if (gRenderer->e.type == SDL_QUIT)
 		{
 			return false;
 		}
-		else if (e.type == SDL_KEYDOWN)
+		else if (gRenderer->e.type == SDL_KEYDOWN)
 		{
-			switch (e.key.keysym.sym)
+			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
 			
