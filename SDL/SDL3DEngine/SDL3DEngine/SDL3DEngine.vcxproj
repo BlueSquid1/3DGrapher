@@ -15,6 +15,7 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EVALD.c" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Evaluate.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Function.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Game.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GameStatus.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EVALD.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Evaluate.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Function.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Game.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GameStatus.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Grapher.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Matrix.h" />

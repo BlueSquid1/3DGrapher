@@ -41,6 +41,7 @@ bool EditTextState::Input()
 	{
 		if (gRenderer->e.type == SDL_QUIT)
 		{
+			this->nextState = QUIT;
 			return false;
 		}
 		else if (gRenderer->e.type == SDL_KEYDOWN)
@@ -64,6 +65,17 @@ bool EditTextState::Input()
 			{
 				
 				break;
+			}
+
+			case SDLK_ESCAPE:
+			{
+				this->nextState = MAINMENU;
+				return false;
+			}
+			case SDLK_RETURN:
+			{
+				this->nextState = MAINMENU;
+				return false;
 			}
 
 			default:
@@ -98,13 +110,13 @@ GetKey(&key);
 	}
 	case KEY_CTRL_EXE:
 	{
-		this->nextState = mainMenu;
+		this->nextState = MAINMENU;
 		return false;
 		break;
 	}
 	case KEY_CTRL_EXIT:
 	{
-		this->nextState = mainMenu;
+		this->nextState = MAINMENU;
 		return false;
 		break;
 	}
@@ -118,15 +130,14 @@ GetKey(&key);
 
 bool EditTextState::Proccess()
 {
-	
 	return true;
 }
 
 void EditTextState::Display()
 {	
 	gRenderer->ClearScreen(topLeft, botRight);
-	
-	//gRenderer.PrintTextXY(18,topLeft.y, text.GetText(), 0);
+
+	gRenderer->PrintTextXY(18,topLeft.y, text, 0);
 	
 	gRenderer->UpdateScreen();
 }

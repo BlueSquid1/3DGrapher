@@ -16,6 +16,7 @@ extern "C"
 
 class Menu : public GameStatus
 {	
+	Function func[6];
 	//funcSelector is the function the selector is over
 	int funcSelector;
 	
@@ -23,7 +24,6 @@ class Menu : public GameStatus
 	void PrintFunctions();
 	
 public:
-	Function func[6];
 	//constructor
 	Menu(Renderer* origRenderer);
 	bool Input();
@@ -31,7 +31,7 @@ public:
 	void Display();
 	
 	uString& CurrentString();
-	int GetYPos();
+	int GetFuncNum();
 	
 	bool SetCurrentFunction(const uString& text);
 	~Menu();

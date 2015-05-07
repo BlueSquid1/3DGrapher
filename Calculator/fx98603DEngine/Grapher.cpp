@@ -18,6 +18,7 @@ bool Grapher::Input()
 	{
 		if (e.type == SDL_QUIT)
 		{
+			this->nextState = QUIT;
 			return false;
 		}
 		else if (e.type == SDL_KEYDOWN)

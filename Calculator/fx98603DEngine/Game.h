@@ -17,6 +17,8 @@ class Game
 	Menu MainMenu;
 	EditTextState EditText;
 
+	Function eq;
+
 public:
 	GameStatus * currentState;
 

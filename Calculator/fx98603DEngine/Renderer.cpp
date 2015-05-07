@@ -194,7 +194,16 @@ void Renderer::ClearScreen(Point topLeft, Point botRight) const
 {
 #if _MSC_VER == 1800
 	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_RenderClear(gRenderer);
+
+	SDL_Rect viewBoundaries;
+
+	viewBoundaries.x = topLeft.x * (SCREEN_WIDTH / 127.0);
+	viewBoundaries.y = topLeft.y * (SCREEN_HEIGHT / 63.0);
+	viewBoundaries.w = (botRight.x - topLeft.x) * (SCREEN_WIDTH / 127.0);
+	viewBoundaries.h = (botRight.y - topLeft.y) * (SCREEN_HEIGHT / 63.0);
+
+	SDL_RenderFillRect(gRenderer, &viewBoundaries);
+
 #endif
 #if _MSC_VER == 1200
 	DISPBOX area;

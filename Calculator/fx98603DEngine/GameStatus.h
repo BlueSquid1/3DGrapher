@@ -21,8 +21,6 @@ public:
 	StateType state;
 	StateType nextState;
 
-	static bool UpdateState(GameStatus * currentState);
-
 	//constructor
 	GameStatus(Renderer* origRenderer, StateType mState = MAINMENU);
 	virtual bool Input() = 0;

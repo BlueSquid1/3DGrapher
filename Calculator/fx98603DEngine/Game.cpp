@@ -35,7 +35,20 @@ bool Game::UpdateCurrentState()
 	}
 	else if (from == MAINMENU && destiny == EDITTEXT)
 	{
+		int funcNum = MainMenu.GetFuncNum();
+		uString text = MainMenu.CurrentString();
 
+		Point TL;
+		TL.x = 18;
+		TL.y = (funcNum + 1) * 8;
+
+		Point BR;
+		BR.x = 127;
+		BR.y = TL.y + 8;
+
+		EditText.LoadTextAndPos(text, TL, BR);
+
+		currentState = &EditText;
 	}
 	else if (from == GRAPHER && destiny == MAINMENU)
 	{
@@ -43,7 +56,10 @@ bool Game::UpdateCurrentState()
 	}
 	else if (from == EDITTEXT && destiny == MAINMENU)
 	{
+		uString text = EditText.GetText();
 
+		MainMenu.SetCurrentFunction(text);
+		currentState = &MainMenu;
 	}
 	else
 	{

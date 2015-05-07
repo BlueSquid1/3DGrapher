@@ -54,6 +54,8 @@ void Menu::PrintFunctions()
 Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 {
 	funcSelector = 0;
+	uString eq = "X+Y";
+	func[1].SetEquation(eq);
 }
 
 bool Menu::Input()
@@ -116,7 +118,7 @@ GetKey(&key);
 	switch (key)
 	{
 	case KEY_CTRL_RIGHT:
-		this->nextState = editText;
+		this->nextState = EDITTEXT;
 		return false;
 		break;
 	case KEY_CTRL_LEFT:
@@ -183,9 +185,10 @@ uString& Menu::CurrentString()
 	return this->func[funcSelector].GetEquation();
 }
 
-int Menu::GetYPos()
+int Menu::GetFuncNum()
 {
-	return (this->funcSelector + 1) * 8;
+	return this->funcSelector;
+	//return (this->funcSelector + 1) * 8;
 }
 
 bool Menu::SetCurrentFunction(const uString& text)

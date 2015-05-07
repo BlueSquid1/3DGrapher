@@ -8,16 +8,7 @@
 /*                                                               */
 /*****************************************************************/
 
-extern "C"
-{
-	#include <fxlib.h>
-}
-
-#include "Grapher.h"
-#include "Menu.h"
-#include "EditTextState.h"
-#include "point.h"
-#include "Renderer.h"
+#include "Game.h"
 
 //****************************************************************************
 //  AddIn_main (Sample program main function)
@@ -33,56 +24,29 @@ extern "C"
 //****************************************************************************
 extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
 {	
-	//StateType nextState = grapher;
-	//StateType currentState = mainMenu;
-	
-	Renderer gRenderer(127, 63);
-	
-	//load all the current states
-	GameStatus* state;
-	
-	Menu menu(&gRenderer);
-	
-	Grapher Engine3D(&gRenderer);
-	
-	//EditTextState EditText(128, 64);
-	
-	/*
-	Function eq;
-			
-	uString equationS = "X^2-Y^2";
+	//change resolution of application here
+	Game application(127, 63);
 
-	eq.SetEquation(equationS);
-
-	eq.SetDrawable(true);
-
-	eq.SetGridRes(10, 10);
-
-	Vector min(-3,-3,-3);
-	Vector max(3, 3, 3);
-
-	eq.UpdateGrid(min, max);
-
-	Engine3D.LoadFunction(&eq);
-	*/	
-	
-	state = &menu;
-		
-	//repeats game state
-	bool mContinue = true;
-	while (mContinue == true)
+	bool quit = false;
+	while (!quit)
 	{
-		state->Proccess();
-		state->Display();
-		mContinue = state->Input();
 
+		application.UpdateCurrentState();
+
+		bool mContinue = true;
+		while (mContinue == true)
+		{
+			mContinue = application.RunCurrentState();
+		}
+
+
+		if (application.currentState->nextState == QUIT)
+		{
+			quit = true;
+		}
 
 	}
-		
-	//nextState = state->nextState;
-	//currentState = state->state;
-
-    return 1;
+	return 0;
 }
 
 
