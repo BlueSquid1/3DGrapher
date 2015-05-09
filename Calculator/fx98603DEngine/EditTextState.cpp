@@ -2,6 +2,7 @@
 
 EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, EDITTEXT)
 {
+	curserPos = 0;
 }
 
 
@@ -24,6 +25,12 @@ bool EditTextState::LoadPosition(Point& TR, Point& BL)
 	
 	this->botRight.x = BL.x;
 	this->botRight.y = BL.y;
+	
+	#if _MSC_VER == 1800
+	//tell OS that the program will be requesting text input
+	SDL_StartTextInput();
+	#endif
+	curserPos = 0;
 	return true;
 }
 	
@@ -48,22 +55,52 @@ bool EditTextState::Input()
 		{
 			switch (gRenderer->e.key.keysym.sym)
 			{
-			case SDLK_RIGHT:
-			
-				break;
-
 			case SDLK_LEFT:
-				
+				if (curserPos > 0)
+				{
+					curserPos--;
+				}
 				break;
-
-			case SDLK_UP:
+			case SDLK_RIGHT:
+				if (curserPos < text.GetLen())
+				{
+					curserPos++;
+				}
+				break;
+			case SDLK_BACKSPACE:
 			{
-				
+				if (curserPos > 0)
+				{
+					if (text.GetLen() == curserPos)
+					{
+						//deleting from the end of the string
+						//text.pop_back();
+						curserPos--;
+					}
+					else
+					{
+						//deleting from the middle of the string
+						//text.erase(curserPos - 1, 1);
+						curserPos--;
+					}
+				}
 				break;
 			}
-			case SDLK_DOWN:
+			case SDLK_DELETE:
 			{
-				
+				if (curserPos < text.GetLen())
+				{
+					if (curserPos == text.GetLen() - 1)
+					{
+						//deleting from the end of the string
+						//text.pop_back();
+					}
+					else
+					{
+						//deleting from the middle of the string
+						//text.erase(curserPos, 1);
+					}
+				}
 				break;
 			}
 
@@ -80,6 +117,22 @@ bool EditTextState::Input()
 
 			default:
 				break;
+			}
+		}
+		else if (gRenderer->e.type == SDL_TEXTINPUT)
+		{
+			//add the char at the curser pos
+			if (text.GetLen() == curserPos)
+			{
+				//add char to the end of the string
+				//text += gRenderer->e.text.text;
+				curserPos++;
+			}
+			else
+			{
+				//insert into the middle of the string
+				//text.insert(curserPos, gRenderer->e.text.text);
+				curserPos++;
 			}
 		}
 	}
@@ -139,6 +192,9 @@ void EditTextState::Display()
 
 	gRenderer->PrintTextXY(18,topLeft.y, text, 0);
 	
+	int curserX = 18 + curserPos * 8;
+	gRenderer->DrawBox(curserX, topLeft.y, curserX + 1, botRight.y, 0);
+
 	gRenderer->UpdateScreen();
 }
 
@@ -146,5 +202,9 @@ void EditTextState::Display()
 
 uString& EditTextState::GetText()
 {
+	#if _MSC_VER == 1800
+	//tell OS that program has stopped text input
+	SDL_StopTextInput();
+	#endif
 	return text;
 }

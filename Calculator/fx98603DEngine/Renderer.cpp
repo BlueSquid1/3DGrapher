@@ -38,7 +38,7 @@ Renderer::Renderer(const int& width, const int& height)
 	}
 
 	//set font
-	gFont = TTF_OpenFont("impact.ttf", 30);
+	gFont = TTF_OpenFont("res/VeraMono.ttf", 60);
 
 	if (!gFont)
 	{

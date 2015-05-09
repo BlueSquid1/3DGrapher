@@ -16,6 +16,9 @@ class EditTextState : public GameStatus
 	
 	Point topLeft;
 	Point botRight;
+
+	int curserPos;
+
 public:
 
 	//constructor
