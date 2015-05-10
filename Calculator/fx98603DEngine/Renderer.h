@@ -35,7 +35,11 @@ public:
 	SDL_Event e;
 	TTF_Font * gFont;
 #endif
-
+	//so curser knows how many pixels to jump
+	int fontWidth;
+	
+	//so curser knows how heigh it should be
+	int fontHeight;
 
 	//constructor
 	Renderer(const int& width, const int& height);

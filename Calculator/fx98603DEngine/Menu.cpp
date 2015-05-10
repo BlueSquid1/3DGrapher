@@ -188,7 +188,6 @@ uString& Menu::CurrentString()
 int Menu::GetFuncNum()
 {
 	return this->funcSelector;
-	//return (this->funcSelector + 1) * 8;
 }
 
 bool Menu::SetCurrentFunction(const uString& text)

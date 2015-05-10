@@ -3,6 +3,10 @@
 Renderer::Renderer(const int& width, const int& height)
 	:SCREEN_WIDTH(width), SCREEN_HEIGHT(height)
 {
+#if _MSC_VER == 1200
+	//assuming calculator is using the default font
+	fontWidth = 6;
+#endif
 #if _MSC_VER == 1800
 	gRenderer = NULL;
 	gWindow = NULL;
@@ -38,13 +42,18 @@ Renderer::Renderer(const int& width, const int& height)
 	}
 
 	//set font
-	gFont = TTF_OpenFont("res/VeraMono.ttf", 60);
+	gFont = TTF_OpenFont("res/VeraMono.ttf", 53);
 
 	if (!gFont)
 	{
 		std::cout << "can't find: impact.ttf TTF error: " << TTF_GetError() << std::endl;
 		return;
 	}
+
+	//workout the width of the font
+	TTF_SizeText(gFont, " ", &fontWidth, &fontHeight);
+	fontWidth = fontWidth * (127.0 / SCREEN_WIDTH);
+	fontHeight = fontHeight * (63.0 / SCREEN_WIDTH);
 #endif
 }
 

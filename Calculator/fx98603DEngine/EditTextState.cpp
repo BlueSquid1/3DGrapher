@@ -74,13 +74,13 @@ bool EditTextState::Input()
 					if (text.GetLen() == curserPos)
 					{
 						//deleting from the end of the string
-						//text.pop_back();
+						text.pop_back();
 						curserPos--;
 					}
 					else
 					{
 						//deleting from the middle of the string
-						//text.erase(curserPos - 1, 1);
+						text.erase(curserPos - 1, 1);
 						curserPos--;
 					}
 				}
@@ -145,20 +145,36 @@ GetKey(&key);
 	switch (key)
 	{
 	case KEY_CTRL_RIGHT:
-		
+		if (curserPos < text.GetLen())
+		{
+			curserPos++;
+		}
 		break;
-	case KEY_CTRL_LEFT:
 		
+	case KEY_CTRL_LEFT:
+		if (curserPos > 0)
+		{
+			curserPos--;
+		}
 		break;
 
-	case KEY_CTRL_UP:
+	case KEY_CTRL_DEL:
 	{
-		
-		break;
-	}
-	case KEY_CTRL_DOWN:
-	{
-		
+		if (curserPos > 0)
+		{
+			if (text.GetLen() == curserPos)
+			{
+				//deleting from the end of the string
+				text.pop_back();
+				curserPos--;
+			}
+			else
+			{
+				//deleting from the middle of the string
+				text.erase(curserPos - 1, 1);
+				curserPos--;
+			}
+		}
 		break;
 	}
 	case KEY_CTRL_EXE:
@@ -192,8 +208,11 @@ void EditTextState::Display()
 
 	gRenderer->PrintTextXY(18,topLeft.y, text, 0);
 	
-	int curserX = 18 + curserPos * 8;
+	int curserX = 18 + curserPos * gRenderer->fontWidth;
+	
 	gRenderer->DrawBox(curserX, topLeft.y, curserX + 1, botRight.y, 0);
+	
+	//gRenderer->DrawBox(curserX, curserY, curserX + 1, curserY + gRenderer->fontHeight * 1.4, 0);
 
 	gRenderer->UpdateScreen();
 }

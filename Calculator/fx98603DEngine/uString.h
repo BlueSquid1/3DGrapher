@@ -23,6 +23,15 @@ public:
 	void operator=(const char* s);
 	unsigned char& operator[](const int& index);
 	
+	//erase elements in the string
+	//ele is the position of the first element to delete
+	//number is the number of elements from ele to delete
+	//e.g. ele = 3 number = 2 would delete elements 3,4
+	bool erase(int ele, int number);
+
+	//erase last element from the string
+	bool pop_back();
+
 	const unsigned char* GetText() const;
 	
 	bool SetText(const char * inputText, int roughSize = 0);

@@ -122,6 +122,7 @@ uString::uString(const uString& str)
 
 	if (!text)
 	{
+		uString::ErrorPrint("unable to copy the string with a copy constructor");
 		this->SetText("");
 	}
 }
@@ -154,8 +155,6 @@ bool uString::SetText(const char * inputText, int roughSize)
 	{
 		this->text[i] = (unsigned char) inputText[i];
 	}
-
-	//memcpy(this->text, inputText,sizeTemp);
 	
 	this->text[sizeTemp] = '\0';
 	
@@ -177,8 +176,7 @@ void uString::operator=(const uString& str) //---
 		this->length = lengthTemp;
 		this->capacity = capTemp;
 
-		memcpy(this->text, str.GetText(), capacity);
-		this->text[length] = '\0';
+		memcpy(this->text, str.GetText(), length);
 	}
 }
 void uString::operator=(const char* s)
@@ -205,6 +203,42 @@ void uString::Clear()
 	}
 	this->length = 0;
 	this->capacity = 0;
+}
+
+bool uString::erase(int ele, int number)
+{
+	//first check if erasing inside the array boundaries
+	if (ele + number > this->GetLen())
+	{
+		uString::ErrorPrint("element to erase not in the string's length");
+		return false;
+	}
+
+	for (int i = ele; i < this->GetLen(); i++)
+	{
+		//for each element to delete and after to delete
+		
+		//fill it in with the remaining charactors
+
+		if (i + number < this->GetLen())
+		{
+			text[i] = text[i + number];
+		}
+		else
+		{
+			text[i] = ' ';
+		}
+	}
+
+	//update length
+	this->length = this->length - number;
+
+	return true;
+}
+
+bool uString::pop_back()
+{
+	return this->erase(this->length - 1, 1);
 }
 
 const unsigned char* uString::GetText() const
@@ -237,7 +271,7 @@ bool uString::ForceLength(const int& size)
 
 	memset(text, ' ', length);
 
-	text[length] = '\0';
+	text[capacity - 1] = '\0';
 
 	return true;
 }
