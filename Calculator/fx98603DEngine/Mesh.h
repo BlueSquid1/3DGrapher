@@ -29,6 +29,7 @@ public:
 	Mesh();
 
 	bool SetSpace(const int& vertexSize, const int& indicesSize);
+	void ClearSpace();
 
 	bool VertexResize(const int& n);
 

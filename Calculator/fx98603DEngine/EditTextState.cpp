@@ -93,12 +93,12 @@ bool EditTextState::Input()
 					if (curserPos == text.GetLen() - 1)
 					{
 						//deleting from the end of the string
-						//text.pop_back();
+						text.pop_back();
 					}
 					else
 					{
 						//deleting from the middle of the string
-						//text.erase(curserPos, 1);
+						text.erase(curserPos, 1);
 					}
 				}
 				break;
@@ -121,19 +121,10 @@ bool EditTextState::Input()
 		}
 		else if (gRenderer->e.type == SDL_TEXTINPUT)
 		{
-			//add the char at the curser pos
-			if (text.GetLen() == curserPos)
-			{
-				//add char to the end of the string
-				//text += gRenderer->e.text.text;
-				curserPos++;
-			}
-			else
-			{
-				//insert into the middle of the string
-				//text.insert(curserPos, gRenderer->e.text.text);
-				curserPos++;
-			}
+			//insert into the string
+			uString temp = gRenderer->e.text.text;
+			text.Insert(curserPos, temp);
+			curserPos++;
 		}
 	}
 #endif
@@ -192,6 +183,21 @@ GetKey(&key);
 
 	default:
 		break;
+	}
+	
+	if(key >= KEY_CHAR_A && key <=KEY_CHAR_Z)
+	{
+		uString temp = "A";
+		temp[0] = 'A' + (key - KEY_CHAR_A);
+		text.Insert(curserPos, temp);
+		curserPos++;
+	}
+	else if (key >= KEY_CHAR_0 && key <= KEY_CHAR_9)
+	{
+		uString temp = "0";
+		temp[0] = '0' + (key - KEY_CHAR_0);
+		text.Insert(curserPos, temp);
+		curserPos++;
 	}
 #endif
 	return true;

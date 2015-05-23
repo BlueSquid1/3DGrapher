@@ -10,7 +10,13 @@ Function::Function()
 }
 
 bool Function::SetGridRes(int x, int y)
-{	
+{
+	//first check if the equation has been entered
+	if (!drawable)
+	{
+		uString::ErrorPrint("Equation isn't drawable, won't set the grid res");
+		return false;
+	}
 	this->Xgrid = x;
 	this->Ygrid = y;
 
@@ -27,6 +33,12 @@ bool Function::SetGridRes(int x, int y)
 	object.SetSpace(verticesNo, indicesNo);
 
 	return true;
+}
+
+
+void Function::ClearGrid()
+{
+	object.ClearSpace();
 }
 
 bool Function::SetEquation(uString& text)

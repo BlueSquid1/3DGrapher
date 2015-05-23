@@ -14,24 +14,23 @@ bool Game::UpdateCurrentState()
 
 	if (from == MAINMENU && destiny == GRAPHER)
 	{
-		/*
-		Function eq;
+		//get function data from menu
+		Function* funcs = MainMenu.GetFunctions();
 
-		uString equationS = "X^2-Y^2";
-
-		eq.SetEquation(equationS);
-
-		eq.SetDrawable(true);
-
-		eq.SetGridRes(10, 10);
-
-		Vector min(-3,-3,-3);
+		//update the grids for each function
+		Vector min(-3, -3, -3);
 		Vector max(3, 3, 3);
+		for (int i = 0; i < 6; i++)
+		{
+			funcs[i].SetGridRes(10, 10);
+			funcs[i].UpdateGrid(min, max);
+		}
 
-		eq.UpdateGrid(min, max);
+		//load the functions
+		Engine3D.LoadFunctions(funcs);
 
-		Engine3D.LoadFunction(&eq);
-		*/
+		currentState = &Engine3D;
+
 	}
 	else if (from == MAINMENU && destiny == EDITTEXT)
 	{
@@ -53,6 +52,7 @@ bool Game::UpdateCurrentState()
 	else if (from == GRAPHER && destiny == MAINMENU)
 	{
 
+		currentState = &MainMenu;
 	}
 	else if (from == EDITTEXT && destiny == MAINMENU)
 	{

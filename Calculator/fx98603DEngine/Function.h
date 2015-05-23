@@ -24,7 +24,9 @@ public:
 	//x and y change the resolution of the grid
 	
 	bool SetGridRes(int x, int y);
-	
+	void ClearGrid();
+
+
 	bool SetEquation(uString& text);
 	uString& GetEquation();
 	

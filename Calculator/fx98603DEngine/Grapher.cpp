@@ -5,9 +5,12 @@ Grapher::Grapher(Renderer* origRenderer) : GameStatus(origRenderer, GRAPHER)
 {
 }
 
-bool Grapher::LoadFunction(Function* equation)
+bool Grapher::LoadFunctions(Function equation[6])
 {
-	this->func = equation;
+	for (int i = 0; i < 6; i++)
+	{
+		this->func[i] = &equation[i];
+	}
 	return true;
 }
 
@@ -61,6 +64,11 @@ bool Grapher::Input()
 				cam.Zoom(per);
 				break;
 			}
+			case SDLK_ESCAPE:
+			{
+				this->nextState = MAINMENU;
+				return false;
+			}
 
 			default:
 				break;
@@ -110,7 +118,13 @@ GetKey(&key);
 		cam.Zoom(per);
 		break;
 	}
-
+	
+	case KEY_CTRL_EXIT:
+	{
+		this->nextState = MAINMENU;
+		return false;
+	}
+	
 	default:
 		break;
 	}
@@ -120,10 +134,18 @@ GetKey(&key);
 
 bool Grapher::Proccess()
 {
-	
-	for (int i = 0; i < func->GetObject().GetPixelstCount(); i++)
+	for (int j = 0; j < 6; j++)
 	{
-		func->GetObject().GetPixel(i) = cam.Project3Dto2D(func->GetObject().GetVertex(i), gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
+		//each function
+
+		//if the function the do the projection
+		if (func[j]->IsDrawable())
+		{
+			for (int i = 0; i < func[j]->GetObject().GetPixelstCount(); i++)
+			{
+				func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(func[j]->GetObject().GetVertex(i), gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
+			}
+		}
 	}
 	
 	return true;
@@ -136,23 +158,31 @@ void Grapher::Display()
 	gRenderer->SetColour(0x00, 0x00, 0x00, 0xFF);
 #endif
 	
-	Mesh& mObject = func->GetObject();
-	
-	for (int index = 0; index < mObject.GetFaceCount(); index++)
+	for (int i = 0; i < 6; i++)
 	{
-		
-		Point A = mObject.GetPixel(mObject.GetIndice(index * 3 + 0));
-		Point B = mObject.GetPixel(mObject.GetIndice(index * 3 + 1));
-		Point C = mObject.GetPixel(mObject.GetIndice(index * 3 + 2));
+		//for each function
 
-		Triangle shape;
+		if (func[i]->IsDrawable())
+		{
+			Mesh& mObject = func[i]->GetObject();
 
-		shape.SetTriangle(A, B, C);
+			for (int index = 0; index < mObject.GetFaceCount(); index++)
+			{
 
-		shape.DrawEdges(*gRenderer, true,true,true); //A2B, B2C, C2A
-		
-		//for drawing surfaces of triangles
-		//shape.DrawSurface(gRenderer);
+				Point A = mObject.GetPixel(mObject.GetIndice(index * 3 + 0));
+				Point B = mObject.GetPixel(mObject.GetIndice(index * 3 + 1));
+				Point C = mObject.GetPixel(mObject.GetIndice(index * 3 + 2));
+
+				Triangle shape;
+
+				shape.SetTriangle(A, B, C);
+
+				shape.DrawEdges(*gRenderer, true, true, true); //A2B, B2C, C2A
+
+				//for drawing surfaces of triangles
+				//shape.DrawSurface(gRenderer);
+			}
+		}
 	}
 
 	//update screen

@@ -30,10 +30,17 @@ public:
 	bool Proccess();
 	void Display();
 	
+	//for editText state
+	//---
 	uString& CurrentString();
 	int GetFuncNum();
-	
 	bool SetCurrentFunction(const uString& text);
+	//===
+
+	//for grapher
+	//---
+	Function* GetFunctions();
+	//===
 	~Menu();
 
 };

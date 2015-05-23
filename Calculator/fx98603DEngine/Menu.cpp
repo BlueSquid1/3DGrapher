@@ -54,8 +54,6 @@ void Menu::PrintFunctions()
 Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 {
 	funcSelector = 0;
-	uString eq = "X+Y";
-	func[1].SetEquation(eq);
 }
 
 bool Menu::Input()
@@ -104,6 +102,27 @@ bool Menu::Input()
 				break;
 			}
 
+			case SDLK_F1:
+			{
+				//invert the drawablity of current function
+				func[funcSelector].SetDrawable(!func[funcSelector].IsDrawable());
+
+				//if function is no longer drawable then delete the grid
+				if (!func[funcSelector].IsDrawable())
+				{
+					func[funcSelector].ClearGrid();
+				}
+
+				break;
+			}
+
+			case SDLK_F6:
+			{
+				this->nextState = GRAPHER;
+				return false;
+				break;
+			}
+
 			default:
 				break;
 			}
@@ -145,6 +164,26 @@ GetKey(&key);
 	case KEY_CHAR_MINUS:
 	{
 		
+		break;
+	}
+	
+	case KEY_CTRL_F1:
+	{
+		//invert the drawablity of current function
+		func[funcSelector].SetDrawable(!func[funcSelector].IsDrawable());
+
+		//if function is no longer drawable then delete the grid
+		if (!func[funcSelector].IsDrawable())
+		{
+			func[funcSelector].ClearGrid();
+		}
+		break;
+	}
+
+	case KEY_CTRL_F6:
+	{
+		this->nextState = GRAPHER;
+		return false;
 		break;
 	}
 
@@ -193,7 +232,14 @@ int Menu::GetFuncNum()
 bool Menu::SetCurrentFunction(const uString& text)
 {
 	func[funcSelector].GetEquation() = text;
+	func[funcSelector].SetDrawable(true);
 	return true;
+}
+
+
+Function* Menu::GetFunctions()
+{
+	return func;
 }
 
 

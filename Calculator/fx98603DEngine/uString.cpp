@@ -236,6 +236,80 @@ bool uString::erase(int ele, int number)
 	return true;
 }
 
+bool uString::Insert(int ele, uString& mText)
+{
+	//first check to make sure ele is in the text
+	if (ele < 0 || ele >= capacity)
+	{
+		uString::ErrorPrint("inserting outside the boundaries of the text");
+		return false;
+	}
+
+	int size = mText.GetLen();
+
+	//work out if need to move everything to a bigger memory space
+	if (this->length + size >= this->capacity)
+	{
+		//need more space
+		//double the current capacity
+		int newCapacity = 2 * capacity;
+		unsigned char * textTemp = new unsigned char[newCapacity];
+
+		if (!textTemp)
+		{
+			uString::ErrorPrint("ran out of space to copy the string to");
+			return false;
+		}
+
+		//deep copy the shit from 1 string to the next
+		for (int i = 0; i < this->length; i++)
+		{
+			textTemp[i] = this->text[i];
+		}
+
+		//set the rest to spaces
+		for (int i = length; i < newCapacity - 1; i++)
+		{
+			textTemp[i] = ' ';
+		}
+
+		//insert the end of line charactor
+		textTemp[newCapacity - 1] = '\0';
+
+		//safe to delete the smaller string
+		delete[] this->text;
+
+		this->text = textTemp;
+
+		//update the capacity
+		this->capacity = newCapacity;
+	}
+
+	//insert the new text
+
+	//shift everything down first
+	for (int i = length - 1; i >= ele; i--)
+	{
+		if (!this->text[i + size])
+		{
+			uString::ErrorPrint("holy shit nearly deleted the \0");
+			return false;
+		}
+		this->text[i + size] = this->text[i];
+	}
+	//insert the text
+
+	for (int i = 0; i < size; i++)
+	{
+		this->text[i + ele] = mText[i];
+	}
+
+	//update the length
+	this->length++;
+
+	return true;
+}
+
 bool uString::pop_back()
 {
 	return this->erase(this->length - 1, 1);

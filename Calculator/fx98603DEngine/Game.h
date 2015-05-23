@@ -14,10 +14,9 @@ class Game
 	Renderer gRenderer;
 	
 	Grapher Engine3D;
+
 	Menu MainMenu;
 	EditTextState EditText;
-
-	Function eq;
 
 public:
 	GameStatus * currentState;

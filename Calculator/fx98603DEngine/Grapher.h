@@ -35,7 +35,7 @@ class Grapher : public GameStatus
 {
 	View cam;
 
-	Function* func;
+	Function* func[6];
 
 #if _MSC_VER == 1800
 	SDL_Event e;
@@ -48,7 +48,7 @@ public:
 
 	//bool LoadEquation(unsigned char* eq, const Vector& min, const Vector& max, const int& yres, const int& xres);
 	
-	bool LoadFunction(Function* equation);
+	bool LoadFunctions(Function equation[6]);
 
 	//returns false if the user wants to quit the program
 	//otherwise returns true

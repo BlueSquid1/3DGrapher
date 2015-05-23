@@ -29,6 +29,9 @@ public:
 	//e.g. ele = 3 number = 2 would delete elements 3,4
 	bool erase(int ele, int number);
 
+	//insert string at ele
+	bool Insert(int ele, uString& mText);
+
 	//erase last element from the string
 	bool pop_back();
 

@@ -26,6 +26,27 @@ bool Mesh::SetSpace(const int& vertexSize, const int& indicesSize)
 	return true;
 }
 
+void Mesh::ClearSpace()
+{
+	if (this->vertices)
+	{
+		delete[] this->vertices;
+		this->vertices = NULL;
+	}
+
+	if (this->pixels)
+	{
+		delete[] this->pixels;
+		this->pixels = NULL;
+	}
+
+	if (this->indicesArray)
+	{
+		delete[] this->indicesArray;
+		this->indicesArray = NULL;
+	}
+}
+
 bool Mesh::VertexResize(const int& n)
 {
 	//first clear any space that was dedicated to Vertices
@@ -156,7 +177,6 @@ int& Mesh::GetIndice(const int& i)
 Mesh::~Mesh()
 {
 	delete[] this->vertices;
-
 	this->vertices = NULL;
 
 	delete[] this->pixels;
