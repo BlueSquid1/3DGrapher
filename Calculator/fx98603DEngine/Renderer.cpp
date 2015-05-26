@@ -81,7 +81,66 @@ void Renderer::DrawLine(const int& x1, const int& y1, const int& x2, const int& 
 void Renderer::PrintTextMini(const int& x, const int& y, const uString& s, const int& drawType) const
 {
 #if _MSC_VER == 1200
+	if(s.GetLen() <= 0)
+	{
+		return;
+	}
 	PrintMini(x,y,s.GetText(),drawType);
+#endif
+
+#if _MSC_VER == 1800
+	SDL_Color textColor;
+	if (drawType == 0)
+	{
+		//black
+		textColor.a = 255;
+		textColor.r = 0;
+		textColor.g = 0;
+		textColor.b = 0;
+	}
+	else
+	{
+		//default (black)
+		textColor.a = 255;
+		textColor.r = 0;
+		textColor.g = 0;
+		textColor.b = 0;
+	}
+
+	if (s.GetLen() <= 0)
+	{
+		//nothing to be done
+		return;
+	}
+
+	//I know its a sin to reload the text every frame but I wanted this to emulate the casio library
+	SDL_Surface * loadedSurface = NULL;
+	loadedSurface = TTF_RenderText_Solid(gFont, (char *)s.GetText(), textColor);
+	if (!loadedSurface)
+	{
+		std::cout << "can not load text TTF error: " << TTF_GetError() << std::endl;
+		return;
+	}
+	SDL_Texture * newTexture = NULL;
+	newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+	if (!newTexture)
+	{
+		std::cout << "can't make a texture from text SDL error: " << SDL_GetError() << std::endl;
+		return;
+	}
+	int mWidth = loadedSurface->w;
+	int mHeight = loadedSurface->h;
+
+	SDL_Rect renderQuad = { x * (SCREEN_WIDTH / 127.0), y * (SCREEN_HEIGHT / 63.0), mWidth, mHeight }; //where to render on window
+
+	//render to screen
+	SDL_RenderCopyEx(gRenderer, newTexture, NULL, &renderQuad, 0.0, NULL, SDL_FLIP_NONE);
+
+
+	SDL_FreeSurface(loadedSurface);
+
+	SDL_DestroyTexture(newTexture);
+
 #endif
 }
 
@@ -95,6 +154,7 @@ void Renderer::PrintTextXY(const int& x, const int& y, const uString& s, const i
 
 	PrintXY(x,y,s.GetText(),drawType);
 #endif
+
 #if _MSC_VER == 1800
 	SDL_Color textColor;
 
@@ -108,6 +168,7 @@ void Renderer::PrintTextXY(const int& x, const int& y, const uString& s, const i
 	}
 	else if (drawType == 1)
 	{
+		//white
 		textColor.a = 255;
 		textColor.r = 255;
 		textColor.g = 255;
@@ -124,10 +185,11 @@ void Renderer::PrintTextXY(const int& x, const int& y, const uString& s, const i
 
 	if (s.GetLen() <= 0)
 	{
+		//nothing to be done
 		return;
 	}
 
-	//I know its a sin to reload the text every frame but the casio library works really well this way
+	//I know its a sin to reload the text every frame but I wanted this to emulate the casio library
 	SDL_Surface * loadedSurface = NULL;
 	loadedSurface = TTF_RenderText_Solid(gFont,(char *)s.GetText(), textColor);
 	if (!loadedSurface)
@@ -178,7 +240,14 @@ void Renderer::DrawBox(const int& x1, const int& y1, const int& x2, const int& y
 	}
 #endif
 #if _MSC_VER == 1800
-	SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
+	if (inverted == 0)
+	{
+		SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
+	}
+	else
+	{
+		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	}
 	SDL_Rect fillRect;
 	fillRect.x = x1* (SCREEN_WIDTH / 127.0);
 	fillRect.y = y1* (SCREEN_HEIGHT / 63.0);

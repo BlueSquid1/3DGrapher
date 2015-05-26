@@ -3,13 +3,7 @@
 
 View::View() : Object(), OrthMat(4, 4, 0), rotHist()
 {
-	//set up the camera so that it uses blenders orientation
-	this->Scale(1, 1, -1);
-	this->Rotate(-90.0, 0.0, 0.0);
-	this->Translation(0,2,0);
-	
-	//setup orthogonal matrix
-	ViewBoundaries(40, 40, -20, 20);
+	this->Reset();
 }
 
 bool View::Rotate(const float& angdX, const float& angdY, const float& angdZ)
@@ -71,6 +65,21 @@ Vector View::Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight
 	screen(1) = screen(1) * middleHeight + middleHeight;
 	
 	return screen;
+}
+
+bool View::Reset()
+{
+	rotHist.SetValues(0,0,1);
+	this->ResetMatrix();
+	//set up the camera so that it uses blenders orientation
+	this->Scale(1, 1, -1);
+	this->Rotate(-90.0, 0.0, 0.0);
+	this->Translation(0, 2, 0);
+
+	//setup orthogonal matrix
+	ViewBoundaries(40, 40, -20, 20);
+
+	return true;
 }
 
 Vector& View::GetRotHist()

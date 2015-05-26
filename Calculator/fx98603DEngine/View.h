@@ -22,6 +22,10 @@ public:
 
 	Vector TransformationCoor(const Vector& vec1);
 
+	//contains the maths behind making 3D spaces
+	//vec1 is a vector with 3D info (x, y, z)
+	//screenWidth and screenHeight needed to scale the result to fit the screen
+	//returns a vector where x,y present the x,y pixels across the screen. z is distance away from screen (used for FOV effects)
 	Vector Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight);
 	Vector OrthProject(const Vector& vec1);
 	
@@ -30,6 +34,8 @@ public:
 	//n is the min value on the z axis
 	//f is the max value on the z axis
 	bool ViewBoundaries(const float& width, const float& height, const float& near, const float& far);
+
+	bool Reset();
 
 	Vector& GetRotHist();
 

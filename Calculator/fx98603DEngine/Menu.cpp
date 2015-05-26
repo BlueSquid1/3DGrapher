@@ -50,10 +50,24 @@ void Menu::PrintFunctions()
 	}
 }
 
+void Menu::PrintUI()
+{
+	//print the Fn buttons
+	this->selectBut.Render(gRenderer);
+	this->drawBut.Render(gRenderer);
+}
+
 
 Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 {
-	funcSelector = 0;
+	this->funcSelector = 0;
+
+	//setup buttons
+	this->selectBut.SetPos(20 * 0, 7 * 8);
+	this->selectBut.SetText("Sel");
+
+	this->drawBut.SetPos(21 * 5, 7 * 8);
+	this->drawBut.SetText("Draw");
 }
 
 bool Menu::Input()
@@ -216,6 +230,7 @@ void Menu::Display()
 	gRenderer->ClearScreen();
 	this->PrintTitle();
 	this->PrintFunctions();
+	this->PrintUI();
 	gRenderer->UpdateScreen();
 }
 

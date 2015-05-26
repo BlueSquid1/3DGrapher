@@ -1,8 +1,10 @@
 #include "Point.h"
 
-Point::Point()
+Point::Point(int mX, int mY, int mZ)
 {
-
+	this->x = mX;
+	this->y = mY;
+	this->z = mZ;
 }
 
 Point::Point(Vector vecA)

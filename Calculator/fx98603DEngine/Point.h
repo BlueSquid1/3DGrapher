@@ -13,7 +13,7 @@ public:
 	int z;
 
 	//constructor
-	Point();
+	Point(int mX = 0, int mY = 0, int mZ = 0);
 
 	//copy constructor
 	Point(Vector vecA);

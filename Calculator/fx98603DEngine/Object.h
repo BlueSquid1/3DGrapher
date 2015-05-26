@@ -28,6 +28,9 @@ public:
 	
 	bool Translation(const float& x, const float& y, const float& z);
 	
+	//reset everything back to the default
+	bool ResetMatrix();
+
 	Matrix& GetMat();
 
 	Matrix& GetInverse();

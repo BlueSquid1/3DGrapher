@@ -29,6 +29,9 @@ bool Game::UpdateCurrentState()
 		//load the functions
 		Engine3D.LoadFunctions(funcs);
 
+		//reset the camera
+		Engine3D.Reset();
+
 		currentState = &Engine3D;
 
 	}

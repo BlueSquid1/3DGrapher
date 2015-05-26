@@ -38,17 +38,18 @@ class Grapher : public GameStatus
 	Function* func[6];
 
 #if _MSC_VER == 1800
-	SDL_Event e;
+	//SDL_Event e;
 #endif
 
 public:
 
 	//constructor
 	Grapher(Renderer* origRenderer);
-
-	//bool LoadEquation(unsigned char* eq, const Vector& min, const Vector& max, const int& yres, const int& xres);
 	
 	bool LoadFunctions(Function equation[6]);
+
+	//resets variables back to default
+	bool Reset();
 
 	//returns false if the user wants to quit the program
 	//otherwise returns true

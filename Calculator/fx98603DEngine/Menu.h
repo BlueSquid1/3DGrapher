@@ -4,6 +4,9 @@
 #include "GameStatus.h"
 #include "Function.h"
 #include "uString.h"
+#include "Triangle.h"
+#include "Point.h"
+#include "ButtonUI.h"
 
 extern "C"
 {
@@ -20,8 +23,13 @@ class Menu : public GameStatus
 	//funcSelector is the function the selector is over
 	int funcSelector;
 	
+	//store buttions
+	ButtonUI selectBut;
+	ButtonUI drawBut;
+
 	void PrintTitle();
 	void PrintFunctions();
+	void PrintUI();
 	
 public:
 	//constructor

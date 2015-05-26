@@ -50,8 +50,15 @@ public:
 
 	void DrawLine(const int& x1, const int& y1, const int& x2, const int& y2) const;
 	
+	//STILL NEED TO IMPLIMENT FOR SDL!!
+	//drawType = 0 (overwrite)
+	//drawType = 1 (OR)
+	//drawType = 2 (Reverse colour)
+	//drawType = 3 (Or in reverse colour)
 	void PrintTextMini(const int& x, const int& y, const uString& s, const int& drawType) const;
 	
+	//drawType = 0 (black text)
+	//drawType = 1 (white text)
 	void PrintTextXY(const int& x, const int& y, const uString& s, const int& drawType) const;
 	
 	void DrawBox(const int& x1, const int& y1, const int& x2, const int& y2, bool inverted) const;

@@ -94,6 +94,13 @@ bool Object::Translation(const float& x, const float& y, const float& z)
 	return true;
 }
 
+bool Object::ResetMatrix()
+{
+	TransMat = (TransMat ^ 0);
+	needUpdate = true;
+	return true;
+}
+
 Matrix& Object::GetMat()
 {
 	return TransMat;

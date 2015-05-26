@@ -14,19 +14,25 @@ bool Grapher::LoadFunctions(Function equation[6])
 	return true;
 }
 
+bool Grapher::Reset()
+{
+	return cam.Reset();
+}
+
+
 bool Grapher::Input()
 {
 #if _MSC_VER == 1800
-	while (SDL_PollEvent(&e) != 0)
+	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
-		if (e.type == SDL_QUIT)
+		if (gRenderer->e.type == SDL_QUIT)
 		{
 			this->nextState = QUIT;
 			return false;
 		}
-		else if (e.type == SDL_KEYDOWN)
+		else if (gRenderer->e.type == SDL_KEYDOWN)
 		{
-			switch (e.key.keysym.sym)
+			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
 				cam.Rotate(0, 0, -5);
