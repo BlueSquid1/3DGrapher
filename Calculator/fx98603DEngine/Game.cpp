@@ -22,8 +22,11 @@ bool Game::UpdateCurrentState()
 		Vector max(3, 3, 3);
 		for (int i = 0; i < 6; i++)
 		{
-			funcs[i].SetGridRes(10, 10);
-			funcs[i].UpdateGrid(min, max);
+			if (funcs[i].IsDrawable())
+			{
+				funcs[i].SetGridRes(10, 10);
+				funcs[i].UpdateGrid(min, max);
+			}
 		}
 
 		//load the functions
@@ -76,11 +79,12 @@ bool Game::UpdateCurrentState()
 
 bool Game::RunCurrentState()
 {
-	bool mContinue = currentState->Input();
-
 	currentState->Proccess();
 
 	currentState->Display();
+
+	//ideally would do input first but the casio library pauses the program until user input
+	bool mContinue = currentState->Input();
 
 	return mContinue;
 }

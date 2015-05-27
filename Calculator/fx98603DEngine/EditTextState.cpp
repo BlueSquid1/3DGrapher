@@ -1,5 +1,89 @@
 #include "EditTextState.h"
 
+#if _MSC_VER == 1200
+bool EditTextState::EnteredText(unsigned int mKey)
+{
+	//workout if the user it trying to enter text
+	bool validText = true;
+
+	if(mKey >= KEY_CHAR_A && mKey <=KEY_CHAR_Z)
+	{
+		uString temp = "A";
+		temp[0] = 'A' + (mKey - KEY_CHAR_A);
+		textBuffer = temp;
+	}
+	else if (mKey >= KEY_CHAR_0 && mKey <= KEY_CHAR_9)
+	{
+		uString temp = "0";
+		temp[0] = '0' + (mKey - KEY_CHAR_0);
+		textBuffer = temp;
+	}
+	else if (mKey == KEY_CHAR_DP)
+	{
+		textBuffer = ".";
+	}
+	else if(mKey == KEY_CHAR_PMINUS)
+	{
+		textBuffer = "-";
+	}
+	else if(mKey == KEY_CHAR_PLUS)
+	{
+		textBuffer = "+";
+	}
+	else if(mKey == KEY_CHAR_MINUS)
+	{
+		textBuffer = "-";
+	}
+	else if(mKey == KEY_CHAR_MULT)
+	{
+		textBuffer = "*";
+	}
+	else if(mKey == KEY_CHAR_DIV)
+	{
+		textBuffer = "/";
+	}
+	else if(mKey == KEY_CHAR_LPAR)
+	{
+		textBuffer = "(";
+	}
+	else if(mKey == KEY_CHAR_RPAR)
+	{
+		textBuffer = ")";
+	}
+	else if(mKey == KEY_CTRL_XTT)
+	{
+		textBuffer = "X";
+	}
+	else if(mKey == KEY_CHAR_EXPN)
+	{
+		textBuffer = "Exp(";
+	}
+	else if(mKey == KEY_CHAR_SIN)
+	{
+		textBuffer = "Sin(";
+	}
+	else if(mKey == KEY_CHAR_COS)
+	{
+		textBuffer = "Cos(";
+	}
+	else if(mKey == KEY_CHAR_TAN)
+	{
+		textBuffer = "Tan(";
+	}
+	else if(mKey == KEY_CHAR_POW)
+	{
+		textBuffer = "^(";
+	}
+	else
+	{
+		//not text to enter
+		validText = false;
+	}
+	return validText;
+}
+#endif
+
+
 EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, EDITTEXT)
 {
 	curserPos = 0;
@@ -124,7 +208,7 @@ bool EditTextState::Input()
 			//insert into the string
 			uString temp = gRenderer->e.text.text;
 			text.Insert(curserPos, temp);
-			curserPos++;
+			curserPos += temp.GetLen();
 		}
 	}
 #endif
@@ -184,20 +268,15 @@ GetKey(&key);
 	default:
 		break;
 	}
-	
-	if(key >= KEY_CHAR_A && key <=KEY_CHAR_Z)
+
+	//textInput
+	if(EnteredText(key))
 	{
-		uString temp = "A";
-		temp[0] = 'A' + (key - KEY_CHAR_A);
-		text.Insert(curserPos, temp);
-		curserPos++;
-	}
-	else if (key >= KEY_CHAR_0 && key <= KEY_CHAR_9)
-	{
-		uString temp = "0";
-		temp[0] = '0' + (key - KEY_CHAR_0);
-		text.Insert(curserPos, temp);
-		curserPos++;
+		//insert into the string
+		uString temp = textBuffer;
+		this->text.Insert(curserPos, temp);
+		//move the curse down the number of charactors recently added
+		curserPos += temp.GetLen();
 	}
 #endif
 	return true;

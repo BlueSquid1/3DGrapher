@@ -251,8 +251,13 @@ bool uString::Insert(int ele, uString& mText)
 	if (this->length + size >= this->capacity)
 	{
 		//need more space
-		//double the current capacity
-		int newCapacity = 2 * capacity;
+		//keep on doubling the current capacity until it can fit everything
+		int newCapacity = capacity;
+		while (this->length + size >= newCapacity)
+		{
+			newCapacity = 2 * newCapacity;
+		}
+
 		unsigned char * textTemp = new unsigned char[newCapacity];
 
 		if (!textTemp)
@@ -299,13 +304,14 @@ bool uString::Insert(int ele, uString& mText)
 	}
 	//insert the text
 
+	//cope the data to the new string
 	for (int i = 0; i < size; i++)
 	{
 		this->text[i + ele] = mText[i];
 	}
 
 	//update the length
-	this->length++;
+	this->length += size;
 
 	return true;
 }

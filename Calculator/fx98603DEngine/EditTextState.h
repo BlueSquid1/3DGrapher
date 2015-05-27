@@ -19,6 +19,11 @@ class EditTextState : public GameStatus
 
 	int curserPos;
 
+#if _MSC_VER == 1200
+	bool EnteredText(unsigned int mKey);
+	uString textBuffer;
+#endif
+
 public:
 
 	//constructor
