@@ -8,6 +8,11 @@
 /*                                                               */
 /*****************************************************************/
 
+extern "C"
+{
+	#include <fxlib.h>
+}
+
 #include "Game.h"
 
 //****************************************************************************
@@ -26,7 +31,7 @@ extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
 {	
 	//change resolution of application here
 	Game application(127, 63);
-
+	
 	bool quit = false;
 	while (!quit)
 	{

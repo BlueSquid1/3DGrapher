@@ -54,9 +54,21 @@ bool EditTextState::EnteredText(unsigned int mKey)
 	{
 		textBuffer = "X";
 	}
+	else if(mKey == KEY_CHAR_LN)
+	{
+		textBuffer = "Ln(";
+	}
 	else if(mKey == KEY_CHAR_EXPN)
 	{
 		textBuffer = "Exp(";
+	}
+	else if(mKey == KEY_CHAR_LOG)
+	{
+		textBuffer = "Log(";
+	}
+	else if(mKey == KEY_CHAR_EXPN10)
+	{
+		textBuffer = "10^(";
 	}
 	else if(mKey == KEY_CHAR_SIN)
 	{
@@ -73,6 +85,14 @@ bool EditTextState::EnteredText(unsigned int mKey)
 	else if(mKey == KEY_CHAR_POW)
 	{
 		textBuffer = "^(";
+	}
+	else if(mKey == KEY_CHAR_SQUARE)
+	{
+		textBuffer = "^2";
+	}
+	else if(mKey == KEY_CHAR_ROOT)
+	{
+		textBuffer = "Sqrt(";
 	}
 	else
 	{

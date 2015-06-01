@@ -3,13 +3,13 @@
 [_1]
 Type=5
 Order=0
-Top=3000
-Left=540
+Top=2925
+Left=150
 Height=7830
-Width=9270
+Width=7245
 State=0
 Flags=00000020
-Setting=232:1:uString.cpp
+Setting=17:1:EditTextState.cpp
 OptionA=0
 
 [_2]
@@ -37,7 +37,7 @@ OptionA=0
 
 [_4]
 Type=7
-Order=7
+Order=8
 Top=5235
 Left=2220
 Height=2670
@@ -48,7 +48,7 @@ OptionA=0
 
 [_5]
 Type=8
-Order=5
+Order=6
 Top=7245
 Left=13605
 Height=4500
@@ -81,7 +81,7 @@ OptionA=0
 
 [_8]
 Type=17
-Order=6
+Order=7
 Top=15
 Left=0
 Height=11115
@@ -110,17 +110,17 @@ Height=10275
 Width=6675
 State=0
 Flags=00000020
-Setting=5:2:EditTextState.cpp
+Setting=33:1:Main.cpp
 OptionA=0
 
 [_33]
 Type=16
-Order=8
+Order=5
 Top=1545
 Left=1140
 Height=7680
 Width=11340
-State=16
+State=0
 Flags=00000020
-Setting=242:1:uString.cpp
+Setting=249:5:EditTextState.cpp
 OptionA=0

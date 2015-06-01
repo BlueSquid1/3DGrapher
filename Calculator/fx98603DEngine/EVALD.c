@@ -86,7 +86,7 @@ FUNCTION Funcs[] =
    { "Exp",         1,      exp },
    { "Ln",          1,      log },
    { "Log",         1,      log10 },
-   { "Sqr",         1,      sqrt },
+   { "Sqrt",         1,      sqrt },
    //{ "Floor",       1,      floor },
    //{ "Ceil",        1,      ceil },
    { "Abs",         1,      fabs },
