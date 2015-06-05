@@ -126,7 +126,13 @@ bool Menu::Input()
 				{
 					func[funcSelector].ClearGrid();
 				}
+				break;
+			}
 
+			case SDLK_F3:
+			{
+				this->nextState = VWINDOW;
+				return false;
 				break;
 			}
 
@@ -168,18 +174,6 @@ GetKey(&key);
 		funcSelector++;
 		break;
 	}
-			
-	case KEY_CHAR_PLUS:
-	{
-		
-		break;
-	}
-		
-	case KEY_CHAR_MINUS:
-	{
-		
-		break;
-	}
 	
 	case KEY_CTRL_F1:
 	{
@@ -193,6 +187,12 @@ GetKey(&key);
 		}
 		break;
 	}
+	case KEY_CTRL_F3:
+	{
+		this->nextState = VWINDOW;
+		return false;
+		break;
+	}
 
 	case KEY_CTRL_F6:
 	{
@@ -202,7 +202,12 @@ GetKey(&key);
 	}
 
 	default:
+	{
+		//if its none of the special case keys then edit the text
+		this->nextState = EDITTEXT;
+		return false;
 		break;
+	}
 	}
 #endif
 	return true;

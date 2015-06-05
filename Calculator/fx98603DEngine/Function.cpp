@@ -71,14 +71,16 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 	float Ystep = (float) (max(1) - min(1)) / ((float)this->Ygrid - 1.0);
 	float Xstep = (float) (max(0) - min(0)) / ((float)this->Xgrid - 1.0);
 	
-	//workout the increase in percentage after each loop just for loading screen
+	/*
+	//workout the increase in percentage after each loop (just for loading screen)
 	float perStep = 1.0 / (Ystep * this->Xgrid);
-	
-	float Xvalue = min(1);
+	*/
+
+	float Xvalue = min(0);
 	int counter = 0;
 	for(int x = 0; x < Xgrid; x++)
 	{
-		float Yvalue = min(0);
+		float Yvalue = min(1);
 		for (int y = 0; y < Ygrid; y++)
 		{
 			float result = Evaluate::Eval(this->GetEquation(), Xvalue, Yvalue);

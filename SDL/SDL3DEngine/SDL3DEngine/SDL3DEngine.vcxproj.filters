@@ -72,6 +72,9 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\VWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCAPS.H">
@@ -138,6 +141,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\VWindow.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

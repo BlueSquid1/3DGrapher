@@ -5,6 +5,7 @@
 #include "Grapher.h"
 #include "Menu.h"
 #include "EditTextState.h"
+#include "VWindow.h"
 
 //this class is needed so that its functions have access to the different game states.
 //originally most of this code was in main.cpp but UpdateCurrentState() needs to know where
@@ -12,9 +13,8 @@
 class Game
 {
 	Renderer gRenderer;
-	
+	VWindow ViewWindow;	
 	Grapher Engine3D;
-
 	Menu MainMenu;
 	EditTextState EditText;
 

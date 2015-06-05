@@ -16,7 +16,7 @@ void Vector::SetValues(const float& x, const float& y, const float& z)
 	this->val(0, 0) = x;
 	this->val(1, 0) = y;
 	this->val(2, 0) = z;
-	this->val(3, 0) = 1;
+	this->val(3, 0) = 1.0;
 }
 
 void Vector::operator=(const Matrix& matA)

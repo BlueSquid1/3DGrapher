@@ -212,11 +212,13 @@ bool EditTextState::Input()
 			{
 				this->nextState = MAINMENU;
 				return false;
+				break;
 			}
 			case SDLK_RETURN:
 			{
 				this->nextState = MAINMENU;
 				return false;
+				break;
 			}
 
 			default:

@@ -9,6 +9,7 @@ enum StateType
 	MAINMENU,
 	GRAPHER,
 	EDITTEXT,
+	VWINDOW,
 	QUIT
 };
 

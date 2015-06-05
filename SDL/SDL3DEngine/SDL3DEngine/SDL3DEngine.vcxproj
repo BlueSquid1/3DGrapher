@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\uString.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Vector.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\View.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\VWindow.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +55,7 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\uString.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Vector.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\View.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\VWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E18C91CE-BA07-4DC4-84DD-FC6C7742C513}</ProjectGuid>
