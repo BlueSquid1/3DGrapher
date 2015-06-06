@@ -3,6 +3,7 @@
 void VWindow::DrawSettings()
 {
 	uString settingName[10];
+
 	settingName[0] = "Xmin";
 	settingName[1] = "Xmax";
 	settingName[2] = "Ymin";
@@ -14,40 +15,39 @@ void VWindow::DrawSettings()
 	settingName[8] = "Yaw";
 	settingName[9] = "Pitch";
 
-	//workout which setting is at the top
-	int startPos = 0;
-	if (curserPos - 2 > 0)
-	{
-		//when approaching end limit the startPos
-		if (curserPos + 3 >= NUMSETTINGS)
-		{
-			startPos = NUMSETTINGS - 6;
-		}
-		else
-		{
-			startPos = curserPos - 2;
-		}
-	}
-	else
-	{
-		//near start of list
-		startPos = 0;
-	}
-
 	//can only display six settings at once
 	int counter = 0;
-	for (int i = startPos; i < startPos + 6; i++)
+	for (int i = FirstSettingsNum; i < FirstSettingsNum + 6; i++)
 	{
 		//make sure to stick inside the boundaries
-		if (i < NUMSETTINGS)
+		if (i < NUMSETTINGS && i >= 0)
 		{
+			//remember how many pixel down on the y axis the next line is
+			int yPixels = (counter + 1) * 8;
 			//draw a black box where the selector is
 			if (i == this->curserPos)
 			{
-				gRenderer->DrawBox(0, (counter + 1) * 8, 127, (counter + 1) * 8 + 8, 0);
+				gRenderer->DrawBox(0, yPixels, 127, (counter + 1) * 8 + 8, 0);
 			}
+			
+			//print title
+			gRenderer->PrintTextXY(0, yPixels, settingName[i], i == this->curserPos);
+			
+			//print seperator
+			uString spacer = ":";
+			gRenderer->PrintTextXY(gRenderer->fontWidth * 8, yPixels, spacer, i == this->curserPos);
+			
+			//print value
+			char s[15];
+			sprintf(s, "%f", this->settingsData[i]);
+			uString dataValue = s;
 
-			gRenderer->PrintTextXY(0, (counter + 1) * 8, settingName[i], i == this->curserPos);
+			gRenderer->PrintTextXY(gRenderer->fontWidth * 9, yPixels, dataValue, i == this->curserPos);
+
+		}
+		else
+		{
+			uString::ErrorPrint("trying to display a setting that is out of the setting list");
 		}
 		counter++;
 	}
@@ -58,21 +58,22 @@ void VWindow::DrawSettings()
 VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 {
 	//set initial settings
-	graphSettings.xMin = -3;
-	graphSettings.xMax = 3;
-	graphSettings.xGridRes = 10;
-	graphSettings.yMin = -3;
-	graphSettings.yMax = 3;
-	graphSettings.yGridRes = 10;
-	graphSettings.zMin = -3;
-	graphSettings.zMax = 3;
+	settingsData[xMin] = -3;
+	settingsData[xMax] = 3;
+	settingsData[xGridRes] = 10;
+	settingsData[yMin] = -3;
+	settingsData[yMax] = 3;
+	settingsData[yGridRes] = 10;
+	settingsData[zMin] = -3;
+	settingsData[zMax] = 3;
 
-	graphSettings.yawAngle = 0.0;
-	graphSettings.pitchAngle = 0.0;
+	settingsData[yawAngle] = 0.0;
+	settingsData[pitchAngle] = 0.0;
 
 
 	curserPos = 0;
 	NUMSETTINGS = 10;
+	FirstSettingsNum = 0;
 }
 
 
@@ -176,6 +177,27 @@ bool VWindow::Proccess()
 	{
 		curserPos = NUMSETTINGS - 1;
 	}
+	
+	
+	//workout which setting is at the top
+	if (curserPos - 2 > 0)
+	{
+		//when approaching end limit the FirstSettingsNum
+		if (curserPos + 3 >= NUMSETTINGS)
+		{
+			FirstSettingsNum = NUMSETTINGS - 6;
+		}
+		else
+		{
+			FirstSettingsNum = curserPos - 2;
+		}
+	}
+	else
+	{
+		//near start of list
+		FirstSettingsNum = 0;
+	}
+	
 	return true;
 }
 
@@ -193,7 +215,7 @@ void VWindow::Display()
 }
 
 
-GraphData VWindow::GetSettings()
+float* VWindow::GetSettings()
 {
-	return graphSettings;
+	return settingsData;
 }

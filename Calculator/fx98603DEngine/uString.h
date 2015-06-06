@@ -14,6 +14,7 @@ public:
 	static void ErrorPrint(const char * errorMessage);
 	static int Lenof(const char * s);
 	
+	
 	//constructors
 	uString();
 	uString(const char * s, int roughSize = 0);

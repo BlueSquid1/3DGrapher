@@ -160,3 +160,8 @@ File=C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\E
 Line=133
 Flags=00001012
 Sublevel=2
+
+[Breakpoint]
+File=C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\Game.cpp
+Line=33
+Flags=00001012

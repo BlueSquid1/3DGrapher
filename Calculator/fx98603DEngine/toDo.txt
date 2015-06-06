@@ -4,3 +4,5 @@
 
 
 -phase out mString and replace with uString
+
+- crashes with the function 1/(X^2-Y^2)

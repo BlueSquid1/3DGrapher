@@ -18,7 +18,7 @@ extern "C"
 class Evaluate
 {
 public:
-	static float Eval(uString& equation, const float& x, const float& y);
+	static float Eval(uString& equation, const float& x, const float& y, int* epos);
 };
 
 #endif
