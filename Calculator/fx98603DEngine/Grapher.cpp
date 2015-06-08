@@ -56,7 +56,28 @@ bool Grapher::Input()
 				cam.Rotate(-5 * cos(zAng), -5 * sin(zAng), 0);
 				break;
 			}
-			
+
+			case SDLK_w:
+			{
+				cam.Translation(0, 0, 0.5);
+				break;
+			}
+			case SDLK_s:
+			{
+				cam.Translation(0, 0, -0.5);
+				break;
+			}
+			case SDLK_a:
+			{
+				cam.Translation(0.5, 0, 0);
+				break;
+			}
+			case SDLK_d:
+			{
+				cam.Translation(-0.5, 0, 0);
+				break;
+			}
+
 			case SDLK_EQUALS:
 			{
 				float per = 0.95;
@@ -82,7 +103,7 @@ bool Grapher::Input()
 		}
 	}
 #endif
-
+	
 #if _MSC_VER == 1200
 unsigned int key;
 GetKey(&key);
@@ -108,6 +129,34 @@ GetKey(&key);
 		float zAng = cam.GetRotHist()(2);
 		zAng = zAng * (3.14159265 / 180.0);
 		cam.Rotate(-5 * cos(zAng), -5 * sin(zAng), 0);
+		break;
+	}
+
+	//up
+	case KEY_CHAR_8:
+	{
+		cam.Translation(0, 0, 0.5);
+		break;
+	}
+
+	//down
+	case KEY_CHAR_2:
+	{
+		cam.Translation(0, 0, -0.5);
+		break;
+	}
+
+	//left
+	case KEY_CHAR_4:
+	{
+		cam.Translation(0.5, 0, 0);
+		break;
+	}
+
+	//right
+	case KEY_CHAR_6:
+	{
+		cam.Translation(-0.5, 0, 0);
 		break;
 	}
 			

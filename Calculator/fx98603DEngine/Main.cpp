@@ -30,7 +30,7 @@ extern "C"
 extern "C" int AddIn_main(int isAppli, unsigned short OptionNum)
 {	
 	//change resolution of application here
-	Game application(127, 63);
+	Game application(128, 64);
 	
 	bool quit = false;
 	while (!quit)
