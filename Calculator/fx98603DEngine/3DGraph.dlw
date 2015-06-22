@@ -3,10 +3,10 @@
 [_1]
 Type=5
 Order=0
-Top=2730
+Top=4335
 Left=285
-Height=9720
-Width=11385
+Height=8115
+Width=6930
 State=0
 Flags=00000020
 Setting=33:1:Main.cpp

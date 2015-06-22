@@ -26,6 +26,7 @@ class Menu : public GameStatus
 	//store buttions
 	ButtonUI selectBut;
 	ButtonUI drawBut;
+	ButtonUI VWindowBut;
 
 	void PrintTitle();
 	void PrintFunctions();

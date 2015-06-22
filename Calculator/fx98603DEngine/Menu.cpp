@@ -55,6 +55,7 @@ void Menu::PrintUI()
 	//print the Fn buttons
 	this->selectBut.Render(gRenderer);
 	this->drawBut.Render(gRenderer);
+	this->VWindowBut.Render(gRenderer);
 }
 
 
@@ -63,11 +64,15 @@ Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 	this->funcSelector = 0;
 
 	//setup buttons
-	this->selectBut.SetPos(20 * 0, 7 * 8);
+	this->selectBut.SetPos(21 * 0, 7 * 8);
 	this->selectBut.SetText("Sel");
 
 	this->drawBut.SetPos(21 * 5, 7 * 8);
 	this->drawBut.SetText("Draw");
+
+	this->VWindowBut.SetPos(21 * 2, 7 * 8);
+	this->VWindowBut.SetText("VWin");
+
 }
 
 bool Menu::Input()

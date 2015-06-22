@@ -5,29 +5,33 @@
 #include "uString.h"
 
 //storage place for grapher settings
-enum
+struct Settings
 {
-	xMin,
-	xMax,
-	yMin,
-	yMax,
-	zMin,
-	zMax,
-	xGridRes,
-	yGridRes,
+	//view window boundaries
+	int xMin;
+	int xMax;
+	int yMin;
+	int yMax;
+	int zMin;
+	int zMax;
 
-	yawAngle,
-	pitchAngle,
+	//functions resolution
+	int xGridRes;
+	int yGridRes;
+
+	//camera angle
+	float yawAngle;
+	float pitchAngle;
 };
 
 
 //View Window state
 class VWindow : public GameStatus
 {
-	float settingsData[10];
-
+	Settings grapherSettings;
 	//curser points to the current setting
 	int curserPos;
+	//total number of setting entries there are
 	int NUMSETTINGS;
 	
 	int FirstSettingsNum;
@@ -41,7 +45,7 @@ public:
 	bool Proccess();
 	void Display();
 
-	float* GetSettings();
+	Settings& GetSettings();
 };
 
 #endif

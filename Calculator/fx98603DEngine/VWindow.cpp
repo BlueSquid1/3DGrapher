@@ -2,73 +2,101 @@
 
 void VWindow::DrawSettings()
 {
-	uString settingName[10];
 
-	settingName[0] = "Xmin";
-	settingName[1] = "Xmax";
-	settingName[2] = "Ymin";
-	settingName[3] = "Ymax";
-	settingName[4] = "Zmin";
-	settingName[5] = "Zmax";
-	settingName[6] = "XRes";
-	settingName[7] = "YRes";
-	settingName[8] = "Yaw";
-	settingName[9] = "Pitch";
+	//draw a box where the selector is
+	int yPos = (curserPos - FirstSettingsNum + 1) * 8;
+	gRenderer->DrawBox(0, yPos, 127, yPos + 8, 0);
 
-	//can only display six settings at once
-	int counter = 0;
-	for (int i = FirstSettingsNum; i < FirstSettingsNum + 6; i++)
+	//print a text seperator for each line
+	for (int i = 0; i < 6; i++)
 	{
-		//make sure to stick inside the boundaries
-		if (i < NUMSETTINGS && i >= 0)
-		{
-			//remember how many pixel down on the y axis the next line is
-			int yPixels = (counter + 1) * 8;
-			//draw a black box where the selector is
-			if (i == this->curserPos)
-			{
-				gRenderer->DrawBox(0, yPixels, 127, (counter + 1) * 8 + 8, 0);
-			}
-			
-			//print title
-			gRenderer->PrintTextXY(0, yPixels, settingName[i], i == this->curserPos);
-			
-			//print seperator
-			uString spacer = ":";
-			gRenderer->PrintTextXY(gRenderer->fontWidth * 8, yPixels, spacer, i == this->curserPos);
-			
-			//print value
-			char s[15];
-			sprintf(s, "%f", this->settingsData[i]);
-			uString dataValue = s;
-
-			gRenderer->PrintTextXY(gRenderer->fontWidth * 9, yPixels, dataValue, i == this->curserPos);
-
-		}
-		else
-		{
-			uString::ErrorPrint("trying to display a setting that is out of the setting list");
-		}
-		counter++;
+		gRenderer->PrintTextXY(6 * 5, (i + 1) * 8, ":", curserPos == FirstSettingsNum + i);
 	}
 
+	//print data and text
+	//keep track of how many variables displayed
+	int counter = 0;
+	char s[10];
+
+	switch (FirstSettingsNum)
+	{
+	case 0:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Xmin", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.xMin);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 1:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Xmax", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.xMax);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 2:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Ymin", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.yMin);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 3:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Ymax", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.yMax);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 4:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Zmin", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.zMin);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 5:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Zmax", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.zMax);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 6:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "XRes", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.xGridRes);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 7:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "YRes", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%d", grapherSettings.yGridRes);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 8:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Yaw", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%f", grapherSettings.yawAngle);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+
+	case 9:
+		gRenderer->PrintTextXY(0, (counter + 1) * 8, "Pitch", curserPos == counter + FirstSettingsNum);
+		sprintf(s, "%f", grapherSettings.pitchAngle);
+		gRenderer->PrintTextXY(35, (counter + 1) * 8, s, curserPos == counter + FirstSettingsNum);
+		counter++;
+	}
 }
 
 
 VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 {
 	//set initial settings
-	settingsData[xMin] = -3;
-	settingsData[xMax] = 3;
-	settingsData[xGridRes] = 10;
-	settingsData[yMin] = -3;
-	settingsData[yMax] = 3;
-	settingsData[yGridRes] = 10;
-	settingsData[zMin] = -3;
-	settingsData[zMax] = 3;
+	grapherSettings.xMin = -3;
+	grapherSettings.xMax = 3;
+	grapherSettings.xGridRes = 10;
+	grapherSettings.yMin = -3;
+	grapherSettings.yMax = 3;
+	grapherSettings.yGridRes = 10;
+	grapherSettings.zMin = -3;
+	grapherSettings.zMax = 3;
 
-	settingsData[yawAngle] = 0.0;
-	settingsData[pitchAngle] = 0.0;
+	grapherSettings.yawAngle = 0.0;
+	grapherSettings.pitchAngle = 0.0;
 
 
 	curserPos = 0;
@@ -215,7 +243,7 @@ void VWindow::Display()
 }
 
 
-float* VWindow::GetSettings()
+Settings& VWindow::GetSettings()
 {
-	return settingsData;
+	return grapherSettings;
 }

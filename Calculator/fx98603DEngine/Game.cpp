@@ -22,14 +22,14 @@ bool Game::UpdateCurrentState()
 		ViewWindow.GetSettings();
 
 		//update the grids for each function
-		int minX = ViewWindow.GetSettings()[xMin];
-		int minY = ViewWindow.GetSettings()[yMin];
-		int minZ = ViewWindow.GetSettings()[zMin];
+		int minX = ViewWindow.GetSettings().xMin;
+		int minY = ViewWindow.GetSettings().yMin;
+		int minZ = ViewWindow.GetSettings().zMin;
 		Vector min(minX, minY, minZ);
 
-		int maxX = ViewWindow.GetSettings()[xMax];
-		int maxY = ViewWindow.GetSettings()[yMax];
-		int maxZ = ViewWindow.GetSettings()[zMax];
+		int maxX = ViewWindow.GetSettings().xMax;
+		int maxY = ViewWindow.GetSettings().yMax;
+		int maxZ = ViewWindow.GetSettings().zMax;
 
 		Vector max(maxX, maxY, maxZ);
 
@@ -37,7 +37,7 @@ bool Game::UpdateCurrentState()
 		{
 			if (funcs[i].IsDrawable())
 			{
-				funcs[i].SetGridRes(ViewWindow.GetSettings()[xGridRes], ViewWindow.GetSettings()[yGridRes]);
+				funcs[i].SetGridRes(ViewWindow.GetSettings().xGridRes, ViewWindow.GetSettings().yGridRes);
 				funcs[i].UpdateGrid(min, max);
 			}
 		}
