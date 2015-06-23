@@ -165,86 +165,6 @@ void Renderer::DrawLine(int x1, int y1, int x2, int y2) const
 	}
 
 
-	/*
-	if (x2 > SCREEN_WIDTH)
-	{
-		float slope = float(y2 - y1) / float(x2 - x1);
-		//y = m * x + c
-		y2 = slope * (SCREEN_WIDTH - x1) + y1;
-		x2 = SCREEN_WIDTH;
-	}
-	else if (x2 < 0)
-	{
-	float slope = float(y2 - y1) / float(x2 - x1);
-	//y = m * x + c
-	y2 = slope * (0 - x1) + y1;
-	x2 = 0;
-	}
-
-	if (x1 > SCREEN_WIDTH)
-	{
-	float slope = float(y2 - y1) / float(x2 - x1);
-	//y = m * x + c
-	y1 = slope * (SCREEN_WIDTH - x2) + y2;
-	x1 = SCREEN_WIDTH;
-	}
-	else if (x1 < 0)
-	{
-	float slope = float(y2 - y1) / float(x2 - x1);
-	//y = m * x + c
-	y1 = slope * (0 - x2) + y2;
-	x1 = 0;
-	}
-
-	if (y2 < 0)
-	{
-	float slope = float(y2 - y1) / float(x2 - x1);
-	x2 = (0 - y1) / slope + x1;
-	y2 = 0;
-	}
-	else if (y2 > SCREEN_HEIGHT)
-	{
-	float slope = float(y2 - y1) / float(x2 - x1);
-	x2 = (SCREEN_HEIGHT - y1) / slope + x1;
-	y2 = SCREEN_HEIGHT;
-	}
-
-
-	if (y1 < 0)
-	{
-	float slope = float(y2 - y1) / float(x2 - x1);
-	x1 = (0 - y2) / slope + x2;
-	y1 = 0;
-	}
-	else if (y1 > SCREEN_HEIGHT)
-	{
-	float slope = float(y2 - y1) / float(x2 - x1);
-	x1 = (SCREEN_HEIGHT - y2) / slope + x2;
-	y1 = SCREEN_HEIGHT;
-	}
-	*/
-
-	/*
-	//make sure points are on screen
-	if(x1 < 0 || x1 >= SCREEN_WIDTH)
-	{
-	return;
-	}
-	else if (x2 < 0 || x1 >= SCREEN_WIDTH)
-	{
-	return;
-	}
-	else if (y1 < 0 || y1 >= SCREEN_HEIGHT)
-	{
-	return;
-	}
-	else if (y2 < 0 || y2 >= SCREEN_HEIGHT)
-	{
-	return;
-	}
-	*/
-
-
 
 #if _MSC_VER == 1200
 	Bdisp_DrawLineVRAM(x1, y1, x2, y2);
@@ -259,6 +179,15 @@ void Renderer::DrawLine(int x1, int y1, int x2, int y2) const
 
 void Renderer::PrintTextMini(const int& x, const int& y, const uString& s, const int& drawType) const
 {
+	if (x < 0 || x >= this->SCREEN_WIDTH)
+	{
+		return;
+	}
+	else if (y < 0 || y >= this->SCREEN_HEIGHT)
+	{
+		return;
+	}
+
 #if _MSC_VER == 1200
 	if(s.GetLen() <= 0)
 	{
@@ -325,6 +254,14 @@ void Renderer::PrintTextMini(const int& x, const int& y, const uString& s, const
 
 void Renderer::PrintTextXY(const int& x, const int& y, const uString& s, const int& drawType) const
 {
+	if (x < 0 || x >= this->SCREEN_WIDTH)
+	{
+		return;
+	}
+	else if (y < 0 || y >= this->SCREEN_HEIGHT)
+	{
+		return;
+	}
 #if _MSC_VER == 1200
 	if (s.GetLen() <= 0)
 	{
