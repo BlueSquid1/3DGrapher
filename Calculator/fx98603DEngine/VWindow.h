@@ -3,6 +3,7 @@
 
 #include "GameStatus.h"
 #include "uString.h"
+#include "EditTextState.h"
 
 //storage place for grapher settings
 struct Settings
@@ -48,6 +49,9 @@ class VWindow : public GameStatus
 	//prints all visiable settings
 	void DrawSettings();
 	//===
+
+	//moves to editTextState, returns the edited string
+	uString TextInput();
 public:
 	//constructor
 	VWindow(Renderer* gRenderer);
@@ -58,7 +62,9 @@ public:
 
 	Settings& GetSettings();
 
-	int GetCurserPos();
+	int GetCurserYPos();
+
+	uString GetCurrentDataString();
 };
 
 #endif

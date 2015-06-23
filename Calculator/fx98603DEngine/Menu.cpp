@@ -59,6 +59,37 @@ void Menu::PrintUI()
 }
 
 
+uString Menu::TextInput()
+{
+	int funcNum = this->GetFuncNum();
+	uString text = this->CurrentString();
+
+	Point TL;
+	TL.x = 18;
+	TL.y = (funcNum + 1) * 8;
+
+	Point BR;
+	BR.x = 127;
+	BR.y = TL.y + 8;
+
+	EditTextState EditText(this->gRenderer);
+
+	EditText.LoadTextAndPos(text, TL, BR);
+
+	bool mContinue = true;
+	while (mContinue == true)
+	{
+		EditText.Proccess();
+
+		EditText.Display();
+
+		//ideally would do input first but the casio library pauses the program until user input
+		mContinue = EditText.Input();
+	}
+
+	return EditText.GetText();
+}
+
 Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 {
 	this->funcSelector = 0;
@@ -90,10 +121,11 @@ bool Menu::Input()
 			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
-				this->nextState = EDITTEXT;
-				return false;
+			{
+				uString text = this->TextInput();
+				this->SetCurrentFunction(text);
 				break;
-
+			}
 			case SDLK_LEFT:
 				
 				break;
@@ -162,8 +194,8 @@ GetKey(&key);
 	switch (key)
 	{
 	case KEY_CTRL_RIGHT:
-		this->nextState = EDITTEXT;
-		return false;
+		uString text = this->TextInput();
+		this->SetCurrentFunction(text);
 		break;
 	case KEY_CTRL_LEFT:
 		
@@ -209,8 +241,8 @@ GetKey(&key);
 	default:
 	{
 		//if its none of the special case keys then edit the text
-		this->nextState = EDITTEXT;
-		return false;
+		uString text = this->TextInput();
+		this->SetCurrentFunction(text);
 		break;
 	}
 	}

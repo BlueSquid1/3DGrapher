@@ -7,6 +7,7 @@
 #include "Triangle.h"
 #include "Point.h"
 #include "ButtonUI.h"
+#include "EditTextState.h"
 
 extern "C"
 {
@@ -32,6 +33,9 @@ class Menu : public GameStatus
 	void PrintFunctions();
 	void PrintUI();
 	
+	//moves to editTextState, returns the edited string
+	uString TextInput();
+
 public:
 	//constructor
 	Menu(Renderer* origRenderer);

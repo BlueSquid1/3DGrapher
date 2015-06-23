@@ -313,9 +313,9 @@ void EditTextState::Display()
 {	
 	gRenderer->ClearScreen(topLeft, botRight);
 
-	gRenderer->PrintTextXY(18,topLeft.y, text, 0);
+	gRenderer->PrintTextXY(topLeft.x, topLeft.y, text, 0);
 	
-	int curserX = 18 + curserPos * gRenderer->fontWidth;
+	int curserX = topLeft.x + curserPos * gRenderer->fontWidth;
 	
 	gRenderer->DrawBox(curserX, topLeft.y, curserX + 1, botRight.y, 0);
 	

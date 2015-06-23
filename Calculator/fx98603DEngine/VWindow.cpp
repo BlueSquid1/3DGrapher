@@ -115,6 +115,36 @@ void VWindow::DrawSettings()
 	}
 }
 
+uString VWindow::TextInput()
+{
+	uString text = this->GetCurrentDataString();
+
+	Point TL;
+	TL.x = 35;
+	TL.y = this->GetCurserYPos();
+
+	Point BR;
+	BR.x = 127;
+	BR.y = TL.y + 8;
+
+	EditTextState EditText(this->gRenderer);
+
+	EditText.LoadTextAndPos(text, TL, BR);
+
+	bool mContinue = true;
+	while (mContinue == true)
+	{
+		EditText.Proccess();
+
+		EditText.Display();
+
+		//ideally would do input first but the casio library pauses the program until user input
+		mContinue = EditText.Input();
+	}
+
+	return EditText.GetText();
+}
+
 
 VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 {
@@ -153,10 +183,10 @@ bool VWindow::Input()
 			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
-				this->nextState = EDITTEXT;
-				return false;
+			{
+				uString text = TextInput();
 				break;
-
+			}
 			case SDLK_LEFT:
 
 				break;
@@ -281,7 +311,45 @@ Settings& VWindow::GetSettings()
 	return grapherSettings;
 }
 
-int VWindow::GetCurserPos()
+int VWindow::GetCurserYPos()
 {
-	return this->curserPos;
+	return 8 * (this->curserPos - this->FirstSettingsNum + 1);
+}
+
+uString VWindow::GetCurrentDataString()
+{
+	char s[10];
+	switch (this->curserPos)
+	{
+	case 0:
+		sprintf(s, "%d", grapherSettings.xMin);
+		return s;
+	case 1:
+		sprintf(s, "%d", grapherSettings.xMax);
+		return s;
+	case 2:
+		sprintf(s, "%d", grapherSettings.yMin);
+		return s;
+	case 3:
+		sprintf(s, "%d", grapherSettings.yMax);
+		return s;
+	case 4:
+		sprintf(s, "%d", grapherSettings.zMin);
+		return s;
+	case 5:
+		sprintf(s, "%d", grapherSettings.zMax);
+		return s;
+	case 6:
+		sprintf(s, "%d", grapherSettings.xGridRes);
+		return s;
+	case 7:
+		sprintf(s, "%d", grapherSettings.yGridRes);
+		return s;
+	case 8:
+		sprintf(s, "%f", grapherSettings.yawAngle);
+		return s;
+	case 9:
+		sprintf(s, "%f", grapherSettings.pitchAngle);
+		return s;
+	}
 }

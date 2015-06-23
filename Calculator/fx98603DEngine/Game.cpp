@@ -51,23 +51,7 @@ bool Game::UpdateCurrentState()
 		currentState = &Engine3D;
 
 	}
-	else if (from == MAINMENU && destiny == EDITTEXT)
-	{
-		int funcNum = MainMenu.GetFuncNum();
-		uString text = MainMenu.CurrentString();
 
-		Point TL;
-		TL.x = 18;
-		TL.y = (funcNum + 1) * 8;
-
-		Point BR;
-		BR.x = 127;
-		BR.y = TL.y + 8;
-
-		EditText.LoadTextAndPos(text, TL, BR);
-
-		currentState = &EditText;
-	}
 	else if (from == MAINMENU && destiny == VWINDOW)
 	{
 		currentState = &ViewWindow;
@@ -75,13 +59,6 @@ bool Game::UpdateCurrentState()
 	else if (from == GRAPHER && destiny == MAINMENU)
 	{
 
-		currentState = &MainMenu;
-	}
-	else if (from == EDITTEXT && destiny == MAINMENU)
-	{
-		uString text = EditText.GetText();
-
-		MainMenu.SetCurrentFunction(text);
 		currentState = &MainMenu;
 	}
 	else if (from == VWINDOW && destiny == MAINMENU)
