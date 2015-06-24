@@ -30,11 +30,14 @@ class Menu : public GameStatus
 	ButtonUI VWindowBut;
 
 	void PrintTitle();
-	void PrintFunctions();
+	void PrintFunctions(bool drawSelector = true);
 	void PrintUI();
 	
 	//moves to editTextState, returns the edited string
 	uString TextInput();
+
+	//same as display but does not draw the selector
+	void DisplayNoSelector();
 
 public:
 	//constructor

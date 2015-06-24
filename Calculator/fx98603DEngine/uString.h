@@ -1,6 +1,16 @@
 #ifndef USTRING_H
 #define USTRING_H
 
+extern "C"
+{
+#if _MSC_VER == 1200
+#include <fxlib.h>
+#endif
+
+#if _MSC_VER == 1800
+#include <stdio.h>
+#endif
+}
 
 class uString
 {
@@ -10,10 +20,13 @@ class uString
 	int capacity; //total number of characters the string can hold (including '\0')
 	
 	void Clear();
+
 public:
 	static void ErrorPrint(const char * errorMessage);
 	static int Lenof(const char * s);
-	
+	static int ConvertToInt(uString& sValue);
+	static float ConvertToFloat(uString& sValue);
+
 	
 	//constructors
 	uString();

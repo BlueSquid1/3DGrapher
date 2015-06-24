@@ -274,6 +274,13 @@ GetKey(&key);
 		}
 		break;
 	}
+	case KEY_CTRL_AC:
+	{
+		text = "";
+		curserPos = 0;
+		break;
+	}
+
 	case KEY_CTRL_EXE:
 	{
 		this->nextState = MAINMENU;
@@ -318,8 +325,6 @@ void EditTextState::Display()
 	int curserX = topLeft.x + curserPos * gRenderer->fontWidth;
 	
 	gRenderer->DrawBox(curserX, topLeft.y, curserX + 1, botRight.y, 0);
-	
-	//gRenderer->DrawBox(curserX, curserY, curserX + 1, curserY + gRenderer->fontHeight * 1.4, 0);
 
 	gRenderer->UpdateScreen();
 }

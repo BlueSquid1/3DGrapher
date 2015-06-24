@@ -19,7 +19,7 @@ bool VWindow::PrintSetting(int value, uString title)
 
 bool VWindow::PrintSetting(float value, uString title)
 {
-	char s[10];
+	char s[20];
 	gRenderer->PrintTextXY(0, (this->counter + 1) * 8, title, this->curserPos == this->counter + this->FirstSettingsNum);
 	sprintf(s, "%f", value);
 	gRenderer->PrintTextXY(35, (this->counter + 1) * 8, s, this->curserPos == this->counter + this->FirstSettingsNum);
@@ -145,18 +145,103 @@ uString VWindow::TextInput()
 	return EditText.GetText();
 }
 
+bool VWindow::setCurrentValue(uString sValue)
+{
+	//first check the size
+	if (sValue.GetLen() <= 0)
+	{
+		//don't override current value
+		return false;
+	}
+
+	switch (this->curserPos)
+	{
+	case 0:
+		grapherSettings.xMin = uString::ConvertToFloat(sValue);
+		break;
+	case 1:
+		grapherSettings.xMax = uString::ConvertToFloat(sValue);
+		break;
+	case 2:
+		grapherSettings.yMin = uString::ConvertToFloat(sValue);
+		break;
+	case 3:
+		grapherSettings.yMax = uString::ConvertToFloat(sValue);
+		break;
+	case 4:
+		grapherSettings.zMin = uString::ConvertToFloat(sValue);
+		break;
+	case 5:
+		grapherSettings.zMax = uString::ConvertToFloat(sValue);
+		break;
+	case 6:
+		grapherSettings.xGridRes = uString::ConvertToInt(sValue);
+		break;
+	case 7:
+		grapherSettings.yGridRes = uString::ConvertToInt(sValue);
+		break;
+	case 8:
+		grapherSettings.yawAngle = uString::ConvertToFloat(sValue);
+		break;
+	case 9:
+		grapherSettings.pitchAngle = uString::ConvertToFloat(sValue);
+		break;
+	}
+
+}
+
+bool VWindow::VWindowChecks()
+{
+	if (grapherSettings.xMin >= grapherSettings.xMax)
+	{
+		uString::ErrorPrint("Xmin has to be below Xmax");
+		return false;
+	}
+	else if (grapherSettings.yMin >= grapherSettings.yMax)
+	{
+		uString::ErrorPrint("Ymin has to be below Ymax");
+	}
+	else if (grapherSettings.zMin >= grapherSettings.zMax)
+	{
+		uString::ErrorPrint("Zmin has to be below Zmax");
+	}
+	else if (grapherSettings.xGridRes < 1)
+	{
+		uString::ErrorPrint("Xres must be greater than 0");
+	}
+	else if (grapherSettings.xGridRes > 20)
+	{
+		uString::ErrorPrint("Xres value is too high");
+	}
+	else if (grapherSettings.yGridRes < 1)
+	{
+		uString::ErrorPrint("Yres must be greater than 0");
+	}
+	else if (grapherSettings.yGridRes > 20)
+	{
+		uString::ErrorPrint("Yres value is too high");
+	}
+	else
+	{
+		//Values are all approrate
+		return true;
+	}
+
+	return false;
+}
+
 
 VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 {
 	//set initial settings
-	grapherSettings.xMin = -3;
-	grapherSettings.xMax = 3;
+	grapherSettings.xMin = -3.0;
+	grapherSettings.xMax = 3.0;
 	grapherSettings.xGridRes = 10;
-	grapherSettings.yMin = -3;
-	grapherSettings.yMax = 3;
+	grapherSettings.yMin = -3.0;
+	grapherSettings.yMax = 3.0;
 	grapherSettings.yGridRes = 10;
-	grapherSettings.zMin = -3;
-	grapherSettings.zMax = 3;
+	grapherSettings.zMin = -3.0;
+	grapherSettings.zMax = 3.0;
 
 	grapherSettings.yawAngle = 0.0;
 	grapherSettings.pitchAngle = 0.0;
@@ -175,6 +260,7 @@ bool VWindow::Input()
 	{
 		if (gRenderer->e.type == SDL_QUIT)
 		{
+			//check to see if everything is valid
 			this->nextState = QUIT;
 			return false;
 		}
@@ -185,6 +271,7 @@ bool VWindow::Input()
 			case SDLK_RIGHT:
 			{
 				uString text = TextInput();
+				setCurrentValue(text);
 				break;
 			}
 			case SDLK_LEFT:
@@ -210,8 +297,12 @@ bool VWindow::Input()
 
 			case SDLK_ESCAPE:
 			{
-				this->nextState = MAINMENU;
-				return false;
+				//check setting variables to make sure they are valid
+				if (this->VWindowChecks())
+				{
+					this->nextState = MAINMENU;
+					return false;
+				}
 				break;
 			}
 
@@ -228,10 +319,21 @@ bool VWindow::Input()
 
 	switch (key)
 	{
-	case KEY_CTRL_RIGHT:
-		this->nextState = EDITTEXT;
-		return false;
+	case KEY_CTRL_EXIT:
+		//check to see if everything is valid
+		if (this->VWindowChecks())
+		{
+			this->nextState = MAINMENU;
+			return false;
+		}
 		break;
+	case KEY_CTRL_RIGHT:
+	{
+		uString text = TextInput();
+		setCurrentValue(text);
+		break;
+	}
+
 	case KEY_CTRL_LEFT:
 
 		break;
@@ -318,26 +420,26 @@ int VWindow::GetCurserYPos()
 
 uString VWindow::GetCurrentDataString()
 {
-	char s[10];
+	char s[20];
 	switch (this->curserPos)
 	{
 	case 0:
-		sprintf(s, "%d", grapherSettings.xMin);
+		sprintf(s, "%f", grapherSettings.xMin);
 		return s;
 	case 1:
-		sprintf(s, "%d", grapherSettings.xMax);
+		sprintf(s, "%f", grapherSettings.xMax);
 		return s;
 	case 2:
-		sprintf(s, "%d", grapherSettings.yMin);
+		sprintf(s, "%f", grapherSettings.yMin);
 		return s;
 	case 3:
-		sprintf(s, "%d", grapherSettings.yMax);
+		sprintf(s, "%f", grapherSettings.yMax);
 		return s;
 	case 4:
-		sprintf(s, "%d", grapherSettings.zMin);
+		sprintf(s, "%f", grapherSettings.zMin);
 		return s;
 	case 5:
-		sprintf(s, "%d", grapherSettings.zMax);
+		sprintf(s, "%f", grapherSettings.zMax);
 		return s;
 	case 6:
 		sprintf(s, "%d", grapherSettings.xGridRes);

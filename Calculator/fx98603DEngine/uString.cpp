@@ -93,6 +93,21 @@ int uString::Lenof(const char* s)
 	return len;
 }
 
+int uString::ConvertToInt(uString& sValue)
+{
+	int output = 0;
+	sscanf((const char *)sValue.GetText(), "%d", &output);
+
+	return output;
+}
+
+float uString::ConvertToFloat(uString& sValue)
+{
+	float output = 0.0;
+	sscanf((const char *)sValue.GetText(), "%f", &output);
+	return output;
+}
+
 
 uString::uString()
 {

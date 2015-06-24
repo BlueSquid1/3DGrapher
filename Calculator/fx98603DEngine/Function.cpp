@@ -80,6 +80,7 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 	int counter = 0;
 	for(int x = 0; x < Xgrid; x++)
 	{
+		//when start new x row reset the y value
 		float Yvalue = min(1);
 		for (int y = 0; y < Ygrid; y++)
 		{
@@ -126,13 +127,13 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 			object.GetVertex(GetGrid(x, y))(0) = Xvalue;
 			object.GetVertex(GetGrid(x, y))(1) = Yvalue;
 			object.GetVertex(GetGrid(x, y))(2) = Zvalue;
-			//compute next x value
+			//compute next y value
 			Yvalue += Ystep;
 			
 			
-			if(Yvalue > (max(0) + Ystep) + 0.5) //+0.5 because floats round
+			if(Yvalue > (max(1) + Ystep) + 0.5) //+0.5 because floats round
 			{
-				uString::ErrorPrint("x variable exceeding Xmax");
+				uString::ErrorPrint("y variable exceeding Ymax");
 				return false;
 			}
 			
@@ -143,26 +144,14 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 				uString::ErrorPrint("looping too many times");
 				return false;
 			}
-			
-			//update display
-			/*
-			Bdisp_AllClr_VRAM();
-			
-			//render percentage
-			int percentage = (float)counter * perStep * 100.0;
-			unsigned char percentageText[16];
-			sprintf((char *) percentageText,"percentage: %d", percentage);
-			PrintMini(34,20,percentageText,0);
-			
-			Bdisp_PutDisp_DD();
-			*/
 		}
-		//compute next y value
+		//compute next x value
 		Xvalue += Xstep;
 		
-		if(Xvalue > (max(1) + Xstep) + 0.5) //+0.5 because floats round
+		if(Xvalue > (max(0) + Xstep) + 0.5) //+0.5 because floats round
 		{
-			return false;
+			uString::ErrorPrint("x variable exceeding Xmax");
+			//return false;
 		}
 	}
 

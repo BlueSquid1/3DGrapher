@@ -9,12 +9,12 @@
 struct Settings
 {
 	//view window boundaries
-	int xMin;
-	int xMax;
-	int yMin;
-	int yMax;
-	int zMin;
-	int zMax;
+	float xMin;
+	float xMax;
+	float yMin;
+	float yMax;
+	float zMin;
+	float zMax;
 
 	//functions resolution
 	int xGridRes;
@@ -52,6 +52,10 @@ class VWindow : public GameStatus
 
 	//moves to editTextState, returns the edited string
 	uString TextInput();
+	bool setCurrentValue(uString sValue);
+
+	//check all the VWindow settings and make sure they are valid
+	bool VWindowChecks();
 public:
 	//constructor
 	VWindow(Renderer* gRenderer);

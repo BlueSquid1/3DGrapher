@@ -9,14 +9,17 @@ void Menu::PrintTitle()
 	gRenderer->PrintTextXY(85,0, rangeVar,0);
 }
 
-void Menu::PrintFunctions()
+void Menu::PrintFunctions(bool drawSelector)
 {	
 	for(int i = 0; i < 6; i++)
 	{
-		//First draw a black box where the selector is
-		if (i == this->funcSelector)
+		if (drawSelector == true)
 		{
-			gRenderer->DrawBox(0,(i + 1) * 8, 127, (i+ 1) * 8 + 8, 0);
+			//First draw a black box where the selector is
+			if (i == this->funcSelector)
+			{
+				gRenderer->DrawBox(0, (i + 1) * 8, 127, (i + 1) * 8 + 8, 0);
+			}
 		}
 		
 		uString ID;
@@ -33,8 +36,14 @@ void Menu::PrintFunctions()
 		{
 			if(func[i].IsDrawable() == true)
 			{
+#if _MSC_VER == 1200
 				ID[2] = 0xE5;
 				ID[3] = 0xB8; //multi-byte charactor negative "="
+#endif
+#if _MSC_VER == 1800
+				ID[2] = '|';
+				ID[3] = ' ';
+#endif
 			}
 			else
 			{
@@ -43,10 +52,24 @@ void Menu::PrintFunctions()
 			}
 		}
 		
-		gRenderer->PrintTextXY(0,(i + 1) * 8, ID, i == this->funcSelector);
+		if (drawSelector == true)
+		{
+			gRenderer->PrintTextXY(0, (i + 1) * 8, ID, i == this->funcSelector);
+		}
+		else
+		{
+			gRenderer->PrintTextXY(0, (i + 1) * 8, ID, 0);
+		}
 		
 		//Print function equation
-		gRenderer->PrintTextXY(18,(i + 1) * 8, func[i].GetEquation(), i == this->funcSelector);
+		if (drawSelector == true)
+		{
+			gRenderer->PrintTextXY(18, (i + 1) * 8, func[i].GetEquation(), i == this->funcSelector);
+		}
+		else
+		{
+			gRenderer->PrintTextXY(18, (i + 1) * 8, func[i].GetEquation(), 0);
+		}
 	}
 }
 
@@ -90,6 +113,15 @@ uString Menu::TextInput()
 	return EditText.GetText();
 }
 
+void Menu::DisplayNoSelector()
+{
+	gRenderer->ClearScreen();
+	this->PrintTitle();
+	this->PrintFunctions(false);
+	this->PrintUI();
+	gRenderer->UpdateScreen();
+}
+
 Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 {
 	this->funcSelector = 0;
@@ -122,6 +154,7 @@ bool Menu::Input()
 			{
 			case SDLK_RIGHT:
 			{
+				this->DisplayNoSelector();
 				uString text = this->TextInput();
 				this->SetCurrentFunction(text);
 				break;
@@ -194,9 +227,12 @@ GetKey(&key);
 	switch (key)
 	{
 	case KEY_CTRL_RIGHT:
+	{
+		this->DisplayNoSelector();
 		uString text = this->TextInput();
 		this->SetCurrentFunction(text);
 		break;
+	}
 	case KEY_CTRL_LEFT:
 		
 		break;
@@ -241,6 +277,7 @@ GetKey(&key);
 	default:
 	{
 		//if its none of the special case keys then edit the text
+		this->DisplayNoSelector();
 		uString text = this->TextInput();
 		this->SetCurrentFunction(text);
 		break;
