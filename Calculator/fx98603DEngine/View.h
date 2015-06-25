@@ -35,7 +35,7 @@ public:
 	//f is the max value on the z axis
 	bool ViewBoundaries(const float& width, const float& height, const float& near, const float& far);
 
-	bool Reset();
+	bool Reset(int widthRange = 10, int heightRange = 10);
 
 	Vector& GetRotHist();
 

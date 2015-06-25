@@ -1,8 +1,9 @@
 #include "Grapher.h"
 
 
-Grapher::Grapher(Renderer* origRenderer) : GameStatus(origRenderer, GRAPHER)
+Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER)
 {
+	this->ViewWindow = origViewWindow;
 }
 
 bool Grapher::LoadFunctions(Function equation[6])
@@ -16,7 +17,28 @@ bool Grapher::LoadFunctions(Function equation[6])
 
 bool Grapher::Reset()
 {
-	return cam.Reset();
+	float xMin = this->ViewWindow->GetSettings().xMin;
+	float xMax = this->ViewWindow->GetSettings().xMax;
+	float xRange = xMax - xMin;
+
+	float yMin = this->ViewWindow->GetSettings().yMin;
+	float yMax = this->ViewWindow->GetSettings().yMax;
+	float yRange = yMax - yMin;
+
+	//work out which range is bigger
+	float biggerRange = 1;
+	if (xRange > yRange)
+	{
+		biggerRange = xRange;
+	}
+	else
+	{
+		biggerRange = yRange;
+	}
+
+	std::cout << biggerRange << std::endl;
+
+	return cam.Reset(biggerRange, biggerRange);
 }
 
 

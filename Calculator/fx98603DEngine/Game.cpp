@@ -1,7 +1,7 @@
 #include "Game.h"
 
 
-Game::Game(const int& widthRes, const int& heightRes) : gRenderer(widthRes, heightRes), Engine3D(&gRenderer), MainMenu(&gRenderer), EditText(&gRenderer), ViewWindow(&gRenderer)
+Game::Game(const int& widthRes, const int& heightRes) : gRenderer(widthRes, heightRes), MainMenu(&gRenderer), EditText(&gRenderer), ViewWindow(&gRenderer), Engine3D(&gRenderer, &ViewWindow)
 {
 	currentState = &MainMenu;
 }
@@ -16,10 +16,6 @@ bool Game::UpdateCurrentState()
 	{
 		//get function data from menu
 		Function* funcs = MainMenu.GetFunctions();
-
-		//create a pointer to the view settings data (for easy access)
-		//GraphData * viewData = &ViewWindow.GetSettings();
-		ViewWindow.GetSettings();
 
 		//update the grids for each function
 		int minX = ViewWindow.GetSettings().xMin;
@@ -45,7 +41,7 @@ bool Game::UpdateCurrentState()
 		//load the functions
 		Engine3D.LoadFunctions(funcs);
 
-		//reset the camera
+		//reset the 3D grapher
 		Engine3D.Reset();
 
 		currentState = &Engine3D;

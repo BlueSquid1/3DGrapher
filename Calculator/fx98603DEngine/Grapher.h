@@ -13,6 +13,7 @@
 #include "Point.h"
 #include "Triangle.h"
 #include "Mesh.h"
+#include "VWindow.h"
 
 
 #if _MSC_VER == 1800
@@ -37,14 +38,12 @@ class Grapher : public GameStatus
 
 	Function* func[6];
 
-#if _MSC_VER == 1800
-	//SDL_Event e;
-#endif
+	VWindow* ViewWindow;
 
 public:
 
 	//constructor
-	Grapher(Renderer* origRenderer);
+	Grapher(Renderer* origRenderer, VWindow * origViewWindow);
 	
 	bool LoadFunctions(Function equation[6]);
 

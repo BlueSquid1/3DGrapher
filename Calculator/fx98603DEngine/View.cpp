@@ -67,7 +67,7 @@ Vector View::Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight
 	return screen;
 }
 
-bool View::Reset()
+bool View::Reset(int widthRange, int heightRange)
 {
 	rotHist.SetValues(0,0,1);
 	this->ResetMatrix();
@@ -76,8 +76,18 @@ bool View::Reset()
 	this->Rotate(-90.0, 0.0, 0.0);
 	this->Translation(0, 2, 0);
 
+	int biggerRange = 1;
+	if (widthRange > heightRange)
+	{
+		biggerRange = widthRange;
+	}
+	else
+	{
+		biggerRange = heightRange;
+	}
+
 	//setup orthogonal matrix
-	ViewBoundaries(40, 40, -20, 20);
+	ViewBoundaries(2 * widthRange, 2 * heightRange, -biggerRange, biggerRange);
 
 	return true;
 }
