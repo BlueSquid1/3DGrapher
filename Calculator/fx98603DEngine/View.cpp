@@ -12,7 +12,7 @@ bool View::Rotate(const float& angdX, const float& angdY, const float& angdZ)
 	rotHist(1) += angdY;
 	rotHist(2) += angdZ;
 
-	Object::Rotate(angdX, angdY, angdZ);
+	Object::RotateGlobal(angdX, angdY, angdZ);
 	return true;
 }
 
@@ -72,9 +72,9 @@ bool View::Reset(int widthRange, int heightRange)
 	rotHist.SetValues(0,0,1);
 	this->ResetMatrix();
 	//set up the camera so that it uses blenders orientation
-	this->Scale(1, 1, -1);
+	this->ScaleGlobal(1, 1, -1);
 	this->Rotate(-90.0, 0.0, 0.0);
-	this->Translation(0, 2, 0);
+	this->TranslationGlobal(0, 2, 0);
 
 	int biggerRange = 1;
 	if (widthRange > heightRange)

@@ -7,6 +7,7 @@ extern "C"
 }
 
 #include "Matrix.h"
+#include "Vector.h"
 
 #define PI 3.14159265
 
@@ -21,13 +22,15 @@ public:
 	//constructor
 	Object();
 	
-	bool Scale(const float& x, const float& y, const float& z);
+	bool ScaleGlobal(const float& x, const float& y, const float& z);
 	
 	//in degrees
-	virtual bool Rotate(const float& angdX, const float& angdY, const float& angdZ);
+	virtual bool RotateGlobal(const float& angdX, const float& angdY, const float& angdZ);
 	
-	bool Translation(const float& x, const float& y, const float& z);
+	bool TranslationGlobal(const float& x, const float& y, const float& z);
 	
+	bool TranslationLocal(const float& x, const float& y, const float& z);
+
 	//reset everything back to the default
 	bool ResetMatrix();
 

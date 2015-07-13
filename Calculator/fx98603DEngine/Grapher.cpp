@@ -81,22 +81,22 @@ bool Grapher::Input()
 
 			case SDLK_w:
 			{
-				cam.Translation(0, 0, 0.5);
+				cam.TranslationLocal(0, -0.5, 0);
 				break;
 			}
 			case SDLK_s:
 			{
-				cam.Translation(0, 0, -0.5);
+				cam.TranslationLocal(0, 0.5, 0);
 				break;
 			}
 			case SDLK_a:
 			{
-				cam.Translation(0.5, 0, 0);
+				cam.TranslationLocal(-0.5, 0, 0);
 				break;
 			}
 			case SDLK_d:
 			{
-				cam.Translation(-0.5, 0, 0);
+				cam.TranslationLocal(0.5, 0, 0);
 				break;
 			}
 

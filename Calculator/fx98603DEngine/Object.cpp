@@ -9,7 +9,7 @@ Object::Object() : TransMat(4,4), InverseMat(4,4)
 	needUpdate = true;
 }
 
-bool Object::Scale(const float& x, const float& y, const float& z)
+bool Object::ScaleGlobal(const float& x, const float& y, const float& z)
 {
 	Matrix scaleMat(4,4);
 	scaleMat(3,3) = 1;
@@ -26,7 +26,7 @@ bool Object::Scale(const float& x, const float& y, const float& z)
 	return true;
 }
 
-bool Object::Rotate(const float& angdX, const float& angdY, const float& angdZ)
+bool Object::RotateGlobal(const float& angdX, const float& angdY, const float& angdZ)
 {
 	//convert from degrees to radians
 	
@@ -72,7 +72,7 @@ bool Object::Rotate(const float& angdX, const float& angdY, const float& angdZ)
 }
 
 
-bool Object::Translation(const float& x, const float& y, const float& z)
+bool Object::TranslationGlobal(const float& x, const float& y, const float& z)
 {
 	Matrix TranslationalMat(4,4);
 	TranslationalMat(0,0) = 1;
@@ -84,13 +84,26 @@ bool Object::Translation(const float& x, const float& y, const float& z)
 	TranslationalMat(1,3) = y;
 	TranslationalMat(2,3) = z;
 	
-	
-	//TransMat.Print();
-	
 	TransMat = TranslationalMat * TransMat;
 	
 	needUpdate = true;
 	
+	return true;
+}
+
+bool Object::TranslationLocal(const float& x, const float& y, const float& z)
+{
+	Vector TranslationalVec(x, y, z);
+
+	Matrix TranslationResults = TransMat * TranslationalVec;
+
+	this->TransMat(0, 3) = TranslationResults(0, 0);
+	this->TransMat(1, 3) = TranslationResults(1, 0);
+	this->TransMat(2, 3) = TranslationResults(2, 0);
+	this->TransMat(3, 3) = TranslationResults(3, 0);
+
+	needUpdate = true;
+
 	return true;
 }
 
