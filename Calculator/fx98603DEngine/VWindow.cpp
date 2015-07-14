@@ -102,13 +102,45 @@ void VWindow::DrawSettings()
 		}
 
 	case 8:
-		if (!PrintSetting(grapherSettings.yawAngle, "Yaw"))
+		if (!PrintSetting(grapherSettings.xScaling, "XScal"))
 		{
 			break;
 		}
 
 	case 9:
+		if (!PrintSetting(grapherSettings.yScaling, "YScal"))
+		{
+			break;
+		}
+	case 10:
+		if (!PrintSetting(grapherSettings.zScaling, "ZScal"))
+		{
+			break;
+		}
+
+	case 11:
+		if (!PrintSetting(grapherSettings.yawAngle, "Yaw"))
+		{
+			break;
+		}
+
+	case 12:
 		if (!PrintSetting(grapherSettings.pitchAngle, "Pitch"))
+		{
+			break;
+		}
+	case 13:
+		if (!PrintSetting(grapherSettings.xCameraPos, "Xcam"))
+		{
+			break;
+		}
+	case 14:
+		if (!PrintSetting(grapherSettings.yCameraPos, "Ycam"))
+		{
+			break;
+		}
+	case 15:
+		if (!PrintSetting(grapherSettings.zCameraPos, "Zcam"))
 		{
 			break;
 		}
@@ -181,10 +213,28 @@ bool VWindow::setCurrentValue(uString sValue)
 		grapherSettings.yGridRes = uString::ConvertToInt(sValue);
 		break;
 	case 8:
-		grapherSettings.yawAngle = uString::ConvertToFloat(sValue);
+		grapherSettings.xScaling = uString::ConvertToFloat(sValue);
 		break;
 	case 9:
+		grapherSettings.yScaling = uString::ConvertToFloat(sValue);
+		break;
+	case 10:
+		grapherSettings.zScaling = uString::ConvertToFloat(sValue);
+		break;
+	case 11:
+		grapherSettings.yawAngle = uString::ConvertToFloat(sValue);
+		break;
+	case 12:
 		grapherSettings.pitchAngle = uString::ConvertToFloat(sValue);
+		break;
+	case 13:
+		grapherSettings.xCameraPos = uString::ConvertToFloat(sValue);
+		break;
+	case 14:
+		grapherSettings.yCameraPos = uString::ConvertToFloat(sValue);
+		break;
+	case 15:
+		grapherSettings.zCameraPos = uString::ConvertToFloat(sValue);
 		break;
 	}
 
@@ -243,12 +293,20 @@ VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 	grapherSettings.zMin = -3.0;
 	grapherSettings.zMax = 3.0;
 
+	grapherSettings.xScaling = 1.0;
+	grapherSettings.yScaling = 1.0;
+	grapherSettings.zScaling = 1.0;
+
 	grapherSettings.yawAngle = 0.0;
-	grapherSettings.pitchAngle = 0.0;
+	grapherSettings.pitchAngle = 45.0;
+
+	grapherSettings.xCameraPos = 0.0;
+	grapherSettings.yCameraPos = -2.0;
+	grapherSettings.zCameraPos = 0.0;
 
 
 	curserPos = 0;
-	NUMSETTINGS = 10;
+	NUMSETTINGS = 16;
 	FirstSettingsNum = 0;
 }
 
@@ -448,10 +506,28 @@ uString VWindow::GetCurrentDataString()
 		sprintf(s, "%d", grapherSettings.yGridRes);
 		return s;
 	case 8:
-		sprintf(s, "%f", grapherSettings.yawAngle);
+		sprintf(s, "%f", grapherSettings.xScaling);
 		return s;
 	case 9:
+		sprintf(s, "%f", grapherSettings.yScaling);
+		return s;
+	case 10:
+		sprintf(s, "%f", grapherSettings.zScaling);
+		return s;
+	case 11:
+		sprintf(s, "%f", grapherSettings.yawAngle);
+		return s;
+	case 12:
 		sprintf(s, "%f", grapherSettings.pitchAngle);
+		return s;
+	case 13:
+		sprintf(s, "%f", grapherSettings.xCameraPos);
+		return s;
+	case 14:
+		sprintf(s, "%f", grapherSettings.yCameraPos);
+		return s;
+	case 15:
+		sprintf(s, "%f", grapherSettings.zCameraPos);
 		return s;
 	}
 }

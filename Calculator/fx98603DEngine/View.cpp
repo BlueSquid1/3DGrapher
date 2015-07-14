@@ -6,7 +6,7 @@ View::View() : Object(), OrthMat(4, 4, 0), rotHist()
 	this->Reset();
 }
 
-bool View::Rotate(const float& angdX, const float& angdY, const float& angdZ)
+bool View::RotateGlobal(const float& angdX, const float& angdY, const float& angdZ)
 {
 	rotHist(0) += angdX;
 	rotHist(1) += angdY;
@@ -73,8 +73,8 @@ bool View::Reset(int widthRange, int heightRange)
 	this->ResetMatrix();
 	//set up the camera so that it uses blenders orientation
 	this->ScaleGlobal(1, 1, -1);
-	this->Rotate(-90.0, 0.0, 0.0);
-	this->TranslationGlobal(0, 2, 0);
+	this->RotateGlobal(-90.0, 0.0, 0.0);
+	this->TranslationGlobal(0, 0, 0);
 
 	int biggerRange = 1;
 	if (widthRange > heightRange)

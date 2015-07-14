@@ -18,7 +18,7 @@ public:
 	//constructor
 	View();
 	
-	bool Rotate(const float& angdX, const float& angdY, const float& angdZ);
+	bool RotateGlobal(const float& angdX, const float& angdY, const float& angdZ);
 
 	Vector TransformationCoor(const Vector& vec1);
 

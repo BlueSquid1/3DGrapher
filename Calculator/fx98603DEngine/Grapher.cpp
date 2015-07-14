@@ -36,9 +36,21 @@ bool Grapher::Reset()
 		biggerRange = yRange;
 	}
 
-	std::cout << biggerRange << std::endl;
+	cam.Reset(biggerRange, biggerRange);
 
-	return cam.Reset(biggerRange, biggerRange);
+
+	float yaw = this->ViewWindow->GetSettings().yawAngle;
+	float pitch = this->ViewWindow->GetSettings().pitchAngle;
+
+	cam.RotateGlobal(pitch, 0, yaw);
+
+	float xPos = this->ViewWindow->GetSettings().xCameraPos;
+	float yPos = this->ViewWindow->GetSettings().yCameraPos;
+	float zPos = this->ViewWindow->GetSettings().zCameraPos;
+
+	cam.TranslationGlobal(xPos, yPos, zPos);
+
+	return true;
 }
 
 
@@ -57,25 +69,25 @@ bool Grapher::Input()
 			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
-				cam.Rotate(0, 0, -5);
+				cam.RotateGlobal(0, 0, -5);
 				break;
 
 			case SDLK_LEFT:
-				cam.Rotate(0, 0, 5);
+				cam.RotateGlobal(0, 0, 5);
 				break;
 
 			case SDLK_UP:
 			{
 				float zAng = cam.GetRotHist()(2);
 				zAng = zAng * (3.14159265 / 180.0);
-				cam.Rotate(5 * cos(zAng), 5 * sin(zAng), 0);
+				cam.RotateGlobal(5 * cos(zAng), 5 * sin(zAng), 0);
 				break;
 			}
 			case SDLK_DOWN:
 			{
 				float zAng = cam.GetRotHist()(2);
 				zAng = zAng * (3.14159265 / 180.0);
-				cam.Rotate(-5 * cos(zAng), -5 * sin(zAng), 0);
+				cam.RotateGlobal(-5 * cos(zAng), -5 * sin(zAng), 0);
 				break;
 			}
 
@@ -133,52 +145,52 @@ GetKey(&key);
 	switch (key)
 	{
 	case KEY_CTRL_RIGHT:
-		cam.Rotate(0, 0, -5);
+		cam.RotateGlobal(0, 0, -5);
 		break;
 	case KEY_CTRL_LEFT:
-		cam.Rotate(0, 0, 5);
+		cam.RotateGlobal(0, 0, 5);
 		break;
 
 	case KEY_CTRL_UP:
 	{
 		float zAng = cam.GetRotHist()(2);
 		zAng = zAng * (3.14159265 / 180.0);
-		cam.Rotate(5 * cos(zAng), 5 * sin(zAng), 0);
+		cam.RotateGlobal(5 * cos(zAng), 5 * sin(zAng), 0);
 		break;
 	}
 	case KEY_CTRL_DOWN:
 	{
 		float zAng = cam.GetRotHist()(2);
 		zAng = zAng * (3.14159265 / 180.0);
-		cam.Rotate(-5 * cos(zAng), -5 * sin(zAng), 0);
+		cam.RotateGlobal(-5 * cos(zAng), -5 * sin(zAng), 0);
 		break;
 	}
 
 	//up
 	case KEY_CHAR_8:
 	{
-		cam.Translation(0, 0, 0.5);
+		cam.TranslationLocal(0, -0.5, 0);
 		break;
 	}
 
 	//down
 	case KEY_CHAR_2:
 	{
-		cam.Translation(0, 0, -0.5);
+		cam.TranslationLocal(0, 0.5, 0);
 		break;
 	}
 
 	//left
 	case KEY_CHAR_4:
 	{
-		cam.Translation(0.5, 0, 0);
+		cam.TranslationLocal(-0.5, 0, 0);
 		break;
 	}
 
 	//right
 	case KEY_CHAR_6:
 	{
-		cam.Translation(-0.5, 0, 0);
+		cam.TranslationLocal(0.5, 0, 0);
 		break;
 	}
 			
@@ -220,7 +232,11 @@ bool Grapher::Proccess()
 		{
 			for (int i = 0; i < func[j]->GetObject().GetPixelstCount(); i++)
 			{
-				func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(func[j]->GetObject().GetVertex(i), gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
+				Vector Vertex = func[j]->GetObject().GetVertex(i);
+				Vertex(0) *= ViewWindow->GetSettings().xScaling;
+				Vertex(1) *= ViewWindow->GetSettings().yScaling;
+				Vertex(2) *= ViewWindow->GetSettings().zScaling;
+				func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
 			}
 		}
 	}

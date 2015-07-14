@@ -20,9 +20,18 @@ struct Settings
 	int xGridRes;
 	int yGridRes;
 
+	//axis scaling
+	float xScaling;
+	float yScaling;
+	float zScaling;
+
 	//camera angle
 	float yawAngle;
 	float pitchAngle;
+
+	float xCameraPos;
+	float yCameraPos;
+	float zCameraPos;
 };
 
 

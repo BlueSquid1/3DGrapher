@@ -122,7 +122,7 @@ Height=7680
 Width=6780
 State=0
 Flags=00000020
-Setting=310:11:VWindow.cpp
+Setting=310:1:VWindow.cpp
 OptionA=0
 
 [_34]
