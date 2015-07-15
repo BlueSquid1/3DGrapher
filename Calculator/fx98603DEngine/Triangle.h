@@ -2,6 +2,7 @@
 #define TRIANGLE_H
 
 #include "Point.h"
+#include "Vector.h"
 #include "Renderer.h"
 
 class Triangle
@@ -17,10 +18,28 @@ public:
 
 	bool SetTriangle(const Point& A, const Point& B, const Point& C);
 
-	void DrawEdges(const Renderer& gRenderer, bool P1toP2 = true, bool P2toP3 = true, bool P3toP1 = true) const;
+	//Triangle edges are maps as follows:
+	/*
 
-	void DrawSurface(const Renderer& gRenderer);
+	         P3
+	       /  |
+  (edge) /    |
+	   /      | (hypothysis)
+	P2        | 
+	   \      |
+  (edge)  \   |
+		     P1
+
+	*/
+	//only draws edges that are set to true.
+	void DrawEdges(const Renderer* gRenderer, bool P1toP2 = true, bool P2toP3 = true, bool P3toP1 = true, bool inBlack = true) const;
+
+	void DrawSurface(const Renderer* gRenderer);
+
+	Point GetCenterPoint();
 	
+	Vector GetNormal();
+
 };
 
 #endif

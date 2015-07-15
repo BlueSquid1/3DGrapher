@@ -32,6 +32,9 @@ struct Settings
 	float xCameraPos;
 	float yCameraPos;
 	float zCameraPos;
+
+	bool useTriangleMesh;
+	bool SolidMesh;
 };
 
 
@@ -51,10 +54,14 @@ class VWindow : public GameStatus
 	//the element to print next
 	int counter;
 	//print an integer setting (returns false if no more space left to print settings)
-	bool PrintSetting(int value, uString title);
+	bool PrintSetting(int value, const uString& title);
 
 	//print a float setting (returns false if no more space left to print settings)
-	bool PrintSetting(float value, uString title);
+	bool PrintSetting(float value, const uString& title);
+
+	//print a bool setting (returns false if no more space left to print settings)
+	bool PrintSetting(bool value, const uString& title);
+
 	//prints all visiable settings
 	void DrawSettings();
 	//===

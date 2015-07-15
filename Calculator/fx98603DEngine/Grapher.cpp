@@ -267,13 +267,27 @@ void Grapher::Display()
 				Point C = mObject.GetPixel(mObject.GetIndice(index * 3 + 2));
 
 				Triangle shape;
-
 				shape.SetTriangle(A, B, C);
+				Vector normalVec = shape.GetNormal();
+				Point Centre = shape.GetCenterPoint();
 
-				shape.DrawEdges(*gRenderer, true, true, true); //A2B, B2C, C2A
-
-				//for drawing surfaces of triangles
-				//shape.DrawSurface(gRenderer);
+				if (normalVec(2) <= 0) //facing camera
+				{
+					shape.DrawEdges(gRenderer, true, true, !(ViewWindow->GetSettings().useTriangleMesh), true); //A2B, B2C, C2A
+				}
+				else
+				{
+					//not facing camera
+					if (ViewWindow->GetSettings().SolidMesh)
+					{
+						shape.DrawSurface(gRenderer);
+						shape.DrawEdges(gRenderer, true, true, !(ViewWindow->GetSettings().useTriangleMesh), false); //A2B, B2C, C2A
+					}
+					else
+					{
+						shape.DrawEdges(gRenderer, true, true, !(ViewWindow->GetSettings().useTriangleMesh), true); //A2B, B2C, C2A
+					}
+				}
 			}
 		}
 	}

@@ -65,10 +65,10 @@ bool Renderer::SetColour(const Uint8& r, const Uint8& g, const Uint8& b, const U
 }
 #endif
 
-void Renderer::DrawLine(int x1, int y1, int x2, int y2) const
+void Renderer::DrawLine(int x1, int y1, int x2, int y2, bool inBlack) const
 {
 
-	if ((y1 < 0 && y2 < 0) || (y1 > SCREEN_HEIGHT&&y2 > SCREEN_HEIGHT) || (x1 < 0 && x2 < 0) || (x2 > SCREEN_WIDTH&&x1 > SCREEN_WIDTH) )
+	if ((y1 < 0 && y2 < 0) || (y1 > SCREEN_HEIGHT&&y2 > SCREEN_HEIGHT) || (x1 < 0 && x2 < 0) || (x2 > SCREEN_WIDTH&&x1 > SCREEN_WIDTH))
 	{
 		return;
 	}
@@ -167,10 +167,26 @@ void Renderer::DrawLine(int x1, int y1, int x2, int y2) const
 
 
 #if _MSC_VER == 1200
-	Bdisp_DrawLineVRAM(x1, y1, x2, y2);
+	if(inBlack)
+	{
+		Bdisp_DrawLineVRAM(x1, y1, x2, y2); //black line
+	}
+	else
+	{
+		Bdisp_ClearLineVRAM(x1, y1, x2, y2); //white line
+	}
 #endif
 
 #if _MSC_VER == 1800
+	if (inBlack)
+	{
+		SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
+	}
+	else
+	{
+		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	}
+
 	SDL_RenderDrawLine(this->gRenderer, x1, y1, x2, y2);
 #endif
 	return;

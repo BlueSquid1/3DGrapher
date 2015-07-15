@@ -1,8 +1,8 @@
 #include "VWindow.h"
 
-bool VWindow::PrintSetting(int value, uString title)
+bool VWindow::PrintSetting(int value, const uString& title)
 {
-	char s[10];
+	char s[20];
 	gRenderer->PrintTextXY(0, (this->counter + 1) * 8, title, this->curserPos == this->counter + this->FirstSettingsNum);
 	sprintf(s, "%d", value);
 	gRenderer->PrintTextXY(35, (this->counter + 1) * 8, s, this->curserPos == this->counter + this->FirstSettingsNum);
@@ -17,11 +17,36 @@ bool VWindow::PrintSetting(int value, uString title)
 	return true;
 }
 
-bool VWindow::PrintSetting(float value, uString title)
+bool VWindow::PrintSetting(float value, const uString& title)
 {
 	char s[20];
 	gRenderer->PrintTextXY(0, (this->counter + 1) * 8, title, this->curserPos == this->counter + this->FirstSettingsNum);
 	sprintf(s, "%f", value);
+	gRenderer->PrintTextXY(35, (this->counter + 1) * 8, s, this->curserPos == this->counter + this->FirstSettingsNum);
+	this->counter++;
+
+	//return false if can't fit any more settings entries on the screen
+	const int MAXNUMOFSETTINGS = 6;
+	if (this->counter >= MAXNUMOFSETTINGS)
+	{
+		return false;
+	}
+	return true;
+}
+
+bool VWindow::PrintSetting(bool value, const uString& title)
+{
+	char s[20];
+	gRenderer->PrintTextXY(0, (this->counter + 1) * 8, title, this->curserPos == this->counter + this->FirstSettingsNum);
+	
+	if (value)
+	{
+		sprintf(s, "True");
+	}
+	else
+	{
+		sprintf(s, "False");
+	}
 	gRenderer->PrintTextXY(35, (this->counter + 1) * 8, s, this->curserPos == this->counter + this->FirstSettingsNum);
 	this->counter++;
 
@@ -144,6 +169,16 @@ void VWindow::DrawSettings()
 		{
 			break;
 		}
+	case 16:
+		if (!PrintSetting(grapherSettings.useTriangleMesh, "Ngon"))
+		{
+			break;
+		}
+	case 17:
+		if (!PrintSetting(grapherSettings.SolidMesh, "Solid"))
+		{
+			break;
+		}
 	}
 }
 
@@ -236,6 +271,12 @@ bool VWindow::setCurrentValue(uString sValue)
 	case 15:
 		grapherSettings.zCameraPos = uString::ConvertToFloat(sValue);
 		break;
+	case 16:
+		grapherSettings.useTriangleMesh = uString::ConvertToInt(sValue);
+		break;
+	case 17:
+		grapherSettings.SolidMesh = uString::ConvertToInt(sValue);
+		break;
 	}
 
 }
@@ -304,9 +345,11 @@ VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 	grapherSettings.yCameraPos = -2.0;
 	grapherSettings.zCameraPos = 0.0;
 
+	grapherSettings.useTriangleMesh = true;
+	grapherSettings.SolidMesh = false;
 
 	curserPos = 0;
-	NUMSETTINGS = 16;
+	NUMSETTINGS = 18;
 	FirstSettingsNum = 0;
 }
 
@@ -528,6 +571,12 @@ uString VWindow::GetCurrentDataString()
 		return s;
 	case 15:
 		sprintf(s, "%f", grapherSettings.zCameraPos);
+		return s;
+	case 16:
+		sprintf(s, "%d", grapherSettings.useTriangleMesh);
+		return s;
+	case 17:
+		sprintf(s, "%d", grapherSettings.SolidMesh);
 		return s;
 	}
 }

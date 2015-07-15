@@ -51,7 +51,7 @@ uString& Function::GetEquation()
 {
 	return this->equation;
 }
-#include <iostream>
+
 bool Function::UpdateGrid(Vector& min, Vector& max)
 {
 	//first check if the equation has been entered
@@ -88,7 +88,7 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 			float result = 0.0;
 			result = Evaluate::Eval(this->GetEquation(), Xvalue, Yvalue, &eCode);
 			
-			/*
+			/* will use in future when I add complex numbers
 			switch (eCode)
 			{
 			case E_SYNTAX:
@@ -170,26 +170,26 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 			//or types with two vertexes on x - type 2
 
 			//type 1
-			object.GetIndice(index) = GetGrid(rowTri, colTri);
-			//std::cout << "Index: " << index << " = " << object.GetIndice(index) << std::endl;
-			index++;
-			object.GetIndice(index) = GetGrid(rowTri, colTri + 1);
-			//std::cout << "Index: " << index << " = " << object.GetIndice(index) << std::endl;
-			index++;
 			object.GetIndice(index) = GetGrid(rowTri + 1, colTri);
-			//std::cout << "Index: " << index << " = " << object.GetIndice(index) << std::endl;
-			index++;
+			index++; //3
+
+			object.GetIndice(index) = GetGrid(rowTri, colTri);
+			index++; //2
+
+			object.GetIndice(index) = GetGrid(rowTri, colTri + 1);
+			index++; //1
+
+
 
 			//type 2
-			object.GetIndice(index) = GetGrid(rowTri + 1, colTri + 1);
-			//std::cout << "Index: " << index << " = " << object.GetIndice(index) << std::endl;
-			index++;
 			object.GetIndice(index) = GetGrid(rowTri, colTri + 1);
-			//std::cout << "Index: " << index << " = " << object.GetIndice(index) << std::endl;
-			index++;
+			index++; //1
+
+			object.GetIndice(index) = GetGrid(rowTri + 1, colTri + 1);
+			index++; //2
+
 			object.GetIndice(index) = GetGrid(rowTri + 1, colTri);
-			//std::cout << "Index: " << index << " = " << object.GetIndice(index) << std::endl;
-			index++;
+			index++; //3
 		}
 	}
 	return true;

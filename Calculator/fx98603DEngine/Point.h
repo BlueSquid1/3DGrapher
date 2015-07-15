@@ -10,10 +10,10 @@ public:
 
 	int x;
 	int y;
-	int z;
+	float z;
 
 	//constructor
-	Point(int mX = 0, int mY = 0, int mZ = 0);
+	Point(int mX = 0, int mY = 0, float mZ = 0.0); //depth is too small for an int
 
 	//copy constructor
 	Point(Vector vecA);

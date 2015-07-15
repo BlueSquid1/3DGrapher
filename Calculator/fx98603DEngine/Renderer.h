@@ -48,7 +48,7 @@ public:
 	bool SetColour(const Uint8& r, const Uint8& g, const Uint8& b, const Uint8& a);
 #endif
 
-	void DrawLine(int x1, int y1, int x2, int y2) const;
+	void DrawLine(int x1, int y1, int x2, int y2, bool inBlack = true) const;
 	
 	//STILL NEED TO IMPLIMENT FOR SDL!!
 	//drawType = 0 (overwrite)

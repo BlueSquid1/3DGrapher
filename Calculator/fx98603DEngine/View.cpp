@@ -64,6 +64,8 @@ Vector View::Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight
 	float middleHeight = float(screenHeight) / 2.0;
 	screen(1) = screen(1) * middleHeight + middleHeight;
 	
+	screen(2) = screen(2) * middleHeight * 0.1;
+
 	return screen;
 }
 
