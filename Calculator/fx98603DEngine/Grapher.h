@@ -14,6 +14,7 @@
 #include "Triangle.h"
 #include "Mesh.h"
 #include "VWindow.h"
+#include "GrapherOverlay.h"
 
 
 #if _MSC_VER != 1200
@@ -35,6 +36,8 @@ extern "C"
 class Grapher : public GameStatus
 {
 	View cam;
+
+	GrapherOverlay UIOverlay;
 
 	Function* func[6];
 

@@ -42,17 +42,38 @@ bool ButtonUI::SetText(const uString& mTitle)
 	return true;
 }
 
-#if _MSC_VER == 1200
-bool ButtonUI::HandleEvent(unsigned int * e)
+
+#if _MSC_VER != 1200
+bool ButtonUI::SetTrigger(SDL_Keycode mTrigger)
 {
+	this->trigger = mTrigger;
 	return true;
+}
+
+bool ButtonUI::HandleEvent(SDL_Event * e)
+{
+	if (e->key.keysym.sym == trigger)
+	{
+		return true;
+	}
+	return false;
 }
 #endif
 
-#if _MSC_VER != 1200
-bool ButtonUI::HandleEvent(SDL_Event * e)
+#if _MSC_VER == 1200
+bool ButtonUI::SetTrigger(unsigned int mTrigger)
 {
+	this->trigger = mTrigger;
 	return true;
+}
+
+bool ButtonUI::HandleEvent(unsigned int * key)
+{
+	if(*key == trigger)
+	{
+		return true;
+	}
+	return false;
 }
 #endif
 

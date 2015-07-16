@@ -66,73 +66,81 @@ bool Grapher::Input()
 		}
 		else if (gRenderer->e.type == SDL_KEYDOWN)
 		{
-			switch (gRenderer->e.key.keysym.sym)
-			{
-			case SDLK_RIGHT:
-				cam.RotateGlobal(0, 0, -5);
-				break;
+			//first see if a UI event has occured
+			UIOverlay.Input(&gRenderer->e);
 
-			case SDLK_LEFT:
-				cam.RotateGlobal(0, 0, 5);
-				break;
+			//if a UI event has occured then turn off input to grapher
+			if (!UIOverlay.InputFromGrapherOverlay())
+			{
+				//no UI event has occured, all inputs are dirrected to the grapher
+				switch (gRenderer->e.key.keysym.sym)
+				{
+				case SDLK_RIGHT:
+					cam.RotateGlobal(0, 0, -5);
+					break;
 
-			case SDLK_UP:
-			{
-				float zAng = cam.GetRotHist()(2);
-				zAng = zAng * (3.14159265 / 180.0);
-				cam.RotateGlobal(5 * cos(zAng), 5 * sin(zAng), 0);
-				break;
-			}
-			case SDLK_DOWN:
-			{
-				float zAng = cam.GetRotHist()(2);
-				zAng = zAng * (3.14159265 / 180.0);
-				cam.RotateGlobal(-5 * cos(zAng), -5 * sin(zAng), 0);
-				break;
-			}
+				case SDLK_LEFT:
+					cam.RotateGlobal(0, 0, 5);
+					break;
 
-			case SDLK_w:
-			{
-				cam.TranslationLocal(0, -0.5, 0);
-				break;
-			}
-			case SDLK_s:
-			{
-				cam.TranslationLocal(0, 0.5, 0);
-				break;
-			}
-			case SDLK_a:
-			{
-				cam.TranslationLocal(-0.5, 0, 0);
-				break;
-			}
-			case SDLK_d:
-			{
-				cam.TranslationLocal(0.5, 0, 0);
-				break;
-			}
+				case SDLK_UP:
+				{
+					float zAng = cam.GetRotHist()(2);
+					zAng = zAng * (3.14159265 / 180.0);
+					cam.RotateGlobal(5 * cos(zAng), 5 * sin(zAng), 0);
+					break;
+				}
+				case SDLK_DOWN:
+				{
+					float zAng = cam.GetRotHist()(2);
+					zAng = zAng * (3.14159265 / 180.0);
+					cam.RotateGlobal(-5 * cos(zAng), -5 * sin(zAng), 0);
+					break;
+				}
 
-			case SDLK_EQUALS:
-			{
-				float per = 0.95;
-				cam.Zoom(per);
-				break;
-			}
+				case SDLK_w:
+				{
+					cam.TranslationLocal(0, -0.5, 0);
+					break;
+				}
+				case SDLK_s:
+				{
+					cam.TranslationLocal(0, 0.5, 0);
+					break;
+				}
+				case SDLK_a:
+				{
+					cam.TranslationLocal(-0.5, 0, 0);
+					break;
+				}
+				case SDLK_d:
+				{
+					cam.TranslationLocal(0.5, 0, 0);
+					break;
+				}
 
-			case SDLK_MINUS:
-			{
-				float per = 1.05;
-				cam.Zoom(per);
-				break;
-			}
-			case SDLK_ESCAPE:
-			{
-				this->nextState = MAINMENU;
-				return false;
-			}
+				case SDLK_EQUALS:
+				{
+					float per = 0.95;
+					cam.Zoom(per);
+					break;
+				}
 
-			default:
-				break;
+				case SDLK_MINUS:
+				{
+					float per = 1.05;
+					cam.Zoom(per);
+					break;
+				}
+				case SDLK_ESCAPE:
+				{
+					this->nextState = MAINMENU;
+					return false;
+				}
+
+				default:
+					break;
+				}
 			}
 		}
 	}
@@ -291,6 +299,9 @@ void Grapher::Display()
 			}
 		}
 	}
+
+	//render the UI overlay
+	UIOverlay.Display(gRenderer);
 
 	//update screen
 	gRenderer->UpdateScreen();

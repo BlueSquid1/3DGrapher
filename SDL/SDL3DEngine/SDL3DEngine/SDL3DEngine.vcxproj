@@ -19,6 +19,7 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Game.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GameStatus.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Menu.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Game.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GameStatus.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Grapher.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Matrix.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Menu.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Mesh.h" />
