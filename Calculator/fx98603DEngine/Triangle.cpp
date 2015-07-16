@@ -81,8 +81,8 @@ void Triangle::DrawSurface(const Renderer* gRenderer)
 	{
 		for (int y = Points[0]->y; y < Points[1]->y; y++)
 		{
-			int x2 = ex * float(y - Points[0]->y) + Points[0]->x;
-			int x1 = sx * float(y - Points[0]->y) + Points[0]->x;
+			int x1 = ex * float(y - Points[0]->y) + Points[0]->x;
+			int x2 = sx * float(y - Points[0]->y) + Points[0]->x;
 			gRenderer->DrawLine(x1, y, x2, y);
 		}
 	}

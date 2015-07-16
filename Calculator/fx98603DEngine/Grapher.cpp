@@ -56,7 +56,7 @@ bool Grapher::Reset()
 
 bool Grapher::Input()
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
 		if (gRenderer->e.type == SDL_QUIT)
@@ -247,7 +247,7 @@ bool Grapher::Proccess()
 void Grapher::Display()
 {
 	gRenderer->ClearScreen();
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	gRenderer->SetColour(0x00, 0x00, 0x00, 0xFF);
 #endif
 	
@@ -300,7 +300,7 @@ void Grapher::Display()
 
 Grapher::~Grapher()
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_Quit();
 #endif
 }

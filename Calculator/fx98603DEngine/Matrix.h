@@ -13,7 +13,7 @@ extern "C"
 	#include <math.h> // pow()
 }
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	#include <iostream>
 #endif
 
@@ -245,7 +245,7 @@ public:
 	
 	bool operator==(const Matrix& matA) const;
 	
-	#if _MSC_VER == 1800
+	#if _MSC_VER != 1200
 	//print with a message
 	void Print(const char msg[] = " ") const;
 	#endif //_MSC_VER

@@ -4,7 +4,7 @@
 	#define NULL 0
 #endif
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	#include <iostream>
 #endif
 
@@ -137,7 +137,7 @@ int Mesh::GetVertexCount()
 
 Vector& Mesh::GetVertex(const int& i)
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	//check the boundaries
 	if (i < 0 || i >= this->GetVertexCount())
 	{
@@ -149,7 +149,7 @@ Vector& Mesh::GetVertex(const int& i)
 
 Vector& Mesh::GetPixel(const int& i)
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	//check the boundaries
 	if (i < 0 || i >= this->GetPixelstCount())
 	{
@@ -162,7 +162,7 @@ Vector& Mesh::GetPixel(const int& i)
 
 int& Mesh::GetIndice(const int& i)
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	//check the boundaries
 	if (i < 0 || i >= this->GetIndicesCount())
 	{

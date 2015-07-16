@@ -12,7 +12,7 @@
 	}
 #endif
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	extern "C"
 	{
 		#include <stdio.h>
@@ -75,7 +75,7 @@ void uString::ErrorPrint(const char * errorMessage)
 }
 #endif
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 void uString::ErrorPrint(const char * errorMessage)
 {
 	std::cerr << errorMessage << "\n";

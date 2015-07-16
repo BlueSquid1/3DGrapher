@@ -31,7 +31,7 @@ public:
 #if _MSC_VER == 1200
 	bool HandleEvent(unsigned int * e);
 #endif
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	bool HandleEvent(SDL_Event * e);
 #endif
 	void Render(Renderer * gRenderer, int mX = -1, int mY = -1);

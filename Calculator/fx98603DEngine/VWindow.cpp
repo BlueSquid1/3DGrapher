@@ -356,7 +356,7 @@ VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 
 bool VWindow::Input()
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
 		if (gRenderer->e.type == SDL_QUIT)

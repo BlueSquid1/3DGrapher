@@ -130,7 +130,7 @@ bool EditTextState::LoadPosition(Point& TR, Point& BL)
 	this->botRight.x = BL.x;
 	this->botRight.y = BL.y;
 	
-	#if _MSC_VER == 1800
+	#if _MSC_VER != 1200
 	//tell OS that the program will be requesting text input
 	SDL_StartTextInput();
 	#endif
@@ -147,7 +147,7 @@ bool EditTextState::LoadTextAndPos(uString& inputText, Point& TR, Point& BL)
 
 bool EditTextState::Input()
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
 		if (gRenderer->e.type == SDL_QUIT)
@@ -333,7 +333,7 @@ void EditTextState::Display()
 
 uString& EditTextState::GetText()
 {
-	#if _MSC_VER == 1800
+	#if _MSC_VER != 1200
 	//tell OS that program has stopped text input
 	SDL_StopTextInput();
 	#endif

@@ -7,7 +7,7 @@ Renderer::Renderer(const int& width, const int& height)
 	//assuming calculator is using the default font
 	fontWidth = 6;
 #endif
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	gRenderer = NULL;
 	gWindow = NULL;
 
@@ -57,7 +57,7 @@ Renderer::Renderer(const int& width, const int& height)
 #endif
 }
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 bool Renderer::SetColour(const Uint8& r, const Uint8& g, const Uint8& b, const Uint8& a)
 {	
 	SDL_SetRenderDrawColor(gRenderer, r, g, b, a);
@@ -177,7 +177,7 @@ void Renderer::DrawLine(int x1, int y1, int x2, int y2, bool inBlack) const
 	}
 #endif
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	if (inBlack)
 	{
 		SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
@@ -212,7 +212,7 @@ void Renderer::PrintTextMini(const int& x, const int& y, const uString& s, const
 	PrintMini(x,y,s.GetText(),drawType);
 #endif
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_Color textColor;
 	if (drawType == 0)
 	{
@@ -287,7 +287,7 @@ void Renderer::PrintTextXY(const int& x, const int& y, const uString& s, const i
 	PrintXY(x,y,s.GetText(),drawType);
 #endif
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_Color textColor;
 
 	if (drawType == 0)
@@ -371,7 +371,7 @@ void Renderer::DrawBox(const int& x1, const int& y1, const int& x2, const int& y
 		}
 	}
 #endif
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	if (inverted == 0)
 	{
 		SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
@@ -391,7 +391,7 @@ void Renderer::DrawBox(const int& x1, const int& y1, const int& x2, const int& y
 
 void Renderer::ClearScreen() const
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(gRenderer);
 #endif
@@ -402,7 +402,7 @@ void Renderer::ClearScreen() const
 
 void Renderer::ClearScreen(Point topLeft, Point botRight) const
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 	SDL_Rect viewBoundaries;
@@ -427,7 +427,7 @@ void Renderer::ClearScreen(Point topLeft, Point botRight) const
 
 void Renderer::UpdateScreen() const
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_RenderPresent(gRenderer);
 #endif
 #if _MSC_VER == 1200
@@ -437,7 +437,7 @@ void Renderer::UpdateScreen() const
 
 Renderer::~Renderer()
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 

@@ -49,7 +49,7 @@ bool ButtonUI::HandleEvent(unsigned int * e)
 }
 #endif
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 bool ButtonUI::HandleEvent(SDL_Event * e)
 {
 	return true;

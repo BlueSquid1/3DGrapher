@@ -522,7 +522,7 @@ Matrix::~Matrix()
 	ClearArray();
 }
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 void Matrix::Print(const char * msg) const
 {
 	std::cout << msg << std::endl;

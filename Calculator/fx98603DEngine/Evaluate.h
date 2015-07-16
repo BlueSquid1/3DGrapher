@@ -3,7 +3,7 @@
 
 
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	#include <iostream>
 #endif
 

@@ -6,7 +6,7 @@
 #endif
 
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	#include <SDL.h>
 	#include <SDL_ttf.h> //for rendering text to screen
 #endif
@@ -29,7 +29,7 @@ public:
 	const int SCREEN_WIDTH;
 	const int SCREEN_HEIGHT;
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_Window * gWindow;
 	SDL_Renderer * gRenderer;
 	SDL_Event e;
@@ -44,7 +44,7 @@ public:
 	//constructor
 	Renderer(const int& width, const int& height);
 
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	bool SetColour(const Uint8& r, const Uint8& g, const Uint8& b, const Uint8& a);
 #endif
 

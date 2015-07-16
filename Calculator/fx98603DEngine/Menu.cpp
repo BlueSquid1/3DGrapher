@@ -40,7 +40,7 @@ void Menu::PrintFunctions(bool drawSelector)
 				ID[2] = 0xE5;
 				ID[3] = 0xB8; //multi-byte charactor negative "="
 #endif
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 				ID[2] = '|';
 				ID[3] = ' ';
 #endif
@@ -140,7 +140,7 @@ Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 
 bool Menu::Input()
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
 		if (gRenderer->e.type == SDL_QUIT)
@@ -339,7 +339,7 @@ Function* Menu::GetFunctions()
 
 Menu::~Menu()
 {
-#if _MSC_VER == 1800
+#if _MSC_VER != 1200
 	SDL_Quit();
 #endif
 }
