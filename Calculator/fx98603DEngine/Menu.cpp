@@ -129,13 +129,30 @@ Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 	//setup buttons
 	this->selectBut.SetPos(21 * 0, 7 * 8);
 	this->selectBut.SetText("Sel");
+#if _MSC_VER != 1200
+	this->selectBut.SetTrigger(SDLK_F1);
+#endif
+#if _MSC_VER == 1200
+	this->selectBut.SetTrigger(KEY_CTRL_F1);
+#endif
 
 	this->drawBut.SetPos(21 * 5, 7 * 8);
 	this->drawBut.SetText("Draw");
+#if _MSC_VER != 1200
+	this->drawBut.SetTrigger(SDLK_F6);
+#endif
+#if _MSC_VER == 1200
+	this->drawBut.SetTrigger(KEY_CTRL_F6);
+#endif
 
 	this->VWindowBut.SetPos(21 * 2, 7 * 8);
 	this->VWindowBut.SetText("VWin");
-
+#if _MSC_VER != 1200
+	this->VWindowBut.SetTrigger(SDLK_F3);
+#endif
+#if _MSC_VER == 1200
+	this->VWindowBut.SetTrigger(KEY_CTRL_F3);
+#endif
 }
 
 bool Menu::Input()
@@ -150,45 +167,8 @@ bool Menu::Input()
 		}
 		else if (gRenderer->e.type == SDL_KEYDOWN)
 		{
-			switch (gRenderer->e.key.keysym.sym)
+			if (selectBut.HandleEvent(&gRenderer->e))
 			{
-			case SDLK_RIGHT:
-			{
-				this->DisplayNoSelector();
-				uString text = this->TextInput();
-				this->SetCurrentFunction(text);
-				break;
-			}
-			case SDLK_LEFT:
-				
-				break;
-
-			case SDLK_UP:
-			{
-				funcSelector--;
-				break;
-			}
-			case SDLK_DOWN:
-			{
-				funcSelector++;
-				break;
-			}
-			
-			case SDLK_EQUALS:
-			{
-				
-				break;
-			}
-
-			case SDLK_MINUS:
-			{
-				
-				break;
-			}
-
-			case SDLK_F1:
-			{
-				//invert the drawablity of current function
 				func[funcSelector].SetDrawable(!func[funcSelector].IsDrawable());
 
 				//if function is no longer drawable then delete the grid
@@ -196,61 +176,56 @@ bool Menu::Input()
 				{
 					func[funcSelector].ClearGrid();
 				}
-				break;
 			}
-
-			case SDLK_F3:
+			else if (VWindowBut.HandleEvent(&gRenderer->e))
 			{
 				this->nextState = VWINDOW;
 				return false;
-				break;
 			}
-
-			case SDLK_F6:
+			else if (drawBut.HandleEvent(&gRenderer->e))
 			{
 				this->nextState = GRAPHER;
 				return false;
-				break;
 			}
+			else
+			{
+				switch (gRenderer->e.key.keysym.sym)
+				{
+				case SDLK_RIGHT:
+				{
+					this->DisplayNoSelector();
+					uString text = this->TextInput();
+					this->SetCurrentFunction(text);
+					break;
+				}
+				case SDLK_LEFT:
+				{
+					break;
+				}
+				case SDLK_UP:
+				{
+					funcSelector--;
+					break;
+				}
+				case SDLK_DOWN:
+				{
+					funcSelector++;
+					break;
+				}
 
-			default:
-				break;
+				default:
+					break;
+				}
 			}
 		}
 	}
 #endif
 
 #if _MSC_VER == 1200
-unsigned int key;
-GetKey(&key);
-
-	switch (key)
+	unsigned int key;
+	GetKey(&key);
+	if (selectBut.HandleEvent(&key))
 	{
-	case KEY_CTRL_RIGHT:
-	{
-		this->DisplayNoSelector();
-		uString text = this->TextInput();
-		this->SetCurrentFunction(text);
-		break;
-	}
-	case KEY_CTRL_LEFT:
-		
-		break;
-
-	case KEY_CTRL_UP:
-	{
-		funcSelector--;
-		break;
-	}
-	case KEY_CTRL_DOWN:
-	{
-		funcSelector++;
-		break;
-	}
-	
-	case KEY_CTRL_F1:
-	{
-		//invert the drawablity of current function
 		func[funcSelector].SetDrawable(!func[funcSelector].IsDrawable());
 
 		//if function is no longer drawable then delete the grid
@@ -258,30 +233,52 @@ GetKey(&key);
 		{
 			func[funcSelector].ClearGrid();
 		}
-		break;
 	}
-	case KEY_CTRL_F3:
+	else if (VWindowBut.HandleEvent(&key))
 	{
 		this->nextState = VWINDOW;
 		return false;
-		break;
 	}
-
-	case KEY_CTRL_F6:
+	else if (drawBut.HandleEvent(&key))	
 	{
 		this->nextState = GRAPHER;
 		return false;
-		break;
 	}
-
-	default:
+	else
 	{
-		//if its none of the special case keys then edit the text
-		this->DisplayNoSelector();
-		uString text = this->TextInput();
-		this->SetCurrentFunction(text);
-		break;
-	}
+		switch (key)
+		{
+		case KEY_CTRL_RIGHT:
+		{
+			this->DisplayNoSelector();
+			uString text = this->TextInput();
+			this->SetCurrentFunction(text);
+			break;
+		}
+		case KEY_CTRL_LEFT:
+
+			break;
+
+		case KEY_CTRL_UP:
+		{
+			funcSelector--;
+			break;
+		}
+		case KEY_CTRL_DOWN:
+		{
+			funcSelector++;
+			break;
+		}
+
+		default:
+		{
+			//if its none of the special case keys then edit the text
+			this->DisplayNoSelector();
+			uString text = this->TextInput();
+			this->SetCurrentFunction(text);
+			break;
+		}
+		}
 	}
 #endif
 	return true;

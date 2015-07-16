@@ -12,6 +12,12 @@ GrapherOverlay::GrapherOverlay()
 
 	this->TraceBut.SetPos(21 * 0, 7 * 8);
 	this->TraceBut.SetText("Trce");
+#if _MSC_VER != 1200
+	this->TraceBut.SetTrigger(SDLK_F1);
+#endif
+#if _MSC_VER == 1200
+	this->TraceBut.SetTrigger(KEY_CTRL_F1);
+#endif
 }
 
 bool GrapherOverlay::InputFromGrapherOverlay()
@@ -22,10 +28,8 @@ bool GrapherOverlay::InputFromGrapherOverlay()
 #if _MSC_VER != 1200
 bool GrapherOverlay::Input(SDL_Event * e)
 {
-	switch (e->key.keysym.sym)
+	if (TraceBut.HandleEvent(e))
 	{
-	case SDLK_F1:
-		//Tracer mode
 		UIMode = TRACER;
 	}
 
@@ -36,11 +40,11 @@ bool GrapherOverlay::Input(SDL_Event * e)
 #if _MSC_VER == 1200
 bool GrapherOverlay::Input(unsigned int * key)
 {
-	switch(*key)
+	if(TraceBut.HandleEvent(key))
 	{
-	case KEY_CTRL_F1:
 		UIMode = TRACER;
 	}
+	return true;
 }
 #endif
 

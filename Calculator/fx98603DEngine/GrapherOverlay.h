@@ -7,6 +7,9 @@
 #if _MSC_VER != 1200
 	#include <SDL.h>
 #endif
+#if _MSC_VER == 1200
+	#include <fxlib.h>
+#endif
 
 enum UIModes
 {

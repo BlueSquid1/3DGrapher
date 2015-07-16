@@ -10,7 +10,10 @@
 #include "Renderer.h"
 
 #if _MSC_VER != 1200
-#include <SDL.h>
+	#include <SDL.h>
+#endif
+#if _MSC_VER == 1200
+	#include <fxlib.h>
 #endif
 
 class ButtonUI
