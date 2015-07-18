@@ -1,10 +1,17 @@
 #include "GrapherOverlay.h"
 
-bool GrapherOverlay::Tracer()
+void DrawCurser(int x, int y)
 {
-	return true;
+	
 }
 
+void GrapherOverlay::reset()
+{
+	if (!this->func)
+	{
+		uString::ErrorPrint("func for override interface has not been set");
+	}
+}
 
 GrapherOverlay::GrapherOverlay()
 {
@@ -18,6 +25,12 @@ GrapherOverlay::GrapherOverlay()
 #if _MSC_VER == 1200
 	this->TraceBut.SetTrigger(KEY_CTRL_F1);
 #endif
+	
+	TraceLoc(0) = 0.0;
+	TraceLoc(1) = 0.0;
+	TraceLoc(2) = 0.0;
+
+	this->func = NULL;
 }
 
 bool GrapherOverlay::InputFromGrapherOverlay()
@@ -26,12 +39,20 @@ bool GrapherOverlay::InputFromGrapherOverlay()
 }
 
 #if _MSC_VER != 1200
-bool GrapherOverlay::Input(SDL_Event * e)
+bool GrapherOverlay::Input(SDL_Event * e, Function * functions[])
 {
-	if (TraceBut.HandleEvent(e))
+	//if not activated
+	if (UIMode == NONE)
 	{
-		UIMode = TRACER;
+		//see if trace has been triggered
+		if (TraceBut.HandleEvent(e))
+		{
+			UIMode = TRACER;
+			this->func = functions[0];
+			reset();
+		}
 	}
+
 
 	return true;
 }
@@ -40,18 +61,34 @@ bool GrapherOverlay::Input(SDL_Event * e)
 #if _MSC_VER == 1200
 bool GrapherOverlay::Input(unsigned int * key)
 {
-	if(TraceBut.HandleEvent(key))
+	//if not activated
+	if (UIMode == NONE)
 	{
-		UIMode = TRACER;
+		if(TraceBut.HandleEvent(key))
+		{
+			UIMode = TRACER;
+			this->func = functions[0];
+			reset();
+		}
 	}
 	return true;
 }
 #endif
 
+bool GrapherOverlay::Proccess()
+{
+	return true;
+}
 
 
 void GrapherOverlay::Display(Renderer* gRenderer)
 {
 	//Render the buttons
 	TraceBut.Render(gRenderer);
+	
+	if (UIMode == TRACER)
+	{
+		gRenderer->DrawBox(0, 0,10,10,0);
+		//draw curser
+	}
 }

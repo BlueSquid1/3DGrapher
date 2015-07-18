@@ -127,6 +127,7 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 			object.GetVertex(GetGrid(x, y))(0) = Xvalue;
 			object.GetVertex(GetGrid(x, y))(1) = Yvalue;
 			object.GetVertex(GetGrid(x, y))(2) = Zvalue;
+
 			//compute next y value
 			Yvalue += Ystep;
 			
@@ -151,7 +152,7 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 		if(Xvalue > (max(0) + Xstep) + 0.5) //+0.5 because floats round
 		{
 			uString::ErrorPrint("x variable exceeding Xmax");
-			//return false;
+			return false;
 		}
 	}
 
@@ -171,27 +172,31 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 
 			//type 1
 			object.GetIndice(index) = GetGrid(rowTri + 1, colTri);
-			index++; //3
+			index++;
 
 			object.GetIndice(index) = GetGrid(rowTri, colTri);
-			index++; //2
+			index++;
 
 			object.GetIndice(index) = GetGrid(rowTri, colTri + 1);
-			index++; //1
+			index++;
 
 
 
 			//type 2
 			object.GetIndice(index) = GetGrid(rowTri, colTri + 1);
-			index++; //1
+			index++;
 
 			object.GetIndice(index) = GetGrid(rowTri + 1, colTri + 1);
-			index++; //2
+			index++;
 
 			object.GetIndice(index) = GetGrid(rowTri + 1, colTri);
-			index++; //3
+			index++;
 		}
 	}
+
+	//store the upper and lower boundaries
+	lowerBoundary = min;
+	UpperBoundary = max;
 	return true;
 }
 

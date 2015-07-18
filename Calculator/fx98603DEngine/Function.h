@@ -15,6 +15,9 @@ class Function
 	int Xgrid;
 	int Ygrid;
 	
+	Vector lowerBoundary;
+	Vector UpperBoundary;
+
 	Mesh object;
 
 public:
@@ -39,6 +42,9 @@ public:
 	
 	bool IsDrawable();
 	
+	Vector GetLowerBoundary();
+	Vector GetUpperBoundary();
+
 };
 
 #endif

@@ -67,7 +67,7 @@ bool Grapher::Input()
 		else if (gRenderer->e.type == SDL_KEYDOWN)
 		{
 			//first see if a UI event has occured
-			UIOverlay.Input(&gRenderer->e);
+			UIOverlay.Input(&gRenderer->e, func);
 
 			//if a UI event has occured then turn off input to grapher
 			if (!UIOverlay.InputFromGrapherOverlay())
@@ -231,22 +231,32 @@ GetKey(&key);
 
 bool Grapher::Proccess()
 {
-	for (int j = 0; j < 6; j++)
+	//see if UI is overriding grapher
+	if (!UIOverlay.InputFromGrapherOverlay())
 	{
-		//each function
-
-		//if the function the do the projection
-		if (func[j]->IsDrawable())
+		//grapher processing
+		for (int j = 0; j < 6; j++)
 		{
-			for (int i = 0; i < func[j]->GetObject().GetPixelstCount(); i++)
+			//each function
+
+			//if the function the do the projection
+			if (func[j]->IsDrawable())
 			{
-				Vector Vertex = func[j]->GetObject().GetVertex(i);
-				Vertex(0) *= ViewWindow->GetSettings().xScaling;
-				Vertex(1) *= ViewWindow->GetSettings().yScaling;
-				Vertex(2) *= ViewWindow->GetSettings().zScaling;
-				func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
+				for (int i = 0; i < func[j]->GetObject().GetPixelstCount(); i++)
+				{
+					Vector Vertex = func[j]->GetObject().GetVertex(i);
+					Vertex(0) *= ViewWindow->GetSettings().xScaling;
+					Vertex(1) *= ViewWindow->GetSettings().yScaling;
+					Vertex(2) *= ViewWindow->GetSettings().zScaling;
+					func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
+				}
 			}
 		}
+	}
+	else
+	{
+		//UI override
+		UIOverlay.Proccess();
 	}
 	
 	return true;
