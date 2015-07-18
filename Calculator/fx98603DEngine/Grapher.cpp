@@ -1,7 +1,7 @@
 #include "Grapher.h"
 
 
-Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER)
+Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER), UIOverlay(origRenderer, &cam)
 {
 	this->ViewWindow = origViewWindow;
 }
@@ -145,85 +145,91 @@ bool Grapher::Input()
 		}
 	}
 #endif
-	
+
 #if _MSC_VER == 1200
-unsigned int key;
-GetKey(&key);
+	unsigned int key;
+	GetKey(&key);
 
-	switch (key)
-	{
-	case KEY_CTRL_RIGHT:
-		cam.RotateGlobal(0, 0, -5);
-		break;
-	case KEY_CTRL_LEFT:
-		cam.RotateGlobal(0, 0, 5);
-		break;
+	//first see if a UI event has occured
+	UIOverlay.Input(&key, func);
 
-	case KEY_CTRL_UP:
+	if (!UIOverlay.InputFromGrapherOverlay())
 	{
-		float zAng = cam.GetRotHist()(2);
-		zAng = zAng * (3.14159265 / 180.0);
-		cam.RotateGlobal(5 * cos(zAng), 5 * sin(zAng), 0);
-		break;
-	}
-	case KEY_CTRL_DOWN:
-	{
-		float zAng = cam.GetRotHist()(2);
-		zAng = zAng * (3.14159265 / 180.0);
-		cam.RotateGlobal(-5 * cos(zAng), -5 * sin(zAng), 0);
-		break;
-	}
+		switch (key)
+		{
+		case KEY_CTRL_RIGHT:
+			cam.RotateGlobal(0, 0, -5);
+			break;
+		case KEY_CTRL_LEFT:
+			cam.RotateGlobal(0, 0, 5);
+			break;
 
-	//up
-	case KEY_CHAR_8:
-	{
-		cam.TranslationLocal(0, -0.5, 0);
-		break;
-	}
+		case KEY_CTRL_UP:
+		{
+			float zAng = cam.GetRotHist()(2);
+			zAng = zAng * (3.14159265 / 180.0);
+			cam.RotateGlobal(5 * cos(zAng), 5 * sin(zAng), 0);
+			break;
+		}
+		case KEY_CTRL_DOWN:
+		{
+			float zAng = cam.GetRotHist()(2);
+			zAng = zAng * (3.14159265 / 180.0);
+			cam.RotateGlobal(-5 * cos(zAng), -5 * sin(zAng), 0);
+			break;
+		}
 
-	//down
-	case KEY_CHAR_2:
-	{
-		cam.TranslationLocal(0, 0.5, 0);
-		break;
-	}
+		//up
+		case KEY_CHAR_8:
+		{
+			cam.TranslationLocal(0, -0.5, 0);
+			break;
+		}
 
-	//left
-	case KEY_CHAR_4:
-	{
-		cam.TranslationLocal(-0.5, 0, 0);
-		break;
-	}
+		//down
+		case KEY_CHAR_2:
+		{
+			cam.TranslationLocal(0, 0.5, 0);
+			break;
+		}
 
-	//right
-	case KEY_CHAR_6:
-	{
-		cam.TranslationLocal(0.5, 0, 0);
-		break;
-	}
-			
-	case KEY_CHAR_PLUS:
-	{
-		float per = 0.95;
-		cam.Zoom(per);
-		break;
-	}
-		
-	case KEY_CHAR_MINUS:
-	{
-		float per = 1.05;
-		cam.Zoom(per);
-		break;
-	}
-	
-	case KEY_CTRL_EXIT:
-	{
-		this->nextState = MAINMENU;
-		return false;
-	}
-	
-	default:
-		break;
+		//left
+		case KEY_CHAR_4:
+		{
+			cam.TranslationLocal(-0.5, 0, 0);
+			break;
+		}
+
+		//right
+		case KEY_CHAR_6:
+		{
+			cam.TranslationLocal(0.5, 0, 0);	
+			break;
+		}
+
+		case KEY_CHAR_PLUS:
+		{
+			float per = 0.95;
+			cam.Zoom(per);
+			break;
+		}
+
+		case KEY_CHAR_MINUS:
+		{
+			float per = 1.05;
+			cam.Zoom(per);
+			break;
+		}
+
+		case KEY_CTRL_EXIT:
+		{
+			this->nextState = MAINMENU;
+			return false;
+		}
+
+		default:
+			break;
+		}
 	}
 #endif
 	return true;
@@ -311,7 +317,7 @@ void Grapher::Display()
 	}
 
 	//render the UI overlay
-	UIOverlay.Display(gRenderer);
+	UIOverlay.Display();
 
 	//update screen
 	gRenderer->UpdateScreen();

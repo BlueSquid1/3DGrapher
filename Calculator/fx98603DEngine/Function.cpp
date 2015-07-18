@@ -88,38 +88,6 @@ bool Function::UpdateGrid(Vector& min, Vector& max)
 			float result = 0.0;
 			result = Evaluate::Eval(this->GetEquation(), Xvalue, Yvalue, &eCode);
 			
-			/* will use in future when I add complex numbers
-			switch (eCode)
-			{
-			case E_SYNTAX:
-				uString::ErrorPrint("Syntax Error");
-				break;
-			case E_UNBALAN:
-				uString::ErrorPrint("Unbalanced parenthesis");
-				break;
-			case E_DIVZERO:
-				uString::ErrorPrint("Attempted division by zero");
-				break;
-			case E_UNKNOWN:
-				uString::ErrorPrint("Reference to unknown variable");
-				break;
-			case E_MAXVARS:
-				uString::ErrorPrint("Maximum variables exceeded");
-				break;
-			case E_BADFUNC:
-				uString::ErrorPrint("Unrecognised function");
-				break;
-			case E_NUMARGS:
-				uString::ErrorPrint("Wrong number of arguments to function");
-				break;
-			case E_NOARG:
-				uString::ErrorPrint("Missing an argument to a function");
-				break;
-			case E_EMPTY:
-				uString::ErrorPrint("Empty expression");
-				break;
-			}
-			*/
 			
 			float Zvalue = result;
 			
@@ -248,4 +216,16 @@ void Function::SetDrawable(bool state)
 bool Function::IsDrawable()
 {
 	return this->drawable;
+}
+
+
+Vector Function::GetLowerBoundary()
+{
+	return this->lowerBoundary;
+}
+
+
+Vector Function::GetUpperBoundary()
+{
+	return this->UpperBoundary;
 }

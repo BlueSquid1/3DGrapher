@@ -6,6 +6,9 @@
 #include "Vector.h"
 #include "Function.h"
 #include "uString.h"
+#include "Evaluate.h"
+#include "View.h"
+#include "Point.h"
 
 #if _MSC_VER != 1200
 	#include <SDL.h>
@@ -26,18 +29,23 @@ enum UIModes
 
 class GrapherOverlay
 {
+	Renderer * gRenderer;
+	View * cam;
+
 	UIModes UIMode;
 
 	ButtonUI TraceBut;
 	Vector TraceLoc;
+	Point PixelsLoc;
 
 	Function *func;
 
+	void DrawCoor();
 	void DrawCurser(int x, int y);
 
 	void reset();
 public:
-	GrapherOverlay();
+	GrapherOverlay(Renderer* gRenderer, View * mCam);
 
 	bool InputFromGrapherOverlay();
 #if _MSC_VER != 1200
@@ -45,12 +53,12 @@ public:
 #endif
 
 #if _MSC_VER == 1200
-	bool Input(unsigned int * key);
+	bool Input(unsigned int * key, Function * functions[]);
 #endif
 
 	bool Proccess();
 
-	void Display(Renderer* gRenderer);
+	void Display();
 };
 
 #endif
