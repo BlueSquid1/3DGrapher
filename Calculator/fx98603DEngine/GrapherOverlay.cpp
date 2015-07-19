@@ -51,7 +51,11 @@ void GrapherOverlay::reset()
 	if (!this->func)
 	{
 		uString::ErrorPrint("func for override interface has not been set");
+		return;
 	}
+
+	TraceLoc(0) = (this->func->GetUpperBoundary()(0) - this->func->GetLowerBoundary()(0)) /2.0;
+	TraceLoc(1) = (this->func->GetUpperBoundary()(1) - this->func->GetLowerBoundary()(1)) /2.0;
 }
 
 GrapherOverlay::GrapherOverlay(Renderer* mGRenderer, View * mCam)
@@ -121,6 +125,9 @@ bool GrapherOverlay::Input(SDL_Event * e, Function * functions[])
 			case SDLK_ESCAPE:
 				UIMode = NONE;
 				break;
+			case SDLK_F1:
+				UIMode = NONE;
+				break;
 			}
 		}
 	}
@@ -167,13 +174,16 @@ bool GrapherOverlay::Input(unsigned int * key, Function * functions[])
 		case KEY_CTRL_EXIT:
 			UIMode = NONE;
 			break;
+		case KEY_CTRL_F1:
+			UIMode = NONE;
+			break;
 		}
 	}
 	return true;
 }
 #endif
 
-bool GrapherOverlay::Proccess()
+bool GrapherOverlay::Proccess(VWindow * viewWindow)
 {
 	//check boundaries
 	if (TraceLoc(0) < func->GetLowerBoundary()(0))
@@ -203,7 +213,7 @@ bool GrapherOverlay::Proccess()
 	TraceLoc(2) = result;
 
 	//project curser so can be displayed on screen
-	PixelsLoc = cam->Project3Dto2D(TraceLoc, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
+	PixelsLoc = cam->Project3Dto2D(TraceLoc, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, viewWindow);
 
 	return true;
 }

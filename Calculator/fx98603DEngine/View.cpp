@@ -46,12 +46,18 @@ Vector View::OrthProject(const Vector& vec1)
 	return proj;
 }
 
-Vector View::Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight)
+Vector View::Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight, VWindow * viewWindow)
 {
+	//scale vector (so it fits on the screen neatly)
+	Vector temp = vec1;
+	temp(0) *= viewWindow->GetSettings().xScaling;
+	temp(1) *= viewWindow->GetSettings().yScaling;
+	temp(2) *= viewWindow->GetSettings().zScaling;
+
+
 	//project the 3D object onto a 2d plane
 	Vector screen;
-
-	screen = this->TransformationCoor(vec1);
+	screen = this->TransformationCoor(temp);
 
 	
 	//places vector into a space defined by points: (-1,-1,-1) and (1,1,1)
@@ -73,10 +79,11 @@ bool View::Reset(int widthRange, int heightRange)
 {
 	rotHist.SetValues(0,0,1);
 	this->ResetMatrix();
+
 	//set up the camera so that it uses blenders orientation
 	this->ScaleGlobal(1, 1, -1);
 	this->RotateGlobal(-90.0, 0.0, 0.0);
-	this->TranslationGlobal(0, 0, 0);
+
 
 	int biggerRange = 1;
 	if (widthRange > heightRange)

@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Vector.h"
 #include "Matrix.h"
+#include "VWindow.h"
 
 class View : public Object
 {
@@ -26,7 +27,7 @@ public:
 	//vec1 is a vector with 3D info (x, y, z)
 	//screenWidth and screenHeight needed to scale the result to fit the screen
 	//returns a vector where x,y present the x,y pixels across the screen. z is distance away from screen (used for FOV effects)
-	Vector Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight);
+	Vector Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight, VWindow * viewWindow);
 	Vector OrthProject(const Vector& vec1);
 	
 	//width is along the x axis

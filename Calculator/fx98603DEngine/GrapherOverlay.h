@@ -9,6 +9,7 @@
 #include "Evaluate.h"
 #include "View.h"
 #include "Point.h"
+#include "VWindow.h"
 
 #if _MSC_VER != 1200
 	#include <SDL.h>
@@ -56,7 +57,7 @@ public:
 	bool Input(unsigned int * key, Function * functions[]);
 #endif
 
-	bool Proccess();
+	bool Proccess(VWindow * viewWindow);
 
 	void Display();
 };

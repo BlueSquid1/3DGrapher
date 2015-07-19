@@ -251,10 +251,7 @@ bool Grapher::Proccess()
 				for (int i = 0; i < func[j]->GetObject().GetPixelstCount(); i++)
 				{
 					Vector Vertex = func[j]->GetObject().GetVertex(i);
-					Vertex(0) *= ViewWindow->GetSettings().xScaling;
-					Vertex(1) *= ViewWindow->GetSettings().yScaling;
-					Vertex(2) *= ViewWindow->GetSettings().zScaling;
-					func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT);
+					func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, ViewWindow);
 				}
 			}
 		}
@@ -262,7 +259,7 @@ bool Grapher::Proccess()
 	else
 	{
 		//UI override
-		UIOverlay.Proccess();
+		UIOverlay.Proccess(ViewWindow);
 	}
 	
 	return true;
