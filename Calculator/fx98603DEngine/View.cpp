@@ -51,7 +51,7 @@ Vector View::Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight
 	//scale vector (so it fits on the screen neatly)
 	Vector temp = vec1;
 	temp(0) *= viewWindow->GetSettings().xScaling;
-	temp(1) *= viewWindow->GetSettings().yScaling;
+	temp(1) *= -viewWindow->GetSettings().yScaling; //invert y axis so y value increases further away from the camera
 	temp(2) *= viewWindow->GetSettings().zScaling;
 
 
@@ -79,11 +79,10 @@ bool View::Reset(int widthRange, int heightRange)
 {
 	rotHist.SetValues(0,0,1);
 	this->ResetMatrix();
-
+	
 	//set up the camera so that it uses blenders orientation
-	this->ScaleGlobal(1, 1, -1);
 	this->RotateGlobal(-90.0, 0.0, 0.0);
-
+	this->ScaleGlobal(1, -1, 1);
 
 	int biggerRange = 1;
 	if (widthRange > heightRange)

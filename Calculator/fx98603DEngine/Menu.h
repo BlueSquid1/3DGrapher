@@ -55,7 +55,7 @@ public:
 
 	//for grapher
 	//---
-	Function* GetFunctions();
+	Function* GetFunctions(); //returns a pointer to the start of the array of Function pointers
 	//===
 	~Menu();
 

@@ -8,10 +8,35 @@ Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(
 
 bool Grapher::LoadFunctions(Function equation[6])
 {
+	//update the grids for each function
+	int minX = ViewWindow->GetSettings().xMin;
+	int minY = ViewWindow->GetSettings().yMin;
+	int minZ = ViewWindow->GetSettings().zMin;
+	Vector min(minX, minY, minZ);
+
+	int maxX = ViewWindow->GetSettings().xMax;
+	int maxY = ViewWindow->GetSettings().yMax;
+	int maxZ = ViewWindow->GetSettings().zMax;
+	Vector max(maxX, maxY, maxZ);
+
+	for (int i = 0; i < 6; i++)
+	{
+		if (equation[i].IsDrawable())
+		{
+			equation[i].SetGridRes(ViewWindow->GetSettings().xGridRes, ViewWindow->GetSettings().yGridRes);
+			equation[i].UpdateGrid(min, max);
+		}
+	}
+
+
 	for (int i = 0; i < 6; i++)
 	{
 		this->func[i] = &equation[i];
 	}
+
+	//reset the 3D grapher
+	this->Reset();
+
 	return true;
 }
 

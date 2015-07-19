@@ -54,8 +54,8 @@ void GrapherOverlay::reset()
 		return;
 	}
 
-	TraceLoc(0) = (this->func->GetUpperBoundary()(0) - this->func->GetLowerBoundary()(0)) /2.0;
-	TraceLoc(1) = (this->func->GetUpperBoundary()(1) - this->func->GetLowerBoundary()(1)) /2.0;
+	TraceLoc(0) = (this->func->GetUpperBoundary()(0) + this->func->GetLowerBoundary()(0)) /2.0;
+	TraceLoc(1) = (this->func->GetUpperBoundary()(1) + this->func->GetLowerBoundary()(1)) /2.0;
 }
 
 GrapherOverlay::GrapherOverlay(Renderer* mGRenderer, View * mCam)
@@ -117,10 +117,10 @@ bool GrapherOverlay::Input(SDL_Event * e, Function * functions[])
 				break;
 
 			case SDLK_UP:
-				TraceLoc(1) -= yRange / 50.0;
+				TraceLoc(1) += yRange / 50.0;
 				break;
 			case SDLK_DOWN:
-				TraceLoc(1) += yRange / 50.0;
+				TraceLoc(1) -= yRange / 50.0;
 				break;
 			case SDLK_ESCAPE:
 				UIMode = NONE;
@@ -166,10 +166,10 @@ bool GrapherOverlay::Input(unsigned int * key, Function * functions[])
 			break;
 
 		case KEY_CTRL_UP:
-			TraceLoc(1) -= yRange / 50.0;
+			TraceLoc(1) += yRange / 50.0;
 			break;
 		case KEY_CTRL_DOWN:
-			TraceLoc(1) += yRange / 50.0;
+			TraceLoc(1) -= yRange / 50.0;
 			break;
 		case KEY_CTRL_EXIT:
 			UIMode = NONE;

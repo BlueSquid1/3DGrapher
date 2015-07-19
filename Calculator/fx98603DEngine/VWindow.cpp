@@ -103,78 +103,66 @@ void VWindow::DrawSettings()
 		}
 
 	case 4:
-		if (!PrintSetting(grapherSettings.zMin, "Zmin"))
-		{
-			break;
-		}
-
-	case 5:
-		if (!PrintSetting(grapherSettings.zMax, "Zmax"))
-		{
-			break;
-		}
-
-	case 6:
 		if (!PrintSetting(grapherSettings.xGridRes, "XRes"))
 		{
 			break;
 		}
 
-	case 7:
+	case 5:
 		if (!PrintSetting(grapherSettings.yGridRes, "YRes"))
 		{
 			break;
 		}
 
-	case 8:
+	case 6:
 		if (!PrintSetting(grapherSettings.xScaling, "XScal"))
 		{
 			break;
 		}
 
-	case 9:
+	case 7:
 		if (!PrintSetting(grapherSettings.yScaling, "YScal"))
 		{
 			break;
 		}
-	case 10:
+	case 8:
 		if (!PrintSetting(grapherSettings.zScaling, "ZScal"))
 		{
 			break;
 		}
 
-	case 11:
+	case 9:
 		if (!PrintSetting(grapherSettings.yawAngle, "Yaw"))
 		{
 			break;
 		}
 
-	case 12:
+	case 10:
 		if (!PrintSetting(grapherSettings.pitchAngle, "Pitch"))
 		{
 			break;
 		}
-	case 13:
+	case 11:
 		if (!PrintSetting(grapherSettings.xCameraPos, "Xcam"))
 		{
 			break;
 		}
-	case 14:
+	case 12:
 		if (!PrintSetting(grapherSettings.yCameraPos, "Ycam"))
 		{
 			break;
 		}
-	case 15:
+	case 13:
 		if (!PrintSetting(grapherSettings.zCameraPos, "Zcam"))
 		{
 			break;
 		}
-	case 16:
+	case 14:
 		if (!PrintSetting(grapherSettings.useTriangleMesh, "Ngon"))
 		{
 			break;
 		}
-	case 17:
+	case 15:
 		if (!PrintSetting(grapherSettings.SolidMesh, "Solid"))
 		{
 			break;
@@ -236,45 +224,39 @@ bool VWindow::setCurrentValue(uString sValue)
 		grapherSettings.yMax = uString::ConvertToFloat(sValue);
 		break;
 	case 4:
-		grapherSettings.zMin = uString::ConvertToFloat(sValue);
-		break;
-	case 5:
-		grapherSettings.zMax = uString::ConvertToFloat(sValue);
-		break;
-	case 6:
 		grapherSettings.xGridRes = uString::ConvertToInt(sValue);
 		break;
-	case 7:
+	case 5:
 		grapherSettings.yGridRes = uString::ConvertToInt(sValue);
 		break;
-	case 8:
+	case 6:
 		grapherSettings.xScaling = uString::ConvertToFloat(sValue);
 		break;
-	case 9:
+	case 7:
 		grapherSettings.yScaling = uString::ConvertToFloat(sValue);
 		break;
-	case 10:
+	case 8:
 		grapherSettings.zScaling = uString::ConvertToFloat(sValue);
 		break;
-	case 11:
+	case 9:
 		grapherSettings.yawAngle = uString::ConvertToFloat(sValue);
 		break;
-	case 12:
+	case 10:
 		grapherSettings.pitchAngle = uString::ConvertToFloat(sValue);
 		break;
-	case 13:
+	case 11:
 		grapherSettings.xCameraPos = uString::ConvertToFloat(sValue);
 		break;
-	case 14:
+	case 12:
 		grapherSettings.yCameraPos = uString::ConvertToFloat(sValue);
 		break;
-	case 15:
+	case 13:
 		grapherSettings.zCameraPos = uString::ConvertToFloat(sValue);
 		break;
-	case 16:
+	case 14:
 		grapherSettings.useTriangleMesh = uString::ConvertToInt(sValue);
 		break;
-	case 17:
+	case 15:
 		grapherSettings.SolidMesh = uString::ConvertToInt(sValue);
 		break;
 	}
@@ -292,15 +274,11 @@ bool VWindow::VWindowChecks()
 	{
 		uString::ErrorPrint("Ymin has to be below Ymax");
 	}
-	else if (grapherSettings.zMin >= grapherSettings.zMax)
-	{
-		uString::ErrorPrint("Zmin has to be below Zmax");
-	}
 	else if (grapherSettings.xGridRes < 1)
 	{
 		uString::ErrorPrint("Xres must be greater than 0");
 	}
-	else if (grapherSettings.xGridRes > 20)
+	else if (grapherSettings.xGridRes > 50)
 	{
 		uString::ErrorPrint("Xres value is too high");
 	}
@@ -308,7 +286,7 @@ bool VWindow::VWindowChecks()
 	{
 		uString::ErrorPrint("Yres must be greater than 0");
 	}
-	else if (grapherSettings.yGridRes > 20)
+	else if (grapherSettings.yGridRes > 50)
 	{
 		uString::ErrorPrint("Yres value is too high");
 	}
@@ -331,8 +309,6 @@ VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 	grapherSettings.yMin = -3.0;
 	grapherSettings.yMax = 3.0;
 	grapherSettings.yGridRes = 10;
-	grapherSettings.zMin = -3.0;
-	grapherSettings.zMax = 3.0;
 
 	grapherSettings.xScaling = 1.0;
 	grapherSettings.yScaling = 1.0;
@@ -342,14 +318,14 @@ VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 	grapherSettings.pitchAngle = 45.0;
 
 	grapherSettings.xCameraPos = 0.0;
-	grapherSettings.yCameraPos = -2.0;
+	grapherSettings.yCameraPos = 0.0;
 	grapherSettings.zCameraPos = 0.0;
 
 	grapherSettings.useTriangleMesh = true;
 	grapherSettings.SolidMesh = false;
 
 	curserPos = 0;
-	NUMSETTINGS = 18;
+	NUMSETTINGS = 16;
 	FirstSettingsNum = 0;
 }
 
@@ -537,45 +513,39 @@ uString VWindow::GetCurrentDataString()
 		sprintf(s, "%f", grapherSettings.yMax);
 		return s;
 	case 4:
-		sprintf(s, "%f", grapherSettings.zMin);
-		return s;
-	case 5:
-		sprintf(s, "%f", grapherSettings.zMax);
-		return s;
-	case 6:
 		sprintf(s, "%d", grapherSettings.xGridRes);
 		return s;
-	case 7:
+	case 5:
 		sprintf(s, "%d", grapherSettings.yGridRes);
 		return s;
-	case 8:
+	case 6:
 		sprintf(s, "%f", grapherSettings.xScaling);
 		return s;
-	case 9:
+	case 7:
 		sprintf(s, "%f", grapherSettings.yScaling);
 		return s;
-	case 10:
+	case 8:
 		sprintf(s, "%f", grapherSettings.zScaling);
 		return s;
-	case 11:
+	case 9:
 		sprintf(s, "%f", grapherSettings.yawAngle);
 		return s;
-	case 12:
+	case 10:
 		sprintf(s, "%f", grapherSettings.pitchAngle);
 		return s;
-	case 13:
+	case 11:
 		sprintf(s, "%f", grapherSettings.xCameraPos);
 		return s;
-	case 14:
+	case 12:
 		sprintf(s, "%f", grapherSettings.yCameraPos);
 		return s;
-	case 15:
+	case 13:
 		sprintf(s, "%f", grapherSettings.zCameraPos);
 		return s;
-	case 16:
+	case 14:
 		sprintf(s, "%d", grapherSettings.useTriangleMesh);
 		return s;
-	case 17:
+	case 15:
 		sprintf(s, "%d", grapherSettings.SolidMesh);
 		return s;
 	}

@@ -14,35 +14,9 @@ bool Game::UpdateCurrentState()
 
 	if (from == MAINMENU && destiny == GRAPHER)
 	{
-		//get function data from menu
-		Function* funcs = MainMenu.GetFunctions();
-
-		//update the grids for each function
-		int minX = ViewWindow.GetSettings().xMin;
-		int minY = ViewWindow.GetSettings().yMin;
-		int minZ = ViewWindow.GetSettings().zMin;
-		Vector min(minX, minY, minZ);
-
-		int maxX = ViewWindow.GetSettings().xMax;
-		int maxY = ViewWindow.GetSettings().yMax;
-		int maxZ = ViewWindow.GetSettings().zMax;
-
-		Vector max(maxX, maxY, maxZ);
-
-		for (int i = 0; i < 6; i++)
-		{
-			if (funcs[i].IsDrawable())
-			{
-				funcs[i].SetGridRes(ViewWindow.GetSettings().xGridRes, ViewWindow.GetSettings().yGridRes);
-				funcs[i].UpdateGrid(min, max);
-			}
-		}
 
 		//load the functions
-		Engine3D.LoadFunctions(funcs);
-
-		//reset the 3D grapher
-		Engine3D.Reset();
+		Engine3D.LoadFunctions(MainMenu.GetFunctions());
 
 		currentState = &Engine3D;
 

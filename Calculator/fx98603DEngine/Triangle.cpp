@@ -115,9 +115,9 @@ Point Triangle::GetCenterPoint()
 Vector Triangle::GetNormal()
 {
 	//P2 to P1 vector
-	int xDir = P1.x - P2.x;
-	int yDir = P1.y - P2.y;
-	float zDir = P1.z - P2.z;
+	int xDir = P2.x - P1.x;
+	int yDir = P2.y - P1.y;
+	float zDir = P2.z - P1.z;
 	Vector sx(xDir, yDir, zDir);
 
 	//P2 to P4 vector

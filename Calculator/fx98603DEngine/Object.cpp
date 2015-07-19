@@ -23,6 +23,8 @@ bool Object::ScaleGlobal(const float& x, const float& y, const float& z)
 	//update TransMat
 	TransMat = scaleMat * TransMat;
 	
+	needUpdate = true;
+
 	return true;
 }
 
