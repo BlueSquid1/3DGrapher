@@ -64,6 +64,8 @@ bool Grapher::Reset()
 	cam.Reset(biggerRange, biggerRange);
 
 
+
+
 	float yaw = this->ViewWindow->GetSettings().yawAngle;
 	float pitch = this->ViewWindow->GetSettings().pitchAngle;
 
@@ -76,6 +78,93 @@ bool Grapher::Reset()
 	cam.TranslationGlobal(xPos, yPos, zPos);
 
 	return true;
+}
+
+bool Grapher::AutoZoom()
+{
+
+	float xMin = this->ViewWindow->GetSettings().xMin;
+	float xMax = this->ViewWindow->GetSettings().xMax;
+	float xRange = xMax - xMin;
+
+	float yMin = this->ViewWindow->GetSettings().yMin;
+	float yMax = this->ViewWindow->GetSettings().yMax;
+	float yRange = yMax - yMin;
+
+	//work out which range is bigger
+	float biggerRange = 1;
+	if (xRange > yRange)
+	{
+		biggerRange = xRange;
+	}
+	else
+	{
+		biggerRange = yRange;
+	}
+
+	cam.Reset(biggerRange, biggerRange);
+
+	//find the largest and smallest z value over all drawable functions
+
+	//need initial values for max and min variables. look though Functions and find one that is drawable
+	int drawableFunc = -1;
+	for (int i = 0; i < 6; i++)
+	{
+		if (func[i]->IsDrawable())
+		{
+			drawableFunc = i;
+			break;
+		}
+	}
+
+	//no point in doing anything else if there are now drawable functions
+	if (drawableFunc >= 0)
+	{
+		float largestZ = func[drawableFunc]->GetObject().GetVertex(0)(2);
+		float miniumZ = func[drawableFunc]->GetObject().GetVertex(0)(2);
+		for (int i = 0; i < 6; i++)
+		{
+			if (func[i]->IsDrawable())
+			{
+				for (int x = 0; x < ViewWindow->GetSettings().xGridRes; x++)
+				{
+					for (int y = 0; y < ViewWindow->GetSettings().yGridRes; y++)
+					{
+						int vertexNum = func[i]->GetGrid(x, y);
+						float zTest = func[i]->GetObject().GetVertex(vertexNum)(2);
+						if (zTest > largestZ)
+						{
+							largestZ = zTest;
+						}
+						if (zTest < miniumZ)
+						{
+							miniumZ = zTest;
+						}
+					}
+				}
+			}
+		}
+
+		//quick check to make sure not dividing by zero
+		if (largestZ != miniumZ)
+		{
+			ViewWindow->GetSettings().zScaling = biggerRange / (largestZ - miniumZ);
+		}
+	}
+
+	float yaw = 0;
+	float pitch = 45;
+
+	cam.RotateGlobal(pitch, 0, yaw);
+
+	float xPos = 0;
+	float yPos = 0;
+	float zPos = 0;
+
+	cam.TranslationGlobal(xPos, yPos, zPos);
+
+	return true;
+
 }
 
 
@@ -157,6 +246,12 @@ bool Grapher::Input()
 					cam.Zoom(per);
 					break;
 				}
+				case SDLK_F2:
+				{
+					this->AutoZoom();
+					break;
+				}
+
 				case SDLK_ESCAPE:
 				{
 					this->nextState = MAINMENU;
@@ -245,6 +340,9 @@ bool Grapher::Input()
 			cam.Zoom(per);
 			break;
 		}
+		case KEY_CTRL_F2:
+			this->AutoZoom();
+			break;
 
 		case KEY_CTRL_EXIT:
 		{

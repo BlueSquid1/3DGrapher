@@ -39,6 +39,8 @@ class GrapherOverlay
 	Vector TraceLoc;
 	Point PixelsLoc;
 
+	ButtonUI AutoZoom;
+
 	Function *func;
 
 	void DrawCoor();

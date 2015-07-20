@@ -43,6 +43,8 @@ class Grapher : public GameStatus
 
 	VWindow* ViewWindow;
 
+	bool AutoZoom();
+
 public:
 
 	//constructor

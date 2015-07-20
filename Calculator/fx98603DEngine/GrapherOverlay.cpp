@@ -76,6 +76,9 @@ GrapherOverlay::GrapherOverlay(Renderer* mGRenderer, View * mCam)
 	TraceLoc(1) = 0.0;
 	TraceLoc(2) = 0.0;
 
+	this->AutoZoom.SetPos(21 * 1, 7 * 8);
+	this->AutoZoom.SetText("Auto");
+
 	this->func = NULL;
 	cam = mCam;
 }
@@ -223,7 +226,8 @@ void GrapherOverlay::Display()
 {
 	//Render the buttons
 	TraceBut.Render(gRenderer);
-	
+	AutoZoom.Render(gRenderer);
+
 	if (UIMode == TRACER)
 	{
 		//draw curser
