@@ -43,8 +43,6 @@ bool Game::UpdateCurrentState()
 	return true;
 }
 
-
-
 bool Game::RunCurrentState()
 {
 	currentState->Proccess();
