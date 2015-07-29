@@ -1,7 +1,7 @@
 @echo off
 rem Do not edit! This batch file is created by CASIO fx-9860G SDK.
 
-
+if exist debug\*.obj  del debug\*.obj
 if exist 3DGRAPH.G1A  del 3DGRAPH.G1A
 
 cd debug
@@ -10,7 +10,7 @@ if exist FXADDINror.bin  del FXADDINror.bin
 cd ..
 if not exist debug\FXADDINror.bin  goto error
 
-"C:\Program Files\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe" "C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine"
+"C:\Program Files\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe" "C:\Users\CrazySquid1\Desktop\3Dgrapher-old\3DGrapher\Calculator\fx98603DEngine"
 if not exist 3DGRAPH.G1A  goto error
 echo Build has completed.
 goto end

@@ -1,7 +1,7 @@
 #include "Grapher.h"
 
 
-Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER), UIOverlay(origRenderer, &cam)
+Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER), UIOverlay(origRenderer, &cam, origViewWindow)
 {
 	this->ViewWindow = origViewWindow;
 }
@@ -382,7 +382,7 @@ bool Grapher::Proccess()
 	else
 	{
 		//UI override
-		UIOverlay.Proccess(ViewWindow);
+		UIOverlay.Proccess();
 	}
 	
 	return true;

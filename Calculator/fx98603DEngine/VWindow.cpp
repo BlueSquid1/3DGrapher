@@ -167,6 +167,11 @@ void VWindow::DrawSettings()
 		{
 			break;
 		}
+	case 16:
+		if (!PrintSetting(grapherSettings.DisplayAxes, "Axes"))
+		{
+			break;
+		}
 	}
 }
 
@@ -259,6 +264,8 @@ bool VWindow::setCurrentValue(uString sValue)
 	case 15:
 		grapherSettings.SolidMesh = uString::ConvertToInt(sValue);
 		break;
+	case 16:
+		grapherSettings.DisplayAxes = uString::ConvertToInt(sValue);
 	}
 
 }
@@ -323,9 +330,10 @@ VWindow::VWindow(Renderer* gRenderer) : GameStatus(gRenderer, VWINDOW)
 
 	grapherSettings.useTriangleMesh = true;
 	grapherSettings.SolidMesh = false;
+	grapherSettings.DisplayAxes = true;
 
 	curserPos = 0;
-	NUMSETTINGS = 16;
+	NUMSETTINGS = 17;
 	FirstSettingsNum = 0;
 }
 
@@ -547,6 +555,9 @@ uString VWindow::GetCurrentDataString()
 		return s;
 	case 15:
 		sprintf(s, "%d", grapherSettings.SolidMesh);
+		return s;
+	case 16:
+		sprintf(s, "$d", grapherSettings.DisplayAxes);
 		return s;
 	}
 }

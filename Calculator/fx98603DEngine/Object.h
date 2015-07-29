@@ -7,17 +7,16 @@ extern "C"
 }
 
 #include "Matrix.h"
-#include "Matrix4x4.h"
 #include "Vector.h"
 
 #define PI 3.14159265
 
 class Object
 {
-	Matrix4x4 TransMat;
+	Matrix TransMat;
 	//needUpdate
 	bool needUpdate;
-	Matrix4x4 InverseMat;
+	Matrix InverseMat;
 public:
 
 	//constructor
@@ -35,9 +34,9 @@ public:
 	//reset everything back to the default
 	bool ResetMatrix();
 
-	Matrix4x4& GetMat();
+	Matrix& GetMat();
 
-	Matrix4x4& GetInverse();
+	Matrix& GetInverse();
 };
 
 #endif //OBJECT_H

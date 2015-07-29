@@ -435,7 +435,34 @@ float Matrix::Det() const
 	}
 
 	int n = this->c;
-	return Determ(this->m, n);
+	//if the matrix is small then work out det manually
+	if (n == 4) 
+	{
+		float m1 = m[0][0] * (m[1][1] * m[2][2] - m[2][1] * m[1][2]);
+		float m2 = m[0][1] * (m[1][0] * m[2][2] - m[2][0] * m[1][2]);
+		float m3 = m[0][2] * (m[1][0] * m[2][1] - m[2][0] * m[1][1]);
+		return m1 - m2 + m3;
+	}
+	else if (n == 3)
+	{
+		float m1 = m[0][0] * (m[1][1] * m[2][2] - m[2][1] * m[1][2]);
+		float m2 = m[0][1] * (m[1][0] * m[2][2] - m[2][0] * m[1][2]);
+		float m3 = m[0][2] * (m[1][0] * m[2][1] - m[2][0] * m[1][1]);
+		return m1 - m2 + m3;
+	}
+	else if (n == 2)
+	{
+		return m[0][0] * m[1][1] - m[1][0] * m[0][1];
+	}
+	else if (n == 1)
+	{
+		return m[0][0];
+	}
+	//otherwise use a systematic approach to finding det
+	else
+	{
+		return Determ(this->m, n);
+	}
 }
 
 Matrix Matrix::Adj() const

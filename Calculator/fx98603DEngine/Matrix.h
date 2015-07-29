@@ -22,7 +22,7 @@ extern "C"
 class Matrix
 {
 	friend class Vector;
-	friend class Matrix4x4;
+	
 	
 	//matrix dimentions
 	//------------------
@@ -30,9 +30,6 @@ class Matrix
 	int r; //rows in y dirrection
 	//==================
 	
-	//store the values in the matrix
-	float **m; //effected by Trans(), Det(), Inverse()
-
 	//private methods
 	//---------------
 	float& val(const int& y, const int& x); //able to read and write
@@ -44,6 +41,9 @@ class Matrix
 	//---------------
 	
 public:
+
+	//store the values in the matrix
+	float **m; //effected by Trans(), Det(), Inverse()
 	
 	
 	//finds the identity matrix n by n

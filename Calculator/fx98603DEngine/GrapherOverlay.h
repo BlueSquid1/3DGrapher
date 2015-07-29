@@ -32,6 +32,7 @@ class GrapherOverlay
 {
 	Renderer * gRenderer;
 	View * cam;
+	VWindow* ViewWindow;
 
 	UIModes UIMode;
 
@@ -45,10 +46,12 @@ class GrapherOverlay
 
 	void DrawCoor();
 	void DrawCurser(int x, int y);
+	
+	void DrawAxes();
 
 	void reset();
 public:
-	GrapherOverlay(Renderer* gRenderer, View * mCam);
+	GrapherOverlay(Renderer* gRenderer, View * mCam, VWindow * origViewWindow);
 
 	bool InputFromGrapherOverlay();
 #if _MSC_VER != 1200
@@ -59,7 +62,7 @@ public:
 	bool Input(unsigned int * key, Function * functions[]);
 #endif
 
-	bool Proccess(VWindow * viewWindow);
+	bool Proccess();
 
 	void Display();
 };

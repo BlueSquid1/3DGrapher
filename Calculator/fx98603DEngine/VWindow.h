@@ -35,6 +35,7 @@ struct Settings
 
 	bool useTriangleMesh;
 	bool SolidMesh;
+	bool DisplayAxes;
 };
 
 

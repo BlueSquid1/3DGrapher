@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <time.h>
+
 
 Game::Game(const int& widthRes, const int& heightRes) : gRenderer(widthRes, heightRes), MainMenu(&gRenderer), EditText(&gRenderer), ViewWindow(&gRenderer), Engine3D(&gRenderer, &ViewWindow)
 {
@@ -42,6 +44,8 @@ bool Game::UpdateCurrentState()
 
 	return true;
 }
+
+
 
 bool Game::RunCurrentState()
 {

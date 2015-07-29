@@ -1,12 +1,9 @@
 #include "Object.h"
 
-Object::Object()
+Object::Object() : TransMat(4,4), InverseMat(4,4)
 {
 	//set transMat to the identity matrix
-	TransMat(0, 0) = 1.0;
-	TransMat(1, 1) = 1.0;
-	TransMat(2, 2) = 1.0;
-	TransMat(3, 3) = 1.0;
+	TransMat = (TransMat^0);
 	
 	//will update the inverse matrix
 	needUpdate = true;
@@ -14,9 +11,8 @@ Object::Object()
 
 bool Object::ScaleGlobal(const float& x, const float& y, const float& z)
 {
-	Matrix4x4 scaleMat;
-
-	scaleMat(3, 3) = 1.0;
+	Matrix scaleMat(4,4);
+	scaleMat(3,3) = 1;
 	
 	scaleMat(0,0) = x;
 	
@@ -44,7 +40,7 @@ bool Object::RotateGlobal(const float& angdX, const float& angdY, const float& a
 	
 	
 	//rotations around X axis
-	Matrix4x4 rotX;
+	Matrix rotX(4,4,0);
 	rotX(0,0) = 1;
 	rotX(1,1) = cos(angX);
 	rotX(1,2) = -sin(angX);
@@ -53,7 +49,7 @@ bool Object::RotateGlobal(const float& angdX, const float& angdY, const float& a
 	rotX(3,3) = 1;
 	
 	//rotations around Y axis
-	Matrix4x4 rotY;
+	Matrix rotY(4,4,0);
 	rotY(0,0) = cos(angY);
 	rotY(0,2) = sin(angY);
 	rotY(1,1) = 1;
@@ -62,7 +58,7 @@ bool Object::RotateGlobal(const float& angdX, const float& angdY, const float& a
 	rotY(3,3) = 1;
 	
 	//rotations around Z axis
-	Matrix4x4 rotZ;
+	Matrix rotZ(4,4,0);
 	rotZ(0,0) = cos(angZ);
 	rotZ(0,1) = -sin(angZ);
 	rotZ(1,0) = sin(angZ);
@@ -80,7 +76,7 @@ bool Object::RotateGlobal(const float& angdX, const float& angdY, const float& a
 
 bool Object::TranslationGlobal(const float& x, const float& y, const float& z)
 {
-	Matrix4x4 TranslationalMat;
+	Matrix TranslationalMat(4,4);
 	TranslationalMat(0,0) = 1;
 	TranslationalMat(1,1) = 1;
 	TranslationalMat(2,2) = 1;
@@ -101,7 +97,7 @@ bool Object::TranslationLocal(const float& x, const float& y, const float& z)
 {
 	Vector TranslationalVec(x, y, z);
 
-	Matrix4x4 TranslationResults = TransMat * TranslationalVec;
+	Matrix TranslationResults = TransMat * TranslationalVec;
 
 	this->TransMat(0, 3) = TranslationResults(0, 0);
 	this->TransMat(1, 3) = TranslationResults(1, 0);
@@ -115,21 +111,17 @@ bool Object::TranslationLocal(const float& x, const float& y, const float& z)
 
 bool Object::ResetMatrix()
 {
-	TransMat(0, 0) = 1.0;
-	TransMat(1, 1) = 1.0;
-	TransMat(2, 2) = 1.0;
-	TransMat(3, 3) = 1.0;
-
+	TransMat = (TransMat ^ 0);
 	needUpdate = true;
 	return true;
 }
 
-Matrix4x4& Object::GetMat()
+Matrix& Object::GetMat()
 {
 	return TransMat;
 }
 
-Matrix4x4& Object::GetInverse()
+Matrix& Object::GetInverse()
 {
 	//check to see if TransMat has changed
 	if(needUpdate == false)

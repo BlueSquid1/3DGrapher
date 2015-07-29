@@ -2,11 +2,12 @@
 
 void GrapherOverlay::DrawCoor()
 {
+	//because I used blenders coordant system I need to switch the x and the y axis
 	char s[20];
-	sprintf((char *)s, "x=%.1f", this->TraceLoc(0));
+	sprintf((char *)s, "x=%.1f", this->TraceLoc(1));
 	gRenderer->PrintTextMini(30 * 0, 0, s, 0);
 
-	sprintf((char *)s, "y=%.1f", this->TraceLoc(1));
+	sprintf((char *)s, "y=%.1f", this->TraceLoc(0));
 	gRenderer->PrintTextMini(40 * 1, 0, s, 0);
 
 	sprintf((char *)s, "z=%.1f", this->TraceLoc(2));
@@ -46,6 +47,11 @@ void GrapherOverlay::DrawCurser(int x, int y)
 
 }
 
+void GrapherOverlay::DrawAxes()
+{
+
+}
+
 void GrapherOverlay::reset()
 {
 	if (!this->func)
@@ -58,7 +64,7 @@ void GrapherOverlay::reset()
 	TraceLoc(1) = (this->func->GetUpperBoundary()(1) + this->func->GetLowerBoundary()(1)) /2.0;
 }
 
-GrapherOverlay::GrapherOverlay(Renderer* mGRenderer, View * mCam)
+GrapherOverlay::GrapherOverlay(Renderer* mGRenderer, View * mCam, VWindow * origViewWindow)
 {
 	this->gRenderer = mGRenderer;
 	UIMode = NONE;
@@ -81,6 +87,7 @@ GrapherOverlay::GrapherOverlay(Renderer* mGRenderer, View * mCam)
 
 	this->func = NULL;
 	cam = mCam;
+	ViewWindow = origViewWindow;
 }
 
 bool GrapherOverlay::InputFromGrapherOverlay()
@@ -186,38 +193,40 @@ bool GrapherOverlay::Input(unsigned int * key, Function * functions[])
 }
 #endif
 
-bool GrapherOverlay::Proccess(VWindow * viewWindow)
+bool GrapherOverlay::Proccess()
 {
-	//check boundaries
-	if (TraceLoc(0) < func->GetLowerBoundary()(0))
+	if (UIMode == TRACER)
 	{
-		TraceLoc(0) = func->GetLowerBoundary()(0);
+		//check boundaries
+		if (TraceLoc(0) < func->GetLowerBoundary()(0))
+		{
+			TraceLoc(0) = func->GetLowerBoundary()(0);
+		}
+		else if (TraceLoc(0) > func->GetUpperBoundary()(0))
+		{
+			TraceLoc(0) = func->GetUpperBoundary()(0);
+		}
+
+		if (TraceLoc(1) < func->GetLowerBoundary()(0))
+		{
+			TraceLoc(1) = func->GetLowerBoundary()(1);
+		}
+		else if (TraceLoc(1) > func->GetUpperBoundary()(1))
+		{
+			TraceLoc(1) = func->GetUpperBoundary()(1);
+		}
+
+		//work out the z value from function
+		int eCode = 0;
+		float result = 0.0;
+		result = Evaluate::Eval(func->GetEquation(), TraceLoc(0), TraceLoc(1), &eCode);
+
+		//enter z value
+		TraceLoc(2) = result;
+
+		//project curser so can be displayed on screen
+		PixelsLoc = cam->Project3Dto2D(TraceLoc, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, ViewWindow);
 	}
-	else if (TraceLoc(0) > func->GetUpperBoundary()(0))
-	{
-		TraceLoc(0) = func->GetUpperBoundary()(0);
-	}
-
-	if (TraceLoc(1) < func->GetLowerBoundary()(0))
-	{
-		TraceLoc(1) = func->GetLowerBoundary()(1);
-	}
-	else if (TraceLoc(1) > func->GetUpperBoundary()(1))
-	{
-		TraceLoc(1) = func->GetUpperBoundary()(1);
-	}
-
-	//work out the z value from function
-	int eCode = 0;
-	float result = 0.0;
-	result = Evaluate::Eval(func->GetEquation(), TraceLoc(0), TraceLoc(1), &eCode);
-
-	//enter z value
-	TraceLoc(2) = result;
-
-	//project curser so can be displayed on screen
-	PixelsLoc = cam->Project3Dto2D(TraceLoc, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, viewWindow);
-
 	return true;
 }
 
@@ -227,6 +236,11 @@ void GrapherOverlay::Display()
 	//Render the buttons
 	TraceBut.Render(gRenderer);
 	AutoZoom.Render(gRenderer);
+
+	if (ViewWindow->GetSettings().DisplayAxes == true)
+	{
+		DrawAxes();
+	}
 
 	if (UIMode == TRACER)
 	{
