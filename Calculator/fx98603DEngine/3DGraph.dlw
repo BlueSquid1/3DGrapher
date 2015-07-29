@@ -93,8 +93,8 @@ OptionA=0
 [_9]
 Type=15
 Order=3
-Top=2355
-Left=420
+Top=-90
+Left=465
 Height=8775
 Width=7395
 State=0

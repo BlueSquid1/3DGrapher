@@ -1,7 +1,7 @@
 #include "Grapher.h"
 
 
-Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER), UIOverlay(origRenderer, &cam, origViewWindow)
+Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER), cam(origRenderer, origViewWindow), UIOverlay(origRenderer, &cam, origViewWindow)
 {
 	this->ViewWindow = origViewWindow;
 }
@@ -394,11 +394,22 @@ void Grapher::Display()
 #if _MSC_VER != 1200
 	gRenderer->SetColour(0x00, 0x00, 0x00, 0xFF);
 #endif
+
+	Vector Vertex;
+	Vertex(0) = 1;
+	Vertex(1) = -1;
+	Vertex(2) = 1;
+	Vertex = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, ViewWindow);
+
+	cam.Draw3D(1, 1, 1, 1, -1, 1);
+
+	cam.Draw3D(1, 1, 1, 1, 1, -1);
+
 	
 	for (int i = 0; i < 6; i++)
 	{
 		//for each function
-
+		
 		if (func[i]->IsDrawable())
 		{
 			Mesh& mObject = func[i]->GetObject();
@@ -438,7 +449,7 @@ void Grapher::Display()
 
 	//render the UI overlay
 	UIOverlay.Display();
-
+	
 	//update screen
 	gRenderer->UpdateScreen();
 }

@@ -5,11 +5,14 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "VWindow.h"
+#include "Renderer.h"
 
 class View : public Object
 {
 	Matrix OrthMat;
 	Vector rotHist;
+	Renderer * gRenderer;
+	VWindow * viewWindow;
 
 	float width;
 	float height;
@@ -17,7 +20,7 @@ class View : public Object
 	float far;
 public:
 	//constructor
-	View();
+	View(Renderer* origRenderer, VWindow * origViewWindow);
 	
 	bool RotateGlobal(const float& angdX, const float& angdY, const float& angdZ);
 
@@ -29,6 +32,8 @@ public:
 	//returns a vector where x,y present the x,y pixels across the screen. z is distance away from screen (used for FOV effects)
 	Vector Project3Dto2D(const Vector& vec1, int screenWidth, int screenHeight, VWindow * viewWindow);
 	Vector OrthProject(const Vector& vec1);
+
+	void Draw3D(float x1, float y1, float z1, float x2, float y2, float z2, bool inBlack = true);
 	
 	//width is along the x axis
 	//height is along the y axis
