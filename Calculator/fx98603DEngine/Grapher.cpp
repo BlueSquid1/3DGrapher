@@ -374,7 +374,7 @@ bool Grapher::Proccess()
 				for (int i = 0; i < func[j]->GetObject().GetPixelstCount(); i++)
 				{
 					Vector Vertex = func[j]->GetObject().GetVertex(i);
-					func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, ViewWindow);
+					func[j]->GetObject().GetPixel(i) = cam.Project3Dto2D(Vertex);
 				}
 			}
 		}
@@ -394,17 +394,6 @@ void Grapher::Display()
 #if _MSC_VER != 1200
 	gRenderer->SetColour(0x00, 0x00, 0x00, 0xFF);
 #endif
-
-	Vector Vertex;
-	Vertex(0) = 1;
-	Vertex(1) = -1;
-	Vertex(2) = 1;
-	Vertex = cam.Project3Dto2D(Vertex, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, ViewWindow);
-
-	cam.Draw3D(1, 1, 1, 1, -1, 1);
-
-	cam.Draw3D(1, 1, 1, 1, 1, -1);
-
 	
 	for (int i = 0; i < 6; i++)
 	{

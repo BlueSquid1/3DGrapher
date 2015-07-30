@@ -225,7 +225,7 @@ bool GrapherOverlay::Proccess()
 		TraceLoc(2) = result;
 
 		//project curser so can be displayed on screen
-		PixelsLoc = cam->Project3Dto2D(TraceLoc, gRenderer->SCREEN_WIDTH, gRenderer->SCREEN_HEIGHT, ViewWindow);
+		PixelsLoc = cam->Project3Dto2D(TraceLoc);
 	}
 	return true;
 }

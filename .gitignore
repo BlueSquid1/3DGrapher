@@ -194,3 +194,6 @@ FakesAssemblies/
 
 #casio machine code
 *.G1A
+*.mem
+
+*.bat
