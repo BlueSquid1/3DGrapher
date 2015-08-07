@@ -75,6 +75,8 @@ Vector View::Project3Dto2D(const Vector& vec1)
 	screen(2) = screen(2) * middleHeight * 0.1;
 
 	return screen;
+	
+	
 }
 
 void View::DrawLine3D(float x1, float y1, float z1, float x2, float y2, float z2, bool inBlack)

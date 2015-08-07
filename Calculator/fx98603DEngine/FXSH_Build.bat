@@ -10,7 +10,7 @@ if exist FXADDINror.bin  del FXADDINror.bin
 cd ..
 if not exist debug\FXADDINror.bin  goto error
 
-"C:\Program Files\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe" "C:\Users\Clint\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine"
+"C:\Program Files\CASIO\fx-9860G SDK\Tools\MakeAddinHeader363.exe" "C:\Users\CrazySquid1\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine"
 if not exist 3DGRAPH.G1A  goto error
 echo Build has completed.
 goto end

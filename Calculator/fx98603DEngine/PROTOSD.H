@@ -21,7 +21,19 @@ void   airy(double x,double *ai,double *aip,double *bi,double *bip);
 double Lcm(double a, double b){if(fmod(b,a)==0) return a; else return Lcm(fmod(b,a),a);}
 double Gcd(double a, double b){return a*b/Lcm(a,b);}
 double IIF(double x, double y, double z){if(x!=0) return y; else return z;}
+double UnitStep(double t)
+{
+	if (t >= 0)
+	{
+		return 1.0;
+	}
+	else
+	{
+		return 0.0;
+	}
+}
 //
+
 /*double acos(double);
 double asin(double);
 double atan(double);
@@ -30,7 +42,7 @@ double sin(double);
 double tan(double);
 double Sqr(double x){if(x<0) { return DBL_MAX;}; return (pow(x,0.5));}
 double log(double);
-double log10(double);*/
+double log10(double);
 
 #ifndef protosdH
 #define protosdH
@@ -71,3 +83,4 @@ double Tanh(double x);
 }
 #endif
 #endif
+*/

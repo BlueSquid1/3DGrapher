@@ -122,6 +122,8 @@ bool Grapher::AutoZoom()
 	{
 		float largestZ = func[drawableFunc]->GetObject().GetVertex(0)(2);
 		float miniumZ = func[drawableFunc]->GetObject().GetVertex(0)(2);
+		float totalZ = 0.0;
+		int resCount = 0;
 		for (int i = 0; i < 6; i++)
 		{
 			if (func[i]->IsDrawable())
@@ -131,7 +133,12 @@ bool Grapher::AutoZoom()
 					for (int y = 0; y < ViewWindow->GetSettings().yGridRes; y++)
 					{
 						int vertexNum = func[i]->GetGrid(x, y);
+
 						float zTest = func[i]->GetObject().GetVertex(vertexNum)(2);
+
+						totalZ += zTest;
+						resCount += 1;
+
 						if (zTest > largestZ)
 						{
 							largestZ = zTest;
@@ -149,6 +156,15 @@ bool Grapher::AutoZoom()
 		if (largestZ != miniumZ)
 		{
 			ViewWindow->GetSettings().zScaling = biggerRange / (largestZ - miniumZ);
+		}
+
+		//finally move the camera up or down
+		if (resCount != 0)
+		{
+			float averageZ = totalZ / float(resCount);
+			ViewWindow->GetSettings().zCameraPos = averageZ * ViewWindow->GetSettings().zScaling;
+			//force camera to update view
+			cam.TranslationGlobal(0, 0, ViewWindow->GetSettings().zCameraPos);
 		}
 	}
 
