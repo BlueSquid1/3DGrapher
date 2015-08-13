@@ -20,7 +20,7 @@
 #if _MSC_VER != 1200
 	#include <iostream>
 	#include <SDL.h>
-	#include <document.h>
+//	#include <document.h>
 	#include <fstream>
 	#include <sstream>
 #endif

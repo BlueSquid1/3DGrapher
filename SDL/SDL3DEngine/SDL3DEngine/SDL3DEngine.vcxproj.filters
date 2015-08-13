@@ -15,7 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EditTextState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EVALD.c">
@@ -27,13 +33,22 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Function.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GameStatus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp">
@@ -51,42 +66,24 @@
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\uString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\View.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\uString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EditTextState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\VWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCAPS.H">
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCONST.H">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXFUNCS.H">
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EditTextState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EVALD.h">
@@ -98,13 +95,22 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Function.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GameStatus.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Grapher.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Matrix.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Menu.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Mesh.h">
@@ -125,31 +131,16 @@
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Triangle.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\uString.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Vector.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\View.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\uString.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Menu.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EditTextState.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Game.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\VWindow.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

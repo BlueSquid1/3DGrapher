@@ -10,57 +10,8 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EditTextState.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EVALD.c" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Evaluate.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Function.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Game.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GameStatus.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Menu.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Object.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Point.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Renderer.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Triangle.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\uString.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Vector.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\View.cpp" />
-    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\VWindow.cpp" />
-    <ClCompile Include="Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCAPS.H" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXCONST.H" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\AUXFUNCS.H" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EditTextState.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EVALD.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Evaluate.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Function.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Game.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GameStatus.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Grapher.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Matrix.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Menu.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Mesh.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Object.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Point.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\PROTOSD.H" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Renderer.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Triangle.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\uString.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Vector.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\View.h" />
-    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\VWindow.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E18C91CE-BA07-4DC4-84DD-FC6C7742C513}</ProjectGuid>
+    <ProjectGuid>{85545A8E-E604-455E-9034-432D075CC912}</ProjectGuid>
     <RootNamespace>SDL3DEngine</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -87,13 +38,13 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\SDL2-2.0.3\include;C:\rapidjson-master\include\rapidjson;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SDL2-2.0.3\include;C:\rapidjson-master\include\rapidjson;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SDL2-2.0.3_VS2013\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL2-2.0.3_VS2013\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\SDL2-2.0.3_VS2013\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL2-2.0.3_VS2013\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -125,6 +76,52 @@
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EditTextState.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EVALD.c" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Evaluate.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Function.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Game.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GameStatus.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Grapher.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Matrix.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Menu.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Mesh.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Object.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Point.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Renderer.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Triangle.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\uString.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Vector.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\View.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\VWindow.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EditTextState.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EVALD.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Evaluate.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Function.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Game.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GameStatus.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Grapher.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\GrapherOverlay.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Matrix.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Menu.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Mesh.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Object.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Point.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\PROTOSD.H" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Renderer.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Triangle.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\uString.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Vector.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\View.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\VWindow.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

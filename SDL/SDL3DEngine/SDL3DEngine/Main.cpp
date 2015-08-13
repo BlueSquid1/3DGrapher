@@ -1,11 +1,8 @@
 #include "..\..\..\Calculator\fx98603DEngine\Game.h"
-
 #include <iostream>
-
 
 int main(int argc, char* args[])
 {
-
 	//change resolution of application here
 	Game application(800, 600);
 
