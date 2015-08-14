@@ -49,7 +49,55 @@ void GrapherOverlay::DrawCurser(int x, int y)
 
 void GrapherOverlay::DrawAxes()
 {
+	//draw lines
+	float xMin = ViewWindow->GetSettings().xMin;
+	float yMin = ViewWindow->GetSettings().yMin;
+	//z always draw starting at ground
+	float zMin = 0.0;
 
+	float xMax = ViewWindow->GetSettings().xMax;
+	float yMax = ViewWindow->GetSettings().yMax;
+
+	float disX = xMax - xMin;
+	float disY = yMax - yMin;
+
+	//get the max distance
+	float disZ = (disX > disY) ? disX : disY;
+
+	//gap between graph and axis
+	float borderMargin = 0.1;
+	//length of each axes
+	float axisLen = 0.4;
+
+	//point that all three axis meet
+	float xOrig = xMin - (borderMargin * disX);
+	float yOrig = yMin - (borderMargin * disY);
+	float zOrig = zMin;
+
+	//x axis
+	cam->DrawLine3D(xOrig, yOrig, zOrig, xOrig + axisLen * disX, yOrig, zOrig, true);
+
+	//y axis
+	cam->DrawLine3D(xOrig, yOrig, zOrig, xOrig, yOrig + axisLen * disY, zOrig, true);
+
+	//z axis
+	cam->DrawLine3D(xOrig, yOrig, zOrig, xOrig, yOrig, zOrig + (axisLen * 1.5) * disZ, true);
+
+
+#if _MSC_VER == 1200
+	//write letters
+	Vector Pos(xOrig + axisLen * disX, yOrig, zOrig);
+	Vector Pix = cam->Project3Dto2D(Pos);
+	gRenderer->PrintTextMini(Pix(0), Pix(1), "y", 0);
+
+	Pos.SetValues(xOrig, yOrig + axisLen * disY, zOrig);
+	Pix = cam->Project3Dto2D(Pos);
+	gRenderer->PrintTextMini(Pix(0), Pix(1), "x", 0);
+
+	Pos.SetValues(xOrig, yOrig, zOrig + (axisLen * 1.5) * disZ);
+	Pix = cam->Project3Dto2D(Pos);
+	gRenderer->PrintTextMini(Pix(0), Pix(1), "z", 0);
+#endif
 }
 
 void GrapherOverlay::reset()

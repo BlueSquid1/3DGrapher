@@ -93,13 +93,14 @@ void View::DrawLine3D(float x1, float y1, float z1, float x2, float y2, float z2
 
 	//transform coordinates
 	Matrix inv = this->GetInverse();
-	float mX1 = inv(0, 0) * x1 + inv(0, 1) * y1 + inv(0, 2) * z1;
-	float mY1 = inv(1, 0) * x1 + inv(1, 1) * y1 + inv(1, 2) * z1;
-	float mZ1 = inv(2, 0) * x1 + inv(2, 1) * y1 + inv(2, 2) * z1;
+	float mX1 = inv(0, 0) * x1 + inv(0, 1) * y1 + inv(0, 2) * z1 + 1 * inv(0, 3);
+	float mY1 = inv(1, 0) * x1 + inv(1, 1) * y1 + inv(1, 2) * z1 + 1 * inv(1, 3);
+	float mZ1 = inv(2, 0) * x1 + inv(2, 1) * y1 + inv(2, 2) * z1 + 1 * inv(2, 3);
 
-	float mX2 = inv(0, 0) * x2 + inv(0, 1) * y2 + inv(0, 2) * z2;
-	float mY2 = inv(1, 0) * x2 + inv(1, 1) * y2 + inv(1, 2) * z2;
-	float mZ2 = inv(2, 0) * x2 + inv(2, 1) * y2 + inv(2, 2) * z2;
+	float mX2 = inv(0, 0) * x2 + inv(0, 1) * y2 + inv(0, 2) * z2 + 1 * inv(0, 3);
+	float mY2 = inv(1, 0) * x2 + inv(1, 1) * y2 + inv(1, 2) * z2 + 1 * inv(1, 3);
+	float mZ2 = inv(2, 0) * x2 + inv(2, 1) * y2 + inv(2, 2) * z2 + 1 * inv(2, 3);
+
 
 	//place points into a space defined by: (-1,-1,-1) and (1,1,1)
 	x1 = OrthMat(0, 0) * mX1 + OrthMat(0, 1) * mY1 + OrthMat(0, 2) * mZ1;

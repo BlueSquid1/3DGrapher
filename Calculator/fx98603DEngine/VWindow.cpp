@@ -557,7 +557,7 @@ uString VWindow::GetCurrentDataString()
 		sprintf(s, "%d", grapherSettings.SolidMesh);
 		return s;
 	case 16:
-		sprintf(s, "$d", grapherSettings.DisplayAxes);
+		sprintf(s, "%d", grapherSettings.DisplayAxes);
 		return s;
 	}
 }
