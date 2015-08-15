@@ -102,6 +102,10 @@ bool Grapher::AutoZoom()
 		biggerRange = yRange;
 	}
 
+	//scale x and y axis
+	ViewWindow->GetSettings().xScaling = biggerRange / xRange;
+	ViewWindow->GetSettings().yScaling = biggerRange / yRange;
+
 	cam.Reset(biggerRange, biggerRange);
 
 	//find the largest and smallest z value over all drawable functions
@@ -155,6 +159,7 @@ bool Grapher::AutoZoom()
 		//quick check to make sure not dividing by zero
 		if (largestZ != miniumZ)
 		{
+			//scale the z axis
 			ViewWindow->GetSettings().zScaling = biggerRange / (largestZ - miniumZ);
 		}
 

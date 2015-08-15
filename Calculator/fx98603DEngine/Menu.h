@@ -17,7 +17,6 @@ extern "C"
 	#include <stdio.h>
 }
 
-
 class Menu : public GameStatus
 {	
 	Function func[6];

@@ -54,7 +54,7 @@ Vector View::Project3Dto2D(const Vector& vec1)
 	//scale vector (so it fits on the screen neatly)
 	Vector temp = vec1;
 	temp(0) *= viewWindow->GetSettings().xScaling;
-	temp(1) *= viewWindow->GetSettings().yScaling;
+	temp(1) *= -viewWindow->GetSettings().yScaling;
 	temp(2) *= viewWindow->GetSettings().zScaling;
 
 
@@ -85,8 +85,8 @@ void View::DrawLine3D(float x1, float y1, float z1, float x2, float y2, float z2
 	x1 *= viewWindow->GetSettings().xScaling;
 	x2 *= viewWindow->GetSettings().xScaling;
 
-	y1 *= viewWindow->GetSettings().yScaling;
-	y2 *= viewWindow->GetSettings().yScaling;
+	y1 *= -viewWindow->GetSettings().yScaling;
+	y2 *= -viewWindow->GetSettings().yScaling;
 
 	z1 *= viewWindow->GetSettings().zScaling;
 	z2 *= viewWindow->GetSettings().zScaling;

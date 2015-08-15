@@ -42,7 +42,7 @@ Renderer::Renderer(const int& width, const int& height)
 	}
 
 	//set font
-	gFont = TTF_OpenFont("res/VeraMono.ttf", 45);
+	gFont = TTF_OpenFont("res/VeraMono.ttf", 53);
 
 	if (!gFont)
 	{

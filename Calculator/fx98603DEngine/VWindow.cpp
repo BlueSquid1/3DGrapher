@@ -76,6 +76,7 @@ void VWindow::DrawSettings()
 	//keep track of how many variables displayed
 	this->counter = 0;
 
+	//I am using blender's orientation therefore the x axis is the y axis and vias versia
 	switch (FirstSettingsNum)
 	{
 	case 0:

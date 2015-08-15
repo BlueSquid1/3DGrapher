@@ -4,11 +4,18 @@
 #include "GameStatus.h"
 #include "uString.h"
 #include "Point.h"
+#include "ButtonUI.h"
 
 extern "C"
 {
 	#include <stdio.h>
 }
+
+enum ButState
+{
+	MAIN_BUT,
+	FUNCTION_BUT
+};
 
 class EditTextState : public GameStatus
 {
@@ -19,10 +26,22 @@ class EditTextState : public GameStatus
 
 	int curserPos;
 
+	ButState buttonState;
+	//MAIN buttons
+	ButtonUI xVarBut;
+	ButtonUI yVarBut;
+	ButtonUI FunctBut;
+
+	//FUNCTION buttons
+	ButtonUI unitStep;
+
 #if _MSC_VER == 1200
 	bool EnteredText(unsigned int mKey);
 	uString textBuffer;
 #endif
+
+	//Writes to the end of the string
+	bool WriteEnd(const uString& mText);
 
 public:
 

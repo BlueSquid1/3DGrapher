@@ -103,10 +103,58 @@ bool EditTextState::EnteredText(unsigned int mKey)
 }
 #endif
 
+bool EditTextState::WriteEnd(const uString& mText)
+{
+	uString temp = mText;
+	this->text.Insert(curserPos, temp);
+
+	//move the curse down the number of charactors recently added
+	curserPos += temp.GetLen();
+	return true;
+}
 
 EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, EDITTEXT)
 {
 	curserPos = 0;
+	buttonState = MAIN_BUT;
+
+
+	this->xVarBut.SetPos(21 * 0, 7 * 8);
+	this->xVarBut.SetText("X");
+#if _MSC_VER != 1200
+	this->xVarBut.SetTrigger(SDLK_F1);
+#endif
+#if _MSC_VER == 1200
+	this->xVarBut.SetTrigger(KEY_CTRL_F1);
+#endif
+
+	
+	this->yVarBut.SetPos(21 * 1, 7 * 8);
+	this->yVarBut.SetText("Y");
+#if _MSC_VER != 1200
+	this->yVarBut.SetTrigger(SDLK_F2);
+#endif
+#if _MSC_VER == 1200
+	this->yVarBut.SetTrigger(KEY_CTRL_F2);
+#endif
+	
+	this->FunctBut.SetPos(21 * 3, 7 * 8);
+	this->FunctBut.SetText("FUNC");
+#if _MSC_VER != 1200
+	this->FunctBut.SetTrigger(SDLK_F4);
+#endif
+#if _MSC_VER == 1200
+	this->FunctBut.SetTrigger(KEY_CTRL_F4);
+#endif
+
+	this->unitStep.SetPos(21 * 0, 7 * 8);
+	this->unitStep.SetText("USTP");
+#if _MSC_VER != 1200
+	this->unitStep.SetTrigger(SDLK_F1);
+#endif
+#if _MSC_VER == 1200
+	this->unitStep.SetTrigger(KEY_CTRL_F1);
+#endif
 }
 
 
@@ -157,6 +205,29 @@ bool EditTextState::Input()
 		}
 		else if (gRenderer->e.type == SDL_KEYDOWN)
 		{
+			if (buttonState == MAIN_BUT)
+			{
+				if (xVarBut.HandleEvent(&gRenderer->e))
+				{
+					this->WriteEnd("X");
+				}
+				else if (yVarBut.HandleEvent(&gRenderer->e))
+				{
+					WriteEnd("Y");
+				}
+				else if (FunctBut.HandleEvent(&gRenderer->e))
+				{
+					buttonState = FUNCTION_BUT;
+				}
+			}
+			else if (buttonState == FUNCTION_BUT)
+			{
+				if (unitStep.HandleEvent(&gRenderer->e))
+				{
+					WriteEnd("U(");
+				}
+			}
+
 			switch (gRenderer->e.key.keysym.sym)
 			{
 			case SDLK_LEFT:
@@ -210,8 +281,16 @@ bool EditTextState::Input()
 
 			case SDLK_ESCAPE:
 			{
-				this->nextState = MAINMENU;
-				return false;
+				//exit out of submenus before exitting editor
+				if (buttonState != MAIN_BUT)
+				{
+					buttonState = MAIN_BUT;
+				}
+				else
+				{
+					this->nextState = MAINMENU;
+					return false;
+				}
 				break;
 			}
 			case SDLK_RETURN:
@@ -228,16 +307,37 @@ bool EditTextState::Input()
 		else if (gRenderer->e.type == SDL_TEXTINPUT)
 		{
 			//insert into the string
-			uString temp = gRenderer->e.text.text;
-			text.Insert(curserPos, temp);
-			curserPos += temp.GetLen();
+			WriteEnd(gRenderer->e.text.text);
 		}
 	}
 #endif
 
 #if _MSC_VER == 1200
-unsigned int key;
-GetKey(&key);
+	unsigned int key;
+	GetKey(&key);
+
+	if (buttonState == MAIN_BUT)
+	{
+		if (xVarBut.HandleEvent(&key))
+		{
+			WriteEnd("X");
+		}
+		else if (yVarBut.HandleEvent(&key))
+		{
+			WriteEnd("Y");
+		}
+		else if (FunctBut.HandleEvent(&key))
+		{
+			buttonState = FUNCTION_BUT;
+		}
+	}
+	else if (buttonState == FUNCTION_BUT)
+	{
+		if (unitStep.HandleEvent(&key))
+		{
+			WriteEnd("U(");
+		}
+	}
 
 	switch (key)
 	{
@@ -247,7 +347,7 @@ GetKey(&key);
 			curserPos++;
 		}
 		break;
-		
+
 	case KEY_CTRL_LEFT:
 		if (curserPos > 0)
 		{
@@ -289,8 +389,16 @@ GetKey(&key);
 	}
 	case KEY_CTRL_EXIT:
 	{
-		this->nextState = MAINMENU;
-		return false;
+		//exit out of submenus before exitting editor
+		if (buttonState != MAIN_BUT)
+		{
+			buttonState = MAIN_BUT;
+		}
+		else
+		{
+			this->nextState = MAINMENU;
+			return false;
+		}
 		break;
 	}
 
@@ -302,10 +410,7 @@ GetKey(&key);
 	if(EnteredText(key))
 	{
 		//insert into the string
-		uString temp = textBuffer;
-		this->text.Insert(curserPos, temp);
-		//move the curse down the number of charactors recently added
-		curserPos += temp.GetLen();
+		WriteEnd(textBuffer);
 	}
 #endif
 	return true;
@@ -318,13 +423,39 @@ bool EditTextState::Proccess()
 
 void EditTextState::Display()
 {	
+	//clear where text go
 	gRenderer->ClearScreen(topLeft, botRight);
+	
+	//clear where buttons go
+	Point ButTop;
+	ButTop.x = 0;
+	ButTop.y = 7 * 8;
 
+	Point ButBot;
+	ButBot.x = 127;
+	ButBot.y = 63;
+	gRenderer->ClearScreen(ButTop, ButBot);
+	
+	
+
+	//draw function
 	gRenderer->PrintTextXY(topLeft.x, topLeft.y, text, 0);
-	
+
+	//draw curser
 	int curserX = topLeft.x + curserPos * gRenderer->fontWidth;
-	
 	gRenderer->DrawBox(curserX, topLeft.y, curserX + 1, botRight.y, 0);
+
+	//draw buttons
+	if (buttonState == MAIN_BUT)
+	{
+		this->xVarBut.Render(gRenderer);
+		this->yVarBut.Render(gRenderer);
+		this->FunctBut.Render(gRenderer);
+	}
+	else if (buttonState == FUNCTION_BUT)
+	{
+		this->unitStep.Render(gRenderer);
+	}
 
 	gRenderer->UpdateScreen();
 }

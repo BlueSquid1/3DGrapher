@@ -2,12 +2,11 @@
 
 void GrapherOverlay::DrawCoor()
 {
-	//because I used blenders coordant system I need to switch the x and the y axis
 	char s[20];
-	sprintf((char *)s, "x=%.1f", this->TraceLoc(1));
+	sprintf((char *)s, "x=%.1f", this->TraceLoc(0));
 	gRenderer->PrintTextMini(30 * 0, 0, s, 0);
 
-	sprintf((char *)s, "y=%.1f", this->TraceLoc(0));
+	sprintf((char *)s, "y=%.1f", this->TraceLoc(1));
 	gRenderer->PrintTextMini(40 * 1, 0, s, 0);
 
 	sprintf((char *)s, "z=%.1f", this->TraceLoc(2));
@@ -61,8 +60,8 @@ void GrapherOverlay::DrawAxes()
 	float disX = xMax - xMin;
 	float disY = yMax - yMin;
 
-	//get the max distance
-	float disZ = (disX > disY) ? disX : disY;
+	//get the average distance
+	float disZ = (disX + disY) / 2.0;
 
 	//gap between graph and axis
 	float borderMargin = 0.1;
@@ -83,16 +82,15 @@ void GrapherOverlay::DrawAxes()
 	//z axis
 	cam->DrawLine3D(xOrig, yOrig, zOrig, xOrig, yOrig, zOrig + (axisLen * 1.5) * disZ, true);
 
-
 #if _MSC_VER == 1200
 	//write letters
 	Vector Pos(xOrig + axisLen * disX, yOrig, zOrig);
 	Vector Pix = cam->Project3Dto2D(Pos);
-	gRenderer->PrintTextMini(Pix(0), Pix(1), "y", 0);
+	gRenderer->PrintTextMini(Pix(0), Pix(1), "x", 0);
 
 	Pos.SetValues(xOrig, yOrig + axisLen * disY, zOrig);
 	Pix = cam->Project3Dto2D(Pos);
-	gRenderer->PrintTextMini(Pix(0), Pix(1), "x", 0);
+	gRenderer->PrintTextMini(Pix(0), Pix(1), "y", 0);
 
 	Pos.SetValues(xOrig, yOrig, zOrig + (axisLen * 1.5) * disZ);
 	Pix = cam->Project3Dto2D(Pos);
@@ -255,7 +253,7 @@ bool GrapherOverlay::Proccess()
 			TraceLoc(0) = func->GetUpperBoundary()(0);
 		}
 
-		if (TraceLoc(1) < func->GetLowerBoundary()(0))
+		if (TraceLoc(1) < func->GetLowerBoundary()(1))
 		{
 			TraceLoc(1) = func->GetLowerBoundary()(1);
 		}
@@ -281,9 +279,6 @@ bool GrapherOverlay::Proccess()
 
 void GrapherOverlay::Display()
 {
-	//Render the buttons
-	TraceBut.Render(gRenderer);
-	AutoZoom.Render(gRenderer);
 
 	if (ViewWindow->GetSettings().DisplayAxes == true)
 	{
@@ -298,4 +293,7 @@ void GrapherOverlay::Display()
 		//draw coordiants
 		DrawCoor();
 	}
+	//Render the buttons
+	TraceBut.Render(gRenderer);
+	AutoZoom.Render(gRenderer);
 }
