@@ -336,6 +336,46 @@ bool uString::pop_back()
 	return this->erase(this->length - 1, 1);
 }
 
+uString uString::Split(int start, int end)
+{
+	//check boundaries first
+	if (start < 0 || start >= capacity)
+	{
+		uString::ErrorPrint("start position is not inside the uString");
+		return " ";
+	}
+	else if (end <= 0 || end > capacity)
+	{
+		uString::ErrorPrint("end position is not inside the uString");
+		return " ";
+	}
+	else if (start >= end)
+	{
+		uString::ErrorPrint("start position is greater or equal than end position");
+		return " ";
+	}
+
+	//work out length of output
+	int outLen = end - start + 1;
+	
+	uString outputString;
+	outputString.ForceLength(outLen);
+	
+	int count = 0;
+
+	for (int i = start; i < end; i++)
+	{
+		if (count >= outLen)
+		{
+			uString::ErrorPrint("split in string class looping too many times");
+		}
+		outputString[count] = this->operator[](i);
+		count++;
+	}
+
+	return outputString;
+}
+
 const unsigned char* uString::GetText() const
 {
 	return text;

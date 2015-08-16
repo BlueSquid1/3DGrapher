@@ -26,6 +26,10 @@ class EditTextState : public GameStatus
 
 	int curserPos;
 
+	//for display purposes only
+	//stores where the first curse pos is on the screen
+	int curserStart;
+
 	ButState buttonState;
 	//MAIN buttons
 	ButtonUI xVarBut;

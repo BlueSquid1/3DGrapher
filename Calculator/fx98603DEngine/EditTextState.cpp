@@ -116,6 +116,7 @@ bool EditTextState::WriteEnd(const uString& mText)
 EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, EDITTEXT)
 {
 	curserPos = 0;
+	curserStart = curserPos;
 	buttonState = MAIN_BUT;
 
 
@@ -436,13 +437,55 @@ void EditTextState::Display()
 	ButBot.y = 63;
 	gRenderer->ClearScreen(ButTop, ButBot);
 	
-	
+	//can fit only 18 charactors on the screen
+	int maxLength = 18;
+
+	//update start position
+	if (curserPos > curserStart + maxLength)
+	{
+		//work out how many right steps to take
+		int steps = curserPos - (curserStart + maxLength);
+
+		//update start
+		curserStart = curserStart + steps;
+	}
+	else if (curserPos <= curserStart)
+	{
+		//work out how many left steps to take
+		int steps = 0;
+		if (curserStart > maxLength)
+		{
+			steps = -maxLength;
+		}
+		else
+		{
+			steps = -curserStart;
+		}
+
+		//update start
+		curserStart = curserStart + steps;
+	}
+
+	int curserDisplayPos = curserPos - curserStart;
+
+	uString displayedText;
+	displayedText.ForceLength(19);
+
+	//update text for display
+	if (text.GetLen() > 0)
+	{
+		displayedText = text.Split(curserStart, text.GetLen());
+	}
+	else
+	{
+		displayedText = text;
+	}
 
 	//draw function
-	gRenderer->PrintTextXY(topLeft.x, topLeft.y, text, 0);
+	gRenderer->PrintTextXY(topLeft.x, topLeft.y, displayedText, 0);
 
 	//draw curser
-	int curserX = topLeft.x + curserPos * gRenderer->fontWidth;
+	int curserX = topLeft.x + curserDisplayPos * gRenderer->fontWidth;
 	gRenderer->DrawBox(curserX, topLeft.y, curserX + 1, botRight.y, 0);
 
 	//draw buttons

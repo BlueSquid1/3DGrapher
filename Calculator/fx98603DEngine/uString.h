@@ -49,6 +49,9 @@ public:
 	//erase last element from the string
 	bool pop_back();
 
+	//returns a uString with the charactors from start to end
+	uString Split(int start, int end);
+
 	const unsigned char* GetText() const;
 	
 	bool SetText(const char * inputText, int roughSize = 0);
