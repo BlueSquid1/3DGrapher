@@ -23,6 +23,10 @@ bool Grapher::LoadFunctions(Function equation[6])
 	{
 		if (equation[i].IsDrawable())
 		{
+			#if _MSC_VER == 1200
+			//calculate if there is enough space on calculator
+			//Bfile_GetMediaFree()
+			#endif
 			equation[i].SetGridRes(ViewWindow->GetSettings().xGridRes, ViewWindow->GetSettings().yGridRes);
 			equation[i].UpdateGrid(min, max);
 		}
@@ -188,7 +192,6 @@ bool Grapher::AutoZoom()
 
 }
 
-
 bool Grapher::Input()
 {
 #if _MSC_VER != 1200
@@ -286,10 +289,17 @@ bool Grapher::Input()
 		}
 	}
 #endif
-
+	
 #if _MSC_VER == 1200
 	unsigned int key;
+	#ifdef EXPERIMENTAL
+	Bkey_Set_RepeatTime(20,1);
+	#endif
+	//get input
 	GetKey(&key);
+	#ifdef EXPERIMENTAL
+	Bkey_Set_RepeatTime_Default();
+	#endif
 
 	//first see if a UI event has occured
 	UIOverlay.Input(&key, func);
@@ -381,6 +391,9 @@ bool Grapher::Input()
 
 bool Grapher::Proccess()
 {
+#if _MSC_VER == 1200
+	CommonUtil::MR_CPUSpeedDouble();
+#endif
 	//see if UI is overriding grapher
 	if (!UIOverlay.InputFromGrapherOverlay())
 	{
@@ -405,12 +418,19 @@ bool Grapher::Proccess()
 		//UI override
 		UIOverlay.Proccess();
 	}
-	
+
+#if _MSC_VER == 1200
+	CommonUtil::MR_CPUSpeedNormal();
+#endif
 	return true;
 }
 
 void Grapher::Display()
 {
+#if _MSC_VER == 1200
+	CommonUtil::MR_CPUSpeedDouble();
+#endif
+
 	gRenderer->ClearScreen();
 #if _MSC_VER != 1200
 	gRenderer->SetColour(0x00, 0x00, 0x00, 0xFF);
@@ -462,6 +482,9 @@ void Grapher::Display()
 	
 	//update screen
 	gRenderer->UpdateScreen();
+#if _MSC_VER == 1200
+	CommonUtil::MR_CPUSpeedNormal();
+#endif
 }
 
 

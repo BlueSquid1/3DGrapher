@@ -1,6 +1,8 @@
 #ifndef GRAPHER_H
 #define GRAPHER_H
 
+//#define EXPERIMENTAL;
+
 /*
 	calculator visual studio version = 1200
 	VS12 - 2013 community version = 1800
@@ -30,6 +32,7 @@ extern "C"
 {
 	#include <fxlib.h>
 	#include <math.h>
+	#include "CommonUtil.h" //just for overclocking calculator
 }
 #endif
 

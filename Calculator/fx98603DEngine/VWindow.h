@@ -68,7 +68,15 @@ class VWindow : public GameStatus
 	//===
 
 	//moves to editTextState, returns the edited string
-	uString TextInput();
+#if _MSC_VER != 1200
+	uString TextInput(SDL_Event * e);
+#endif
+
+#if _MSC_VER == 1200
+	uString TextInput(unsigned int * key);
+#endif
+
+
 	bool setCurrentValue(uString sValue);
 
 	//check all the VWindow settings and make sure they are valid

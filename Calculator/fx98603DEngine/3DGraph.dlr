@@ -1,1 +1,16 @@
 [DLSimRunSpace]
+
+[Breakpoint]
+File=C:\Users\Clint\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\Grapher.cpp
+Line=296
+Flags=00001012
+
+[Breakpoint]
+File=C:\Users\Clint\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\Grapher.cpp
+Line=301
+Flags=00001012
+
+[Breakpoint]
+File=C:\Users\Clint\Desktop\MyGitHub\3DGrapher\Calculator\fx98603DEngine\VWindow.cpp
+Line=250
+Flags=00001012

@@ -2,22 +2,22 @@
 
 [_1]
 Type=5
-Order=1
+Order=0
 Top=2925
 Left=690
 Height=8115
 Width=6930
 State=0
 Flags=00000020
-Setting=48:1:Main.cpp
+Setting=251:1:VWindow.cpp
 OptionA=0
 
 [_2]
 Type=1
-Order=3
-Top=15
+Order=5
+Top=0
 Left=7800
-Height=4740
+Height=4755
 Width=5520
 State=0
 Flags=00000000
@@ -26,7 +26,7 @@ OptionB=15
 
 [_3]
 Type=6
-Order=2
+Order=1
 Top=4755
 Left=7800
 Height=6375
@@ -48,7 +48,7 @@ OptionA=0
 
 [_5]
 Type=8
-Order=6
+Order=7
 Top=7245
 Left=13605
 Height=4500
@@ -85,14 +85,14 @@ Order=4
 Top=15
 Left=0
 Height=11115
-Width=2220
+Width=3630
 State=0
 Flags=00000000
 OptionA=0
 
 [_9]
 Type=15
-Order=0
+Order=2
 Top=-90
 Left=465
 Height=8775
@@ -115,26 +115,26 @@ OptionA=0
 
 [_33]
 Type=16
-Order=5
+Order=3
 Top=1725
 Left=1020
 Height=7680
 Width=6780
 State=0
 Flags=00000020
-Setting=310:1:VWindow.cpp
+Setting=251:1:VWindow.cpp
 OptionA=0
 
 [_34]
 Type=16
-Order=7
+Order=6
 Top=1500
 Left=1500
 Height=7860
 Width=11085
-State=1
+State=0
 Flags=00000020
-Setting=170:1:Grapher.cpp
+Setting=296:1:Grapher.cpp
 OptionA=0
 
 [_35]

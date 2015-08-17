@@ -115,6 +115,11 @@ bool EditTextState::WriteEnd(const uString& mText)
 
 EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, EDITTEXT)
 {
+#if _MSC_VER != 1200
+	//tell OS that the program will be requesting text input
+	SDL_StartTextInput();
+#endif
+
 	curserPos = 0;
 	curserStart = curserPos;
 	buttonState = MAIN_BUT;
@@ -178,11 +183,7 @@ bool EditTextState::LoadPosition(Point& TR, Point& BL)
 	
 	this->botRight.x = BL.x;
 	this->botRight.y = BL.y;
-	
-	#if _MSC_VER != 1200
-	//tell OS that the program will be requesting text input
-	SDL_StartTextInput();
-	#endif
+
 	curserPos = 0;
 	return true;
 }
@@ -199,116 +200,9 @@ bool EditTextState::Input()
 #if _MSC_VER != 1200
 	while (SDL_PollEvent(&gRenderer->e) != 0)
 	{
-		if (gRenderer->e.type == SDL_QUIT)
+		if (proccessAInput(&gRenderer->e) == false)
 		{
-			this->nextState = QUIT;
 			return false;
-		}
-		else if (gRenderer->e.type == SDL_KEYDOWN)
-		{
-			if (buttonState == MAIN_BUT)
-			{
-				if (xVarBut.HandleEvent(&gRenderer->e))
-				{
-					this->WriteEnd("X");
-				}
-				else if (yVarBut.HandleEvent(&gRenderer->e))
-				{
-					WriteEnd("Y");
-				}
-				else if (FunctBut.HandleEvent(&gRenderer->e))
-				{
-					buttonState = FUNCTION_BUT;
-				}
-			}
-			else if (buttonState == FUNCTION_BUT)
-			{
-				if (unitStep.HandleEvent(&gRenderer->e))
-				{
-					WriteEnd("U(");
-				}
-			}
-
-			switch (gRenderer->e.key.keysym.sym)
-			{
-			case SDLK_LEFT:
-				if (curserPos > 0)
-				{
-					curserPos--;
-				}
-				break;
-			case SDLK_RIGHT:
-				if (curserPos < text.GetLen())
-				{
-					curserPos++;
-				}
-				break;
-			case SDLK_BACKSPACE:
-			{
-				if (curserPos > 0)
-				{
-					if (text.GetLen() == curserPos)
-					{
-						//deleting from the end of the string
-						text.pop_back();
-						curserPos--;
-					}
-					else
-					{
-						//deleting from the middle of the string
-						text.erase(curserPos - 1, 1);
-						curserPos--;
-					}
-				}
-				break;
-			}
-			case SDLK_DELETE:
-			{
-				if (curserPos < text.GetLen())
-				{
-					if (curserPos == text.GetLen() - 1)
-					{
-						//deleting from the end of the string
-						text.pop_back();
-					}
-					else
-					{
-						//deleting from the middle of the string
-						text.erase(curserPos, 1);
-					}
-				}
-				break;
-			}
-
-			case SDLK_ESCAPE:
-			{
-				//exit out of submenus before exitting editor
-				if (buttonState != MAIN_BUT)
-				{
-					buttonState = MAIN_BUT;
-				}
-				else
-				{
-					this->nextState = MAINMENU;
-					return false;
-				}
-				break;
-			}
-			case SDLK_RETURN:
-			{
-				this->nextState = MAINMENU;
-				return false;
-				break;
-			}
-
-			default:
-				break;
-			}
-		}
-		else if (gRenderer->e.type == SDL_TEXTINPUT)
-		{
-			//insert into the string
-			WriteEnd(gRenderer->e.text.text);
 		}
 	}
 #endif
@@ -317,30 +211,161 @@ bool EditTextState::Input()
 	unsigned int key;
 	GetKey(&key);
 
+	if (proccessAInput(&key) == false)
+	{
+		return false;
+	}
+
+#endif
+	return true;
+}
+
+#if _MSC_VER != 1200
+bool EditTextState::proccessAInput(SDL_Event * e)
+{
+	if (gRenderer->e.type == SDL_QUIT)
+	{
+		this->nextState = QUIT;
+		return false;
+	}
+	else if (gRenderer->e.type == SDL_KEYDOWN)
+	{
+		if (buttonState == MAIN_BUT)
+		{
+			if (xVarBut.HandleEvent(&gRenderer->e))
+			{
+				this->WriteEnd("X");
+			}
+			else if (yVarBut.HandleEvent(&gRenderer->e))
+			{
+				WriteEnd("Y");
+			}
+			else if (FunctBut.HandleEvent(&gRenderer->e))
+			{
+				buttonState = FUNCTION_BUT;
+			}
+		}
+		else if (buttonState == FUNCTION_BUT)
+		{
+			if (unitStep.HandleEvent(&gRenderer->e))
+			{
+				WriteEnd("U(");
+			}
+		}
+
+		switch (gRenderer->e.key.keysym.sym)
+		{
+		case SDLK_LEFT:
+			if (curserPos > 0)
+			{
+				curserPos--;
+			}
+			break;
+		case SDLK_RIGHT:
+			if (curserPos < text.GetLen())
+			{
+				curserPos++;
+			}
+			break;
+		case SDLK_BACKSPACE:
+		{
+			if (curserPos > 0)
+			{
+				if (text.GetLen() == curserPos)
+				{
+					//deleting from the end of the string
+					text.pop_back();
+					curserPos--;
+				}
+				else
+				{
+					//deleting from the middle of the string
+					text.erase(curserPos - 1, 1);
+					curserPos--;
+				}
+			}
+			break;
+		}
+		case SDLK_DELETE:
+		{
+			if (curserPos < text.GetLen())
+			{
+				if (curserPos == text.GetLen() - 1)
+				{
+					//deleting from the end of the string
+					text.pop_back();
+				}
+				else
+				{
+					//deleting from the middle of the string
+					text.erase(curserPos, 1);
+				}
+			}
+			break;
+		}
+
+		case SDLK_ESCAPE:
+		{
+			//exit out of submenus before exitting editor
+			if (buttonState != MAIN_BUT)
+			{
+				buttonState = MAIN_BUT;
+			}
+			else
+			{
+				this->nextState = MAINMENU;
+				return false;
+			}
+			break;
+		}
+		case SDLK_RETURN:
+		{
+			this->nextState = MAINMENU;
+			return false;
+			break;
+		}
+
+		default:
+			break;
+		}
+	}
+	else if (gRenderer->e.type == SDL_TEXTINPUT)
+	{
+		//insert into the string
+		WriteEnd(gRenderer->e.text.text);
+	}
+
+	return true;
+}
+#endif
+
+#if _MSC_VER == 1200
+bool EditTextState::proccessAInput(unsigned int * key)
+{
 	if (buttonState == MAIN_BUT)
 	{
-		if (xVarBut.HandleEvent(&key))
+		if (xVarBut.HandleEvent(key))
 		{
 			WriteEnd("X");
 		}
-		else if (yVarBut.HandleEvent(&key))
+		else if (yVarBut.HandleEvent(key))
 		{
 			WriteEnd("Y");
 		}
-		else if (FunctBut.HandleEvent(&key))
+		else if (FunctBut.HandleEvent(key))
 		{
 			buttonState = FUNCTION_BUT;
 		}
 	}
 	else if (buttonState == FUNCTION_BUT)
 	{
-		if (unitStep.HandleEvent(&key))
+		if (unitStep.HandleEvent(key))
 		{
 			WriteEnd("U(");
 		}
 	}
 
-	switch (key)
+	switch (*key)
 	{
 	case KEY_CTRL_RIGHT:
 		if (curserPos < text.GetLen())
@@ -408,14 +433,14 @@ bool EditTextState::Input()
 	}
 
 	//textInput
-	if(EnteredText(key))
+	if (EnteredText(*key))
 	{
 		//insert into the string
 		WriteEnd(textBuffer);
 	}
-#endif
 	return true;
 }
+#endif
 
 bool EditTextState::Proccess()
 {

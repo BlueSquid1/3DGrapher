@@ -176,8 +176,10 @@ void VWindow::DrawSettings()
 	}
 }
 
-uString VWindow::TextInput()
+#if _MSC_VER != 1200
+uString VWindow::TextInput(SDL_Event * e)
 {
+	//gather where to edit text
 	uString text = this->GetCurrentDataString();
 
 	Point TL;
@@ -188,10 +190,14 @@ uString VWindow::TextInput()
 	BR.x = 127;
 	BR.y = TL.y + 8;
 
+	//initalize edit text object
 	EditTextState EditText(this->gRenderer);
-
 	EditText.LoadTextAndPos(text, TL, BR);
 
+	//proccess previous text input
+	EditText.proccessAInput(e);
+
+	//enter text input mode
 	bool mContinue = true;
 	while (mContinue == true)
 	{
@@ -203,8 +209,49 @@ uString VWindow::TextInput()
 		mContinue = EditText.Input();
 	}
 
+	//leave text input mode
 	return EditText.GetText();
 }
+#endif
+
+#if _MSC_VER == 1200
+uString VWindow::TextInput(unsigned int * key)
+{
+	//gather where to edit text
+	uString text = this->GetCurrentDataString();
+
+	Point TL;
+	TL.x = 35;
+	TL.y = this->GetCurserYPos();
+
+	Point BR;
+	BR.x = 127;
+	BR.y = TL.y + 8;
+
+	//initalize edit text object
+	EditTextState EditText(this->gRenderer);
+	EditText.LoadTextAndPos(text, TL, BR);
+
+	//proccess previous text input
+	EditText.proccessAInput(key);
+
+	//enter text input mode
+	bool mContinue = true;
+	while (mContinue == true)
+	{
+		EditText.Proccess();
+
+		EditText.Display();
+
+		//ideally would do input first but the casio library pauses the program until user input
+		mContinue = EditText.Input();
+	}
+
+	//leave text input mode
+	return EditText.GetText();
+}
+#endif
+
 
 bool VWindow::setCurrentValue(uString sValue)
 {
@@ -356,7 +403,7 @@ bool VWindow::Input()
 			{
 			case SDLK_RIGHT:
 			{
-				uString text = TextInput();
+				uString text = TextInput(&gRenderer->e);
 				setCurrentValue(text);
 				break;
 			}
@@ -415,7 +462,7 @@ bool VWindow::Input()
 		break;
 	case KEY_CTRL_RIGHT:
 	{
-		uString text = TextInput();
+		uString text = TextInput(&key);
 		setCurrentValue(text);
 		break;
 	}
@@ -437,8 +484,8 @@ bool VWindow::Input()
 	default:
 	{
 		//if its none of the special case keys then edit the text
-		this->nextState = EDITTEXT;
-		return false;
+		uString text = TextInput(&key);
+		setCurrentValue(text);
 		break;
 	}
 	}

@@ -33,7 +33,13 @@ class Menu : public GameStatus
 	void PrintUI();
 	
 	//moves to editTextState, returns the edited string
-	uString TextInput();
+#if _MSC_VER != 1200
+	uString TextInput(SDL_Event * e);
+#endif
+
+#if _MSC_VER == 1200
+	uString TextInput(unsigned int * key);
+#endif
 
 	//same as display but does not draw the selector
 	void DisplayNoSelector();

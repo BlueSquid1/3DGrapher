@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.cpp" />
+    <ClCompile Include="..\..\..\Calculator\fx98603DEngine\CommonUtil.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EditTextState.cpp" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\EVALD.c" />
     <ClCompile Include="..\..\..\Calculator\fx98603DEngine\Evaluate.cpp" />
@@ -101,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\ButtonUI.h" />
+    <ClInclude Include="..\..\..\Calculator\fx98603DEngine\CommonUtil.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EditTextState.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\EVALD.h" />
     <ClInclude Include="..\..\..\Calculator\fx98603DEngine\Evaluate.h" />

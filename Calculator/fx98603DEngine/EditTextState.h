@@ -59,6 +59,15 @@ public:
 	bool LoadTextAndPos(uString& inputText, Point& TR, Point& BL);
 	
 	bool Input();
+
+#if _MSC_VER != 1200
+	bool proccessAInput(SDL_Event * e);
+#endif
+
+#if _MSC_VER == 1200
+	bool proccessAInput(unsigned int * key);
+#endif
+
 	bool Proccess();
 	void Display();
 	

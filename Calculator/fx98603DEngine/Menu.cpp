@@ -81,9 +81,10 @@ void Menu::PrintUI()
 	this->VWindowBut.Render(gRenderer);
 }
 
-
-uString Menu::TextInput()
+#if _MSC_VER != 1200
+uString Menu::TextInput(SDL_Event * e)
 {
+	//gather where to edit text
 	int funcNum = this->GetFuncNum();
 	uString text = this->CurrentString();
 
@@ -95,10 +96,14 @@ uString Menu::TextInput()
 	BR.x = 127;
 	BR.y = TL.y + 8;
 
+	//initalize edit text object
 	EditTextState EditText(this->gRenderer);
-
 	EditText.LoadTextAndPos(text, TL, BR);
 
+	//proccess previous text input
+	EditText.proccessAInput(e);
+
+	//enter text input mode
 	bool mContinue = true;
 	while (mContinue == true)
 	{
@@ -110,8 +115,50 @@ uString Menu::TextInput()
 		mContinue = EditText.Input();
 	}
 
+	//leave text input mode
 	return EditText.GetText();
 }
+#endif
+
+#if _MSC_VER == 1200
+uString Menu::TextInput(unsigned int * key)
+{
+	//gather where to edit text
+	int funcNum = this->GetFuncNum();
+	uString text = this->CurrentString();
+
+	Point TL;
+	TL.x = 18;
+	TL.y = (funcNum + 1) * 8;
+
+	Point BR;
+	BR.x = 127;
+	BR.y = TL.y + 8;
+
+	//initalize edit text object
+	EditTextState EditText(this->gRenderer);
+	EditText.LoadTextAndPos(text, TL, BR);
+
+	//proccess previous text input
+	EditText.proccessAInput(key);
+
+	//enter text input mode
+	bool mContinue = true;
+	while (mContinue == true)
+	{
+		EditText.Proccess();
+
+		EditText.Display();
+
+		//ideally would do input first but the casio library pauses the program until user input
+		mContinue = EditText.Input();
+	}
+
+	//leave text input mode
+	return EditText.GetText();
+}
+
+#endif
 
 void Menu::DisplayNoSelector()
 {
@@ -194,7 +241,7 @@ bool Menu::Input()
 				case SDLK_RIGHT:
 				{
 					this->DisplayNoSelector();
-					uString text = this->TextInput();
+					uString text = this->TextInput(&gRenderer->e);
 					this->SetCurrentFunction(text);
 					break;
 				}
@@ -251,7 +298,7 @@ bool Menu::Input()
 		case KEY_CTRL_RIGHT:
 		{
 			this->DisplayNoSelector();
-			uString text = this->TextInput();
+			uString text = this->TextInput(&key);
 			this->SetCurrentFunction(text);
 			break;
 		}
@@ -270,11 +317,17 @@ bool Menu::Input()
 			break;
 		}
 
+		case KEY_CTRL_EXIT:
+		{
+			//do nothing
+			break;
+		}
+
 		default:
 		{
 			//if its none of the special case keys then edit the text
 			this->DisplayNoSelector();
-			uString text = this->TextInput();
+			uString text = this->TextInput(&key);
 			this->SetCurrentFunction(text);
 			break;
 		}
