@@ -1,6 +1,5 @@
 #include "Grapher.h"
 
-
 Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(origRenderer, GRAPHER), cam(origRenderer, origViewWindow), UIOverlay(origRenderer, &cam, origViewWindow)
 {
 	this->ViewWindow = origViewWindow;
