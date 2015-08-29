@@ -30,9 +30,26 @@ bool Function::SetGridRes(int x, int y)
 
 	//triangles are made up of three sides
 	int indicesNo = triNo * 3;
-	object.SetSpace(verticesNo, indicesNo);
+	return object.SetSpace(verticesNo, indicesNo);
+}
 
-	return true;
+int Function::CalculateSpaceRequired(int x, int y)
+{
+	//update mesh
+	int verticesNo = x * y;
+	//squares need vertexs on both side. hence can't have squares on the bounderies
+	int squareNo = (x - 1) * (y - 1);
+
+	//two triangles make up a square
+	int triNo = 2 * squareNo;
+
+	//triangles are made up of three sides
+	int indicesNo = triNo * 3;
+
+	int spaceRequired = (sizeof(float) * 4 + sizeof(Vector) + sizeof(Matrix)) * verticesNo + sizeof(int) * indicesNo;
+
+	return spaceRequired;
+
 }
 
 

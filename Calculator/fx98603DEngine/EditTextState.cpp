@@ -223,37 +223,37 @@ bool EditTextState::Input()
 #if _MSC_VER != 1200
 bool EditTextState::proccessAInput(SDL_Event * e)
 {
-	if (gRenderer->e.type == SDL_QUIT)
+	if (e->type == SDL_QUIT)
 	{
 		this->nextState = QUIT;
 		return false;
 	}
-	else if (gRenderer->e.type == SDL_KEYDOWN)
+	else if (e->type == SDL_KEYDOWN)
 	{
 		if (buttonState == MAIN_BUT)
 		{
-			if (xVarBut.HandleEvent(&gRenderer->e))
+			if (xVarBut.HandleEvent(e))
 			{
 				this->WriteEnd("X");
 			}
-			else if (yVarBut.HandleEvent(&gRenderer->e))
+			else if (yVarBut.HandleEvent(e))
 			{
 				WriteEnd("Y");
 			}
-			else if (FunctBut.HandleEvent(&gRenderer->e))
+			else if (FunctBut.HandleEvent(e))
 			{
 				buttonState = FUNCTION_BUT;
 			}
 		}
 		else if (buttonState == FUNCTION_BUT)
 		{
-			if (unitStep.HandleEvent(&gRenderer->e))
+			if (unitStep.HandleEvent(e))
 			{
 				WriteEnd("U(");
 			}
 		}
 
-		switch (gRenderer->e.key.keysym.sym)
+		switch (e->key.keysym.sym)
 		{
 		case SDLK_LEFT:
 			if (curserPos > 0)

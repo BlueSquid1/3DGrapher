@@ -7,6 +7,39 @@ Grapher::Grapher(Renderer* origRenderer, VWindow * origViewWindow) : GameStatus(
 
 bool Grapher::LoadFunctions(Function equation[6])
 {
+#if _MSC_VER == 1200
+	//work out if there is enough memory on calculator
+	int spaceRequired = 0;
+	for (int i = 0; i < 6; i++)
+	{
+		if (equation[i].IsDrawable())
+		{
+			spaceRequired += equation[i].CalculateSpaceRequired(ViewWindow->GetSettings().xGridRes, ViewWindow->GetSettings().yGridRes);
+		}
+	}
+
+	//get memory avaliable
+	int freeBytes;
+	Bfile_GetMediaFree(DEVICE_MAIN_MEMORY, &freeBytes);
+	int memoryUseSoFar = 47000;
+	freeBytes = freeBytes - memoryUseSoFar;
+
+	if (spaceRequired >= freeBytes)
+	{
+		char s[50];
+		sprintf(s, "space required is: %d Space avaliable: %d", spaceRequired, freeBytes);
+		uString::ErrorPrint(s);
+
+		//try to recover some memory
+		for (int i = 0; i < 6; i++)
+		{
+			equation[i].SetDrawable(false);
+			equation[i].ClearGrid();
+		}
+	}
+#endif
+
+
 	//update the grids for each function
 	int minX = ViewWindow->GetSettings().xMin;
 	int minY = ViewWindow->GetSettings().yMin;
@@ -22,12 +55,15 @@ bool Grapher::LoadFunctions(Function equation[6])
 	{
 		if (equation[i].IsDrawable())
 		{
-			#if _MSC_VER == 1200
-			//calculate if there is enough space on calculator
-			//Bfile_GetMediaFree()
-			#endif
-			equation[i].SetGridRes(ViewWindow->GetSettings().xGridRes, ViewWindow->GetSettings().yGridRes);
-			equation[i].UpdateGrid(min, max);
+			if (equation[i].SetGridRes(ViewWindow->GetSettings().xGridRes, ViewWindow->GetSettings().yGridRes) == false)
+			{
+				//ran out of memory, don't draw this function
+				equation[i].SetDrawable(false);
+			}
+			else
+			{
+				equation[i].UpdateGrid(min, max);
+			}
 		}
 	}
 

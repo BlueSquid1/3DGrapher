@@ -79,6 +79,7 @@ void Menu::PrintUI()
 	this->selectBut.Render(gRenderer);
 	this->drawBut.Render(gRenderer);
 	this->VWindowBut.Render(gRenderer);
+	this->DeleteBut.Render(gRenderer);
 }
 
 #if _MSC_VER != 1200
@@ -183,6 +184,15 @@ Menu::Menu(Renderer* origRenderer) : GameStatus(origRenderer, MAINMENU)
 	this->selectBut.SetTrigger(KEY_CTRL_F1);
 #endif
 
+	this->DeleteBut.SetPos(21 * 1, 7 * 8);
+	this->DeleteBut.SetText("Del");
+#if _MSC_VER != 1200
+	this->DeleteBut.SetTrigger(SDLK_F2);
+#endif
+#if _MSC_VER == 1200
+	this->DeleteBut.SetTrigger(KEY_CTRL_F2);
+#endif
+
 	this->drawBut.SetPos(21 * 5, 7 * 8);
 	this->drawBut.SetText("Draw");
 #if _MSC_VER != 1200
@@ -223,6 +233,13 @@ bool Menu::Input()
 				{
 					func[funcSelector].ClearGrid();
 				}
+			}
+			else if (DeleteBut.HandleEvent(&gRenderer->e))
+			{
+				uString clear = "";
+				func[funcSelector].SetEquation(clear);
+				func[funcSelector].ClearGrid();
+				func[funcSelector].SetDrawable(false);
 			}
 			else if (VWindowBut.HandleEvent(&gRenderer->e))
 			{
@@ -280,6 +297,13 @@ bool Menu::Input()
 		{
 			func[funcSelector].ClearGrid();
 		}
+	}
+	else if (DeleteBut.HandleEvent(&key))
+	{
+		uString clear = "";
+		func[funcSelector].SetEquation(clear);
+		func[funcSelector].ClearGrid();
+		func[funcSelector].SetDrawable(false);
 	}
 	else if (VWindowBut.HandleEvent(&key))
 	{

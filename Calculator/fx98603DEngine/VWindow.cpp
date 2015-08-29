@@ -192,6 +192,13 @@ uString VWindow::TextInput(SDL_Event * e)
 
 	//initalize edit text object
 	EditTextState EditText(this->gRenderer);
+
+	//clear text if its not moving curser
+	if (!e->key.keysym.sym == SDLK_RIGHT)
+	{
+		text = "";
+	}
+
 	EditText.LoadTextAndPos(text, TL, BR);
 
 	//proccess previous text input
@@ -230,6 +237,13 @@ uString VWindow::TextInput(unsigned int * key)
 
 	//initalize edit text object
 	EditTextState EditText(this->gRenderer);
+
+
+	if (!(*key == KEY_CTRL_RIGHT))
+	{
+		text = "";
+	}
+
 	EditText.LoadTextAndPos(text, TL, BR);
 
 	//proccess previous text input

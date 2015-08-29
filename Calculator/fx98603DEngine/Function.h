@@ -36,6 +36,8 @@ public:
 	bool UpdateGrid(Vector& min, Vector& max);
 	int GetGrid(const int& x, const int& y);
 
+	int CalculateSpaceRequired(int x, int y);
+
 	Mesh& GetObject();
 
 	void SetDrawable(bool state);
