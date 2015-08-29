@@ -19,9 +19,10 @@ bool Grapher::LoadFunctions(Function equation[6])
 	}
 
 	//get memory avaliable
-	int freeBytes;
-	Bfile_GetMediaFree(DEVICE_MAIN_MEMORY, &freeBytes);
-	int memoryUseSoFar = 47000;
+	int freeBytes = 17928;
+	//Bfile_GetMediaFree(DEVICE_MAIN_MEMORY, &freeBytes);
+	//int memoryUseSoFar = 47000;
+	int memoryUseSoFar = 0;
 	freeBytes = freeBytes - memoryUseSoFar;
 
 	if (spaceRequired >= freeBytes)
