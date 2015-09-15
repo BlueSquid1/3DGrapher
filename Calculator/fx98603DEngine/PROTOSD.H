@@ -32,6 +32,62 @@ double UnitStep(double t)
 		return 0.0;
 	}
 }
+
+double RampFunc(double t)
+{
+	return t * UnitStep(t);
+}
+
+double RectFunc(double t)
+{
+	if (fabs(t) < 0.5)
+	{
+		return 1.0;
+	}
+	else 
+	{
+		return 0.0;
+	}
+	return 0.0;
+}
+
+double TriangleFunc(double t)
+{
+	if (fabs(t) < 1.0)
+	{
+		return 1.0 - fabs(t);
+	}
+	else
+	{
+		return 0.0;
+	}
+	return 0.0;
+}
+
+double SignumFunc(double t)
+{
+	if (t < 0)
+	{
+		return -1.0;
+	}
+	else
+	{
+		return 1.0;
+	}
+	return 0.0;
+}
+
+double SincFunc(double t)
+{
+	//make sure not dividing by zero
+	if (t == 0.0)
+	{
+		return 1.0;
+	}
+
+	float pi = (float)3.1415926535897932;
+	return (sin(pi * t)) / (pi*t);
+}
 //
 
 /*double acos(double);

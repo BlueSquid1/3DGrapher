@@ -161,6 +161,51 @@ EditTextState::EditTextState(Renderer* gRenderer) : GameStatus(gRenderer, EDITTE
 #if _MSC_VER == 1200
 	this->unitStep.SetTrigger(KEY_CTRL_F1);
 #endif
+
+	this->rampFunc.SetPos(21 * 1, 7 * 8);
+	this->rampFunc.SetText("RAMP");
+#if _MSC_VER != 1200
+	this->rampFunc.SetTrigger(SDLK_F2);
+#endif
+#if _MSC_VER == 1200
+	this->rampFunc.SetTrigger(KEY_CTRL_F2);
+#endif
+
+	this->rectFunction.SetPos(21 * 2, 7 * 8);
+	this->rectFunction.SetText("RECT");
+#if _MSC_VER != 1200
+	this->rectFunction.SetTrigger(SDLK_F3);
+#endif
+#if _MSC_VER == 1200
+	this->rectFunction.SetTrigger(KEY_CTRL_F3);
+#endif
+
+	this->TriangleFunc.SetPos(21 * 3, 7 * 8);
+	this->TriangleFunc.SetText("TRI");
+#if _MSC_VER != 1200
+	this->TriangleFunc.SetTrigger(SDLK_F4);
+#endif
+#if _MSC_VER == 1200
+	this->TriangleFunc.SetTrigger(KEY_CTRL_F4);
+#endif
+
+	this->SignumFunc.SetPos(21 * 4, 7 * 8);
+	this->SignumFunc.SetText("SGN");
+#if _MSC_VER != 1200
+	this->SignumFunc.SetTrigger(SDLK_F5);
+#endif
+#if _MSC_VER == 1200
+	this->TriangleFunc.SetTrigger(KEY_CTRL_F5);
+#endif
+
+	this->SincFunc.SetPos(21 * 5, 7 * 8);
+	this->SincFunc.SetText("SINC");
+#if _MSC_VER != 1200
+	this->SincFunc.SetTrigger(SDLK_F6);
+#endif
+#if _MSC_VER == 1200
+	this->TriangleFunc.SetTrigger(KEY_CTRL_F6);
+#endif
 }
 
 
@@ -249,7 +294,27 @@ bool EditTextState::proccessAInput(SDL_Event * e)
 		{
 			if (unitStep.HandleEvent(e))
 			{
-				WriteEnd("U(");
+				WriteEnd("u(");
+			}
+			else if (rampFunc.HandleEvent(e))
+			{
+				WriteEnd("r(");
+			}
+			else if (rectFunction.HandleEvent(e))
+			{
+				WriteEnd("rect(");
+			}
+			else if (TriangleFunc.HandleEvent(e))
+			{
+				WriteEnd("tri(");
+			}
+			else if (SignumFunc.HandleEvent(e))
+			{
+				WriteEnd("sgn(");
+			}
+			else if (SincFunc.HandleEvent(e))
+			{
+				WriteEnd("sinc(");
 			}
 		}
 
@@ -361,7 +426,27 @@ bool EditTextState::proccessAInput(unsigned int * key)
 	{
 		if (unitStep.HandleEvent(key))
 		{
-			WriteEnd("U(");
+			WriteEnd("u(");
+		}
+		else if (rampFunc.HandleEvent(key))
+		{
+			WriteEnd("r(");
+		}
+		else if (rectFunction.HandleEvent(key))
+		{
+			WriteEnd("rect(");
+		}
+		else if (TriangleFunc.HandleEvent(key))
+		{
+			WriteEnd("tri(");
+		}
+		else if (SignumFunc.HandleEvent(key))
+		{
+			WriteEnd("sgn(");
+		}
+		else if (SincFunc.HandleEvent(key))
+		{
+			WriteEnd("sinc(");
 		}
 	}
 
@@ -523,6 +608,11 @@ void EditTextState::Display()
 	else if (buttonState == FUNCTION_BUT)
 	{
 		this->unitStep.Render(gRenderer);
+		this->rampFunc.Render(gRenderer);
+		this->rectFunction.Render(gRenderer);
+		this->TriangleFunc.Render(gRenderer);
+		this->SignumFunc.Render(gRenderer);
+		this->SincFunc.Render(gRenderer);
 	}
 
 	gRenderer->UpdateScreen();

@@ -87,7 +87,12 @@ FUNCTION Funcs[] =
    { "Ln",          1,      log },
    { "Log",         1,      log10 },
    { "Sqrt",         1,      sqrt },
-   { "U",			1,	 UnitStep },
+   { "u",			1,		UnitStep },
+   {"r",			1,		RampFunc},
+   {"rect",			1,		RectFunc},
+   {"tri",			1,		TriangleFunc},
+   {"sgn",			1,		SignumFunc},
+   {"sinc",			1,		SincFunc},
    { "Abs",         1,      fabs },
    { "EEVPSPASHJKA",3,      0,0,evp3},
    #include "auxfuncs.h"

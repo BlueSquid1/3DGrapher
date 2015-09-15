@@ -38,6 +38,11 @@ class EditTextState : public GameStatus
 
 	//FUNCTION buttons
 	ButtonUI unitStep;
+	ButtonUI rampFunc;
+	ButtonUI rectFunction;
+	ButtonUI TriangleFunc;
+	ButtonUI SignumFunc;
+	ButtonUI SincFunc;
 
 #if _MSC_VER == 1200
 	bool EnteredText(unsigned int mKey);
