@@ -9,9 +9,9 @@ The fx9860G port was made with fx9860G SDK and is written in Embedded C++. The W
 Screenshots:
 ------------
 
-![alt tag](https://github.com/BlueSquid1/3DGrapher/Images/calculator_graph.PNG)
+![Graph on Calulator](https://github.com/BlueSquid1/3DGrapher/blob/master/Images/calculator_graph.PNG)
 
-![alt tag](https://github.com/BlueSquid1/3DGrapher/Images/PC_graph.PNG)
+![Graph on PC](https://github.com/BlueSquid1/3DGrapher/blob/master/Images/PC_graph.PNG)
 
 
 Build instructions for the fx9860G port:
